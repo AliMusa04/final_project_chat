@@ -51,4 +51,14 @@ router.get("/", async (req, res) => {
   }
 });
 
+//GET USER
+router.get("/:id", async (req, res) => {
+  try {
+    const user = await userModel.findOne({ _id: req.params.id });
+    res.status(200).send(user);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
 module.exports = router;
