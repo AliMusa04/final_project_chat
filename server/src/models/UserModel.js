@@ -20,6 +20,11 @@ const userSchema = new mongoose.Schema(
       require: true,
       min: 20,
     },
+    desc: {
+      type: String,
+      max: 50,
+      // default: "",
+    },
     profilePic: {
       type: String,
       default: "",
@@ -35,6 +40,18 @@ const userSchema = new mongoose.Schema(
     following: {
       type: Array,
       default: [],
+    },
+    city: {
+      type: String,
+      max: 50,
+    },
+    from: {
+      type: String,
+      max: 50,
+    },
+    reltionship: {
+      type: Number,
+      enum: [1, 2, 3],
     },
     isAdmin: {
       type: Boolean,
