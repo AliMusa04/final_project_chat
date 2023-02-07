@@ -6,6 +6,7 @@ require("dotenv").config();
 const PORT = 8080;
 const routeUser = require("./src/routes/users");
 const routeAuth = require("./src/routes/auth");
+const postRoute = require("./src/routes/post");
 
 const app = express();
 mongoose.set("strictQuery", false);
@@ -18,9 +19,12 @@ app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
 
+//ROUTES
 app.use("/api/users", routeUser);
 
 app.use("/api/auth", routeAuth);
+
+app.use("/api/posts", postRoute);
 
 app.listen(PORT, () => {
   console.log("Server is running");
