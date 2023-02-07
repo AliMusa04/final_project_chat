@@ -83,8 +83,27 @@ router.put("/follow/:id", async (req, res) => {
       res.status(403).send(err);
     }
   } else {
-    return res.status(403).send("you can't follow own account");
+    return res.status(403).send("you can't follow your own account");
   }
 });
 
+router.put("/unfollow/:id", async (req, res) => {
+  if (req.body.id !== req.params.id) {
+    try {
+      const followToUser = await userModel.findById({ _id: req.params.id });
+      const fromfollowUser = await userModel.findById({ _id: req.body.id });
+      if (followToUser.followers.includes(fromfollowUser._id)) {
+        await followToUser.updateOne({ $pull: { followers: req.body.id } });
+        await fromfollowUser.updateOne({ $pull: { following: req.params.id } });
+        res
+          .status(200)
+          .send({ message: "This User is unfollowed", followToUser });
+      } else {
+        res.status(403).send("this user already isn't following");
+      }
+    } catch {}
+  } else {
+    res.status(403).send("you can't unfollow yourself");
+  }
+});
 module.exports = router;
