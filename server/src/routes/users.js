@@ -27,4 +27,18 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+//DELETE USER
+router.delete("/:id", async (req, res) => {
+  if (req.body.id === req.params.id || req.body.isAdmin) {
+    try {
+      const user = await userModel.findByIdAndDelete({ _id: req.params.id });
+      res.status(200).send({ message: "Account deleted succesfully", user });
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  } else {
+    return res.status(403).send({ message: "you can't delete other account" });
+  }
+});
+
 module.exports = router;
