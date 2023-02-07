@@ -2,7 +2,7 @@ const router = require("express").Router();
 const userModel = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 
-//UPDATE USER PROPITY
+//UPDATE USER PROPETY
 router.put("/:id", async (req, res) => {
   if (req.body.id === req.params.id || req.body.isAdmin) {
     if (req.body.password) {
@@ -58,6 +58,32 @@ router.get("/:id", async (req, res) => {
     res.status(200).send(user);
   } catch (err) {
     res.status(500).send(err);
+  }
+});
+
+//FOLLOW USER
+router.put("/follow/:id", async (req, res) => {
+  if (req.body.id !== req.params.id) {
+    try {
+      const followtoUser = await userModel.findByIdAndUpdate({
+        _id: req.params.id,
+      });
+      const fromfollowUser = await userModel.findByIdAndUpdate({
+        _id: req.body.id,
+      });
+      if (!followtoUser.followers.includes(fromfollowUser._id)) {
+        await followtoUser.updateOne({ $push: { followers: req.body.id } });
+        await fromfollowUser.updateOne({ $push: { following: req.params.id } });
+
+        res.status(200).send({ message: "User is following", followtoUser });
+      } else {
+        res.status(401).send("This user already following");
+      }
+    } catch (err) {
+      res.status(403).send(err);
+    }
+  } else {
+    return res.status(403).send("you can't follow own account");
   }
 });
 
