@@ -46,7 +46,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-//LIKE POST
+//LIKE AND DISLIKE POST
 router.put("/like/:id", async (req, res) => {
   try {
     const likedPost = await PostModel.findById({ _id: req.params.id });
@@ -62,3 +62,14 @@ router.put("/like/:id", async (req, res) => {
   }
 });
 module.exports = router;
+
+//GET POST
+
+router.get("/:id", async (req, res) => {
+  try {
+    const post = await PostModel.findOne({ _id: req.params.id });
+    res.status(200).send(post);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
