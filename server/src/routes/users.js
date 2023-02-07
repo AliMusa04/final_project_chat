@@ -41,4 +41,14 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+//GET ALL USER
+router.get("/", async (req, res) => {
+  try {
+    const users = await userModel.find();
+    res.status(200).send(users);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
 module.exports = router;
