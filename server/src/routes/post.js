@@ -1,6 +1,6 @@
 const PostModel = require("../models/PostModel");
 const UserModel = require("../models/UserModel");
-const { route } = require("./users");
+const { uuid } = require("uuidv4");
 
 const router = require("express").Router();
 
@@ -77,8 +77,14 @@ router.get("/:id", async (req, res) => {
 //GET ALL POST
 router.get("/", async (req, res) => {
   try {
-    const allPost = await PostModel.find();
-    res.status(200).send(allPost);
+    const allPost = await PostModel.find()
+      .populate("comments.userIdCom")
+      .exec((err, data) => {
+        if (err) return res.status(500).send({ err });
+        res.send(data);
+      });
+    // .populate("userIdCom");
+    // res.status(200).send(allPost);
   } catch (err) {
     res.status(500).send(err);
   }
@@ -99,3 +105,46 @@ router.get("/timeline/all", async (req, res) => {
     res.status(500).send(err);
   }
 });
+
+//COMMENT PUT API
+router.put("/comment/:id", async (req, res) => {
+  try {
+    const commentPost = await PostModel.findById({ _id: req.params.id });
+    if (commentPost) {
+      await commentPost.updateOne({
+        $push: {
+          comments: {
+            userIdCom: req.body.id,
+            descCom: req.body.desc,
+            commentId: uuid(),
+          },
+        },
+      });
+      res.status(200).send({ message: "Comment created" });
+    } else {
+      res.status(403).send("this post isn't exsits");
+    }
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+//COMMENT DELETE API
+// router.delete("/comment/:id", async (req, res) => {
+//   try {
+//     const postUser = await PostModel.findById({ _id: req.body.postId });
+
+//     if (postUser.userId === req.body.userid) {
+//       await postUser.comments.findByIdAndDelete({ commentId: req.params.id });
+//       res.status(200).send("Comment deleted");
+//       // res.status(200).send({ message: "This Post deleted", deletedPost });
+//       // await deletedPost.updateOne({$pull:});
+//     } else {
+//       res.status(400).send("You can't delete  other's post ");
+//     }
+//   } catch (err) {
+//     res.status(500).send(err);
+//   }
+// });
+
+// userIdCom: req.body.id, descCom: req.body.desc
