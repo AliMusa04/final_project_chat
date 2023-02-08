@@ -65,7 +65,6 @@ router.put("/like/:id", async (req, res) => {
 module.exports = router;
 
 //GET POST
-
 router.get("/:id", async (req, res) => {
   try {
     const post = await PostModel.findOne({ _id: req.params.id });
@@ -75,8 +74,17 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-//GET FRIENDS AND YOURSELF POST
+//GET ALL POST
+router.get("/", async (req, res) => {
+  try {
+    const allPost = await PostModel.find();
+    res.status(200).send(allPost);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
 
+//GET FRIENDS AND YOURSELF POST
 router.get("/timeline/all", async (req, res) => {
   try {
     const adminUser = await UserModel.findOne({ _id: req.body.id });
