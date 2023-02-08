@@ -1,4 +1,5 @@
 const PostModel = require("../models/PostModel");
+const UserModel = require("../models/UserModel");
 const { route } = require("./users");
 
 const router = require("express").Router();
@@ -69,6 +70,23 @@ router.get("/:id", async (req, res) => {
   try {
     const post = await PostModel.findOne({ _id: req.params.id });
     res.status(200).send(post);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+//GET FRIENDS AND YOURSELF POST
+
+router.get("/timeline/all", async (req, res) => {
+  try {
+    const adminUser = await UserModel.findOne({ _id: req.body.id });
+    const adminPosts = await PostModel.find({ userId: adminUser._id });
+    const friendsPost = await Promise.all(
+      adminUser.following.map((friendId) => {
+        return PostModel.find({ userId: friendId });
+      })
+    );
+    res.status(200).send(adminPosts.concat(...friendsPost));
   } catch (err) {
     res.status(500).send(err);
   }
