@@ -1,0 +1,226 @@
+.navbar {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 18px;
+  position: sticky;
+  top: 0;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.navbar_left_part {
+}
+.navbar_left_h1 {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0;
+  text-decoration: none;
+  color: #166fe5;
+}
+
+.arrow {
+  font-size: 12px;
+}
+
+.navbar_middle_part {
+  width: 500px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.navbar_middle_search_div {
+  width: 500px;
+  display: flex;
+  align-items: center;
+}
+.navbar_middle_search_input {
+  width: 100%;
+  padding: 10px 8px 10px 36px;
+  border-radius: 50px;
+  border: none;
+  background-color: rgba(128, 128, 128, 0.1);
+  outline: none;
+  font-size: 16px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar_middle_search_input_div {
+  width: 100%;
+  position: relative;
+}
+
+.search_icon {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 16px;
+}
+.navbar_middle_search_input_div_bottom {
+  display: none;
+  width: 100%;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  position: absolute;
+  top: 50px;
+  height: 90px;
+  border-radius: 10px;
+}
+.display_block {
+  width: 100%;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  position: absolute;
+  top: 50px;
+  height: 90px;
+  border-radius: 10px;
+  /* overflow-y: scroll; */
+  max-width: 500px;
+}
+.navbar_middle_search_input_bottom_results {
+  padding: 15px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.results_text {
+  text-align: center;
+}
+.navbar_middle_search_input_div_bottom {
+}
+.close_button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 25px;
+  cursor: pointer;
+  color: red;
+  /* background-color: rgba(128, 128, 128, 0.3); */
+}
+
+/* NAVBAR RIGHT PART */
+.navbar_profile_photo {
+  width: 40px;
+  height: 40px;
+  border: 1px solid gray;
+  cursor: pointer;
+  border-radius: 50%;
+  position: relative;
+}
+.navbar_profile_photo_img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.navbar_right_part_icons {
+  display: flex;
+  gap: 10px;
+}
+.navbar_profile_photo_icon {
+  position: absolute;
+  top: 25px;
+  right: -3px;
+  background-color: rgba(128, 128, 128, 0.5);
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navbar_message_icon {
+  background-color: rgba(128, 128, 128, 0.2);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 18px;
+}
+.navbar_message_icon:hover {
+  background-color: rgba(128, 128, 128, 0.4);
+}
+/* .navbar_notification_icon {
+  background-color: rgba(128, 128, 128, 0.3);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  font-size: 20px;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+} */
+.navbar_profile_logout {
+  /* display: none; */
+  width: 345px;
+  background-color: white;
+  position: absolute;
+  top: 45px;
+  right: 0px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 16px;
+  border-radius: 10px;
+  transition: 0.4s;
+}
+.navbar_profile_logout_display_none {
+  display: none;
+  width: 345px;
+  background-color: white;
+  position: absolute;
+  top: 45px;
+  right: 0px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 16px;
+  border-radius: 10px;
+  transition: 0.4s;
+}
+
+.navbar_profile_logout_options {
+  width: 100%;
+}
+.option {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 5px;
+  border-radius: 10px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+.option:hover {
+  background-color: rgba(228, 230, 235, 0.5);
+}
+.option_right {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.9);
+  justify-content: space-between;
+}
+.option_right_text {
+  padding-left: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: Helvetica, sans-serif;
+}
+.option_left_icon_backg {
+  width: 36px;
+  height: 36px;
+  background-color: #e4e6eb;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.settings_icon {
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.9);
+}
+.right_arrow {
+  font-size: 24px;
+}
