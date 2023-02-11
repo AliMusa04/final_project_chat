@@ -21,7 +21,7 @@ body {
   height: 38px;
   width: 4px;
   border-radius: 10px;
-  background-color: blue;
+  background-color: blue !important;
 }
 .option_text {
 }
@@ -58,8 +58,8 @@ body {
   font-size: 15px;
 }
 hr {
-  margin: 5px 0px;
-  color: black;
+  margin: 5px 0px !important;
+  color: black !important;
   width: 95%;
   text-align: end;
 }
