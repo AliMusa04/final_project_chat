@@ -211,8 +211,8 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <Overlay />
-      <Modal />
+      {/* <Overlay />
+      <Modal /> */}
     </>
   );
 };
