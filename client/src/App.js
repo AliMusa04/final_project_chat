@@ -14,10 +14,10 @@ function App() {
       </>
       <div className={style.home_contanier}>
         <Leftsidebar />
-        {/* <div className={style.home_contanier_right}> */}
-        <Mainsidebar />
+        <div className={style.home_contanier_mid}>
+          <Mainsidebar />
+        </div>
         <Rightsidebar />
-        {/* </div> */}
       </div>
     </>
   );

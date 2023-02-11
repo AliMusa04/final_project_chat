@@ -12,6 +12,7 @@ import { BsFillMoonFill } from "react-icons/bs";
 import { RiFeedbackFill } from "react-icons/ri";
 import { MdLogout } from "react-icons/md";
 import { BiMenuAltRight } from "react-icons/bi";
+import styleMain from "../MainSidebar/mainSide.module.css";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -42,6 +43,7 @@ const Navbar = () => {
           </a>
         </div>
         {/* NAVBAR MIDDLE */}
+        {/* <div className={styleMain.main_side_contanier}> */}
         <div className={style.navbar_middle_part}>
           <div
             onClick={() => {
@@ -82,6 +84,7 @@ const Navbar = () => {
             </div>
           </div>
         </div>
+        {/* </div> */}
 
         {/* NAVBAR RİGHT */}
         <div

@@ -1,3 +1,20 @@
 .main_side_section {
-  flex: 3;
+  /* width: 60%; */
+  width: 100%;
+  background-color: aquamarine;
+}
+.main_side_contanier {
+  width: 680px;
+}
+
+@media screen and (max-width: 900px) {
+  .main_side_contanier {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 648px) {
+  .main_side_contanier {
+    width: 200px;
+  }
 }

@@ -241,6 +241,9 @@
   .navbar_left_h1 {
     margin-right: 5px;
   }
+  .main_side_contanier {
+    width: 400px;
+  }
 }
 .navbar_modal_icon {
   background-color: rgba(128, 128, 128, 0.2);
