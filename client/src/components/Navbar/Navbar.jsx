@@ -28,20 +28,6 @@ const Navbar = () => {
     setOpen(false);
   };
 
-  const Modal = () => (
-    <div className={`${style.modal} ${isOpen ? style.open : ""}`}>
-      <h2>Side modal</h2>
-      <p>Some tex here</p>
-    </div>
-  );
-
-  const Overlay = () => (
-    <div
-      onClick={() => {
-        setIsOpen(false);
-      }}
-      className={`${style.overlay} ${isOpen ? style.open : null}`}></div>
-  );
   return (
     <>
       <div
@@ -104,13 +90,23 @@ const Navbar = () => {
           }}
           className={style.navbar_right_part}>
           <div
-            onClick={() => {
-              setIsOpen(true);
-            }}
+            class="btn btn-primary"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight"
             title="modal"
             className={style.navbar_modal_icon}>
             <BiMenuAltRight />
           </div>
+          {/* <button
+            class="btn btn-primary"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight">
+            Toggle right offcanvas
+          </button> */}
           <div className={style.navbar_right_part_icons}>
             <div title="Messenger" className={style.navbar_message_icon}>
               <BsMessenger />
@@ -204,6 +200,207 @@ const Navbar = () => {
                     <div className={style.option_right}>
                       <p className={style.option_right_text}>Log Out</p>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="offcanvas offcanvas-end w-60 p-3"
+        tabindex="-1"
+        id="offcanvasRight"
+        aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+          {/* <h5 id="offcanvasRightLabel">Codemedia</h5> */}
+          <h2 className={style.canvas_head}>Codemedia</h2>
+          <button
+            type="button"
+            class="btn-close text-reset"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <div className={style.offcanvas_body_content}>
+            <div className={style.offcanvas_icons}>
+              <div className={style.offcanvas_icons_text}>
+                <div title="Messenger" className={style.navbar_message_icon}>
+                  <BsMessenger />
+                </div>
+                <p className={style.canvas_text}>Messenger</p>
+              </div>
+              <div className={style.offcanvas_icons_text}>
+                <div title="Notification" className={style.navbar_message_icon}>
+                  <MdNotificationsActive />
+                </div>
+                <p className={style.canvas_text}>Notifications</p>
+              </div>
+              <div className={style.offcanvas_icons_text}>
+                <div
+                  onClick={() => {
+                    toggle();
+                  }}
+                  title="Account"
+                  className={style.navbar_profile_photo}>
+                  <img
+                    className={style.navbar_profile_photo_img}
+                    src="https://th.bing.com/th/id/R.4b1ebbdf9a6a42f23de2678c80eb02df?rik=SEPvooeqfgw0kA&riu=http%3a%2f%2fimages.unsplash.com%2fphoto-1535713875002-d1d0cf377fde%3fcrop%3dentropy%26cs%3dtinysrgb%26fit%3dmax%26fm%3djpg%26ixid%3dMnwxMjA3fDB8MXxzZWFyY2h8NHx8bWFsZSUyMHByb2ZpbGV8fDB8fHx8MTYyNTY2NzI4OQ%26ixlib%3drb-1.2.1%26q%3d80%26w%3d1080&ehk=Gww3MHYoEwaudln4mR6ssDjrAMbAvyoXYMsyKg5p0Ac%3d&risl=&pid=ImgRaw&r=0"
+                    alt=""
+                  />
+                  <div className={style.navbar_profile_photo_icon}>
+                    <BsChevronDown className={style.arrow} />
+                  </div>
+                  <div
+                    className={
+                      account
+                        ? style.navbar_profile_logout
+                        : style.navbar_profile_logout_display_none
+                    }>
+                    <div className={style.navbar_profile_logout_options}>
+                      {/* SETTINGS */}
+                      <div className={style.option}>
+                        <div className={style.option_left}>
+                          <div className={style.option_left_icon_backg}>
+                            <IoMdSettings className={style.settings_icon} />
+                          </div>
+                        </div>
+                        <div className={style.option_right}>
+                          <p className={style.option_right_text}>
+                            Settings & privacy
+                          </p>
+                          <BsChevronRight className={style.right_arrow} />
+                        </div>
+                      </div>
+
+                      {/* HELP AND SUPPORT */}
+                      <div className={style.option}>
+                        <div className={style.option_left}>
+                          <div className={style.option_left_icon_backg}>
+                            <MdOutlineHelp className={style.settings_icon} />
+                          </div>
+                        </div>
+                        <div className={style.option_right}>
+                          <p className={style.option_right_text}>
+                            Help & support
+                          </p>
+                          <BsChevronRight className={style.right_arrow} />
+                        </div>
+                      </div>
+
+                      {/* DISPLAY */}
+                      <div className={style.option}>
+                        <div className={style.option_left}>
+                          <div className={style.option_left_icon_backg}>
+                            <BsFillMoonFill className={style.settings_icon} />
+                          </div>
+                        </div>
+                        <div className={style.option_right}>
+                          <p className={style.option_right_text}>
+                            Display & accessibility
+                          </p>
+                          <BsChevronRight className={style.right_arrow} />
+                        </div>
+                      </div>
+
+                      {/* FEEDBACK */}
+                      <div className={style.option}>
+                        <div className={style.option_left}>
+                          <div className={style.option_left_icon_backg}>
+                            <RiFeedbackFill className={style.settings_icon} />
+                          </div>
+                        </div>
+                        <div className={style.option_right}>
+                          <p className={style.option_right_text}>
+                            Give feedback
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* LOGOUT */}
+                      <div className={style.option}>
+                        <div className={style.option_left}>
+                          <div className={style.option_left_icon_backg}>
+                            <MdLogout className={style.settings_icon} />
+                          </div>
+                        </div>
+                        <div className={style.option_right}>
+                          <p className={style.option_right_text}>Log Out</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p className={style.canvas_text}>Account</p>
+              </div>
+            </div>
+
+            <div className={style.navbar_profile_logout_canvas}>
+              <div className={style.navbar_profile_logout_options}>
+                {/* SETTINGS */}
+                <div className={style.option}>
+                  <div className={style.option_left}>
+                    <div className={style.option_left_icon_backg}>
+                      <IoMdSettings className={style.settings_icon} />
+                    </div>
+                  </div>
+                  <div className={style.option_right}>
+                    <p className={style.option_right_text}>
+                      Settings & privacy
+                    </p>
+                    <BsChevronRight className={style.right_arrow} />
+                  </div>
+                </div>
+
+                {/* HELP AND SUPPORT */}
+                <div className={style.option}>
+                  <div className={style.option_left}>
+                    <div className={style.option_left_icon_backg}>
+                      <MdOutlineHelp className={style.settings_icon} />
+                    </div>
+                  </div>
+                  <div className={style.option_right}>
+                    <p className={style.option_right_text}>Help & support</p>
+                    <BsChevronRight className={style.right_arrow} />
+                  </div>
+                </div>
+
+                {/* DISPLAY */}
+                <div className={style.option}>
+                  <div className={style.option_left}>
+                    <div className={style.option_left_icon_backg}>
+                      <BsFillMoonFill className={style.settings_icon} />
+                    </div>
+                  </div>
+                  <div className={style.option_right}>
+                    <p className={style.option_right_text}>
+                      Display & accessibility
+                    </p>
+                    <BsChevronRight className={style.right_arrow} />
+                  </div>
+                </div>
+
+                {/* FEEDBACK */}
+                <div className={style.option}>
+                  <div className={style.option_left}>
+                    <div className={style.option_left_icon_backg}>
+                      <RiFeedbackFill className={style.settings_icon} />
+                    </div>
+                  </div>
+                  <div className={style.option_right}>
+                    <p className={style.option_right_text}>Give feedback</p>
+                  </div>
+                </div>
+
+                {/* LOGOUT */}
+                <div className={style.option}>
+                  <div className={style.option_left}>
+                    <div className={style.option_left_icon_backg}>
+                      <MdLogout className={style.settings_icon} />
+                    </div>
+                  </div>
+                  <div className={style.option_right}>
+                    <p className={style.option_right_text}>Log Out</p>
                   </div>
                 </div>
               </div>
