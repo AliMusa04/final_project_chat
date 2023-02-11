@@ -1,0 +1,16 @@
+.home_contanier {
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  margin: 0 auto;
+}
+.right_side_section {
+  flex: 3;
+}
+.home_contanier_right {
+  /* width: 1460px; */
+  margin: 0 auto;
+  /* flex: 9; */
+  display: flex;
+  justify-content: space-between;
+}

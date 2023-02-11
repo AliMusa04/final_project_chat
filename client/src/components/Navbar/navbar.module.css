@@ -8,8 +8,8 @@
   top: 0;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
-.navbar_left_part {
-}
+/* .navbar_left_part {
+} */
 .navbar_left_h1 {
   font-size: 30px;
   font-weight: bold;
@@ -87,8 +87,8 @@
 .results_text {
   text-align: center;
 }
-.navbar_middle_search_input_div_bottom {
-}
+/* .navbar_middle_search_input_div_bottom {
+} */
 .close_button {
   position: absolute;
   top: 10px;
