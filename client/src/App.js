@@ -5,8 +5,10 @@ import Register from "./page/Register/Register";
 function App() {
   return (
     <>
-      <Navbar />
-      <Register />
+      <>
+        <Navbar />
+      </>
+      {/* <Register /> */}
     </>
   );
 }
