@@ -1,10 +1,11 @@
 .main_side_section {
   /* width: 60%; */
   width: 100%;
+  height: 1900px;
   background-color: aquamarine;
 }
 .main_side_contanier {
-  width: 680px;
+  /* width: 680px; */
 }
 
 @media screen and (max-width: 900px) {
