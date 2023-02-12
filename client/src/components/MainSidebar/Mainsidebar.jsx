@@ -9,6 +9,7 @@ const Mainsidebar = () => {
       <div className={style.main_side_wrapper}>
         <Share />
         <Post />
+        <Post />
       </div>
     </div>
     // </div>

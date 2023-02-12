@@ -6,6 +6,7 @@
   padding: 10px 18px;
   position: sticky;
   top: 0;
+  z-index: 999;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 /* .navbar_left_part {

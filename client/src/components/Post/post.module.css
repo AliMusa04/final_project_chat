@@ -1,0 +1,100 @@
+.post_parent_div {
+  background-color: white;
+  margin: 15px 0px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 5px;
+}
+.post_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 12px 16px 0px;
+}
+.post_top_left {
+  display: flex;
+  align-items: center;
+}
+.post_left_text {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+.post_btn {
+  width: 36px !important;
+  height: 36px;
+  border-radius: 20%;
+}
+.post_btn_icon {
+  font-size: 23px;
+}
+.post_top_left_img_div {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.post_left_text_date {
+  font-size: 12px;
+  display: flex;
+  align-items: flex-end;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.post_left_text_user {
+  margin-right: 5px;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.post_top_left_img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.post_center_desc {
+  padding: 8px 16px 16px;
+  font-size: 18px;
+}
+.post_center_img_div {
+  width: 100%;
+  max-height: 500px;
+}
+.post_center_img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+}
+.post_delete_btn {
+  margin-left: 5px;
+  font-size: 17px;
+  color: red;
+}
+.menu_item_post {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.post_bottom {
+  padding: 10px 0px;
+  margin: 0px 16px;
+  border-bottom: 1px solid #000;
+}
+.post_bottom_like {
+  display: flex;
+  align-items: center;
+}
+.post_img_like_div {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+.post_img_like {
+  cursor: pointer;
+}
+.post_like_text {
+}
+
+/* .post_img_like_text_div {
+  display: flex;
+} */
