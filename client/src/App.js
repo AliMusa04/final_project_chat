@@ -5,21 +5,21 @@ import Rightsidebar from "./components/RightSidebar/Rightsidebar";
 import Login from "./page/Login/Login";
 import Register from "./page/Register/Register";
 import style from "./components/RightSidebar/rightSide.module.css";
+import Home from "./page/Home/Home";
 
 function App() {
   return (
-    <>
-      <>
-        <Navbar />
-      </>
-      <div className={style.home_contanier}>
-        <Leftsidebar />
-        <div className={style.home_contanier_mid}>
-          <Mainsidebar />
-        </div>
-        <Rightsidebar />
-      </div>
-    </>
+    <Home />
+    // <>
+    //   <Navbar />
+    //   <div className={style.home_contanier}>
+    //     <Leftsidebar />
+    //     <div className={style.home_contanier_mid}>
+    //       <Mainsidebar />
+    //     </div>
+    //     <Rightsidebar />
+    //   </div>
+    // </>
   );
 }
 

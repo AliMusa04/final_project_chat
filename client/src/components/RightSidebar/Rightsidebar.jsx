@@ -92,6 +92,81 @@ const Rightsidebar = () => {
                 </h5>
               </div>
             </div>
+
+            <div className={style.right_side_friends_prof}>
+              <div className={style.right_side_friends_prof_pic_div}>
+                <img
+                  className={style.right_side_friends_prof_img}
+                  src="https://th.bing.com/th/id/R.c236f52cfbe7eeb72632631679c50409?rik=pYriBBpJIibYpQ&pid=ImgRaw&r=0"
+                  alt=""
+                />
+              </div>
+              <div className={style.right_side_friends_username_div}>
+                <h5 className={style.right_side_friends_username}>
+                  Sadiq Ibrahimli
+                </h5>
+              </div>
+            </div>
+
+            <div className={style.right_side_friends_prof}>
+              <div className={style.right_side_friends_prof_pic_div}>
+                <img
+                  className={style.right_side_friends_prof_img}
+                  src="https://th.bing.com/th/id/R.c236f52cfbe7eeb72632631679c50409?rik=pYriBBpJIibYpQ&pid=ImgRaw&r=0"
+                  alt=""
+                />
+              </div>
+              <div className={style.right_side_friends_username_div}>
+                <h5 className={style.right_side_friends_username}>
+                  Sadiq Ibrahimli
+                </h5>
+              </div>
+            </div>
+
+            <div className={style.right_side_friends_prof}>
+              <div className={style.right_side_friends_prof_pic_div}>
+                <img
+                  className={style.right_side_friends_prof_img}
+                  src="https://th.bing.com/th/id/R.c236f52cfbe7eeb72632631679c50409?rik=pYriBBpJIibYpQ&pid=ImgRaw&r=0"
+                  alt=""
+                />
+              </div>
+              <div className={style.right_side_friends_username_div}>
+                <h5 className={style.right_side_friends_username}>
+                  Sadiq Ibrahimli
+                </h5>
+              </div>
+            </div>
+
+            <div className={style.right_side_friends_prof}>
+              <div className={style.right_side_friends_prof_pic_div}>
+                <img
+                  className={style.right_side_friends_prof_img}
+                  src="https://th.bing.com/th/id/R.c236f52cfbe7eeb72632631679c50409?rik=pYriBBpJIibYpQ&pid=ImgRaw&r=0"
+                  alt=""
+                />
+              </div>
+              <div className={style.right_side_friends_username_div}>
+                <h5 className={style.right_side_friends_username}>
+                  Sadiq Ibrahimli
+                </h5>
+              </div>
+            </div>
+
+            <div className={style.right_side_friends_prof}>
+              <div className={style.right_side_friends_prof_pic_div}>
+                <img
+                  className={style.right_side_friends_prof_img}
+                  src="https://th.bing.com/th/id/R.c236f52cfbe7eeb72632631679c50409?rik=pYriBBpJIibYpQ&pid=ImgRaw&r=0"
+                  alt=""
+                />
+              </div>
+              <div className={style.right_side_friends_username_div}>
+                <h5 className={style.right_side_friends_username}>
+                  Sadiq Ibrahimli
+                </h5>
+              </div>
+            </div>
           </div>
         </div>
       </div>
