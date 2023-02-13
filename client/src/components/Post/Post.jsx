@@ -12,10 +12,16 @@ import { AiFillHeart } from "react-icons/ai";
 import { RiShareForwardLine } from "react-icons/ri";
 import { BsEmojiSmile } from "react-icons/bs";
 import { MdSend } from "react-icons/md";
-
 import EmojiPicker from "emoji-picker-react";
 
+import { Picker } from "emoji-mart";
+// import "emoji-mart/css/emoji-mart.css";
+
 const Post = () => {
+  const [comment, setCom] = useState("");
+  const [show, setShow] = useState(false);
+  // console.log(comment);
+
   const [like, setLike] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -28,6 +34,16 @@ const Post = () => {
 
   const funcLikeUnlike = () => {
     setLike(!like);
+  };
+
+  const emojiShowHideFunc = () => {
+    setShow(!show);
+  };
+  const handleEmojiClick = (e, emoji) => {
+    let msg = comment;
+    msg += e.emoji;
+    console.log(e.unified);
+    setCom(msg);
   };
   return (
     <div className={style.post_parent_div}>
@@ -136,7 +152,7 @@ const Post = () => {
         {/* COMMENT SECTION */}
         <div className={style.post_bottom_comment_section}>
           <div className={style.post_bottom_comments_wrapper}>
-            <div className={style.post_bottom_comment}>
+            {/* <div className={style.post_bottom_comment}>
               <p className={style.user_comment}>lorem100</p>
             </div>
             <div className={style.post_bottom_comment}>
@@ -148,6 +164,9 @@ const Post = () => {
 
             <div className={style.post_bottom_comment}>
               <p className={style.user_comment}>salam ilk komment</p>
+            </div> */}
+            <div className={style.no_comment_div}>
+              <p className={style.no_comment_div_p}>No comment yet !</p>
             </div>
           </div>
           <div className={style.post_bottom_comment_input}>
@@ -162,9 +181,26 @@ const Post = () => {
               <input
                 className={style.comment_input}
                 type="text"
-                placeholder="Write a comment"
+                placeholder="Write a comment..."
+                value={comment}
+                onChange={(e) => setCom(e.target.value)}
               />
-              <BsEmojiSmile className={style.emoji_btn} />
+              <div className={style.emoji_btn_collec}>
+                <BsEmojiSmile
+                  style={{ color: show ? "blue" : "black" }}
+                  onClick={emojiShowHideFunc}
+                  className={style.emoji_btn}
+                />
+                {show && (
+                  <EmojiPicker
+                    emojiStyle="google"
+                    width={300}
+                    height={260}
+                    onEmojiClick={handleEmojiClick}
+                    searchDisabled="true"
+                  />
+                )}
+              </div>
               <button className={style.send_btn_comment}>
                 <MdSend className={style.comment_send_icon} />
               </button>
