@@ -86,6 +86,7 @@ const Post = () => {
           </Menu>
         </div>
       </div>
+      {/* POST DESC AND PICS */}
       <div className={style.post_center}>
         <div className={style.post_center_desc}>
           <p>my first desc</p>
@@ -152,7 +153,7 @@ const Post = () => {
         {/* COMMENT SECTION */}
         <div className={style.post_bottom_comment_section}>
           <div className={style.post_bottom_comments_wrapper}>
-            {/* <div className={style.post_bottom_comment}>
+            <div className={style.post_bottom_comment}>
               <p className={style.user_comment}>lorem100</p>
             </div>
             <div className={style.post_bottom_comment}>
@@ -164,10 +165,10 @@ const Post = () => {
 
             <div className={style.post_bottom_comment}>
               <p className={style.user_comment}>salam ilk komment</p>
-            </div> */}
-            <div className={style.no_comment_div}>
-              <p className={style.no_comment_div_p}>No comment yet !</p>
             </div>
+            {/* <div className={style.no_comment_div}>
+              <p className={style.no_comment_div_p}>No comment yet !</p>
+            </div> */}
           </div>
           <div className={style.post_bottom_comment_input}>
             <div className={style.post_bottom_comment_profPic_div}>
