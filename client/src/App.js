@@ -11,6 +11,7 @@ import Profile from "./page/Profile/Profile";
 function App() {
   return (
     <Register />
+    // <Login />
     // <Home />
     // <Profile />
     // <>

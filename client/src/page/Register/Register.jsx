@@ -8,15 +8,23 @@ const Register = () => {
     initialValues: {
       email: "",
       password: "",
+      username: "",
+      confirmPassword: "",
     },
     validationSchema: Yup.object({
       password: Yup.string()
-        .min(8, "Must be 8 characters or more ")
+        .min(8, "Must be 8 characters or more !")
         .required("Fill Password !"),
-
       email: Yup.string()
-        .email("Invalid email address")
+        .email("Invalid email address !")
         .required("Fill Email Address !"),
+      username: Yup.string()
+        .min(6, "Username must be greater than 6 !")
+        .max(50, "Username must be less than 50 !")
+        .required("Fill Email Address !"),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password"), null], "Passwords must be match !")
+        .required("Confirm your password !"),
     }),
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
@@ -57,6 +65,24 @@ const Register = () => {
 
                   <div className={style.input_valid_div}>
                     <input
+                      placeholder="Username"
+                      className={style.input_password}
+                      id="username"
+                      name="username"
+                      type="text"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.username}
+                    />
+                    {formik.touched.username && formik.errors.username ? (
+                      <div className={style.formik_error}>
+                        {formik.errors.username}
+                      </div>
+                    ) : null}
+                  </div>
+
+                  <div className={style.input_valid_div}>
+                    <input
                       placeholder="Password"
                       className={style.input_password}
                       id="password"
@@ -72,9 +98,30 @@ const Register = () => {
                       </div>
                     ) : null}
                   </div>
+
+                  <div className={style.input_valid_div}>
+                    <input
+                      placeholder="Confirm password"
+                      className={style.input_password}
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      type="password"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.confirmPassword}
+                    />
+                    {formik.touched.confirmPassword &&
+                    formik.errors.confirmPassword ? (
+                      <div className={style.formik_error}>
+                        {formik.errors.confirmPassword}
+                      </div>
+                    ) : null}
+                  </div>
                 </form>
-                <button type="submit" className={style.button_login}>
-                  Log in
+                <button
+                  type="submit"
+                  className={`${style.button_login} ${style.register_create_btn}`}>
+                  Create account
                 </button>
 
                 <a href="#" className={style.forget_link}>
@@ -82,8 +129,9 @@ const Register = () => {
                 </a>
                 <hr />
 
-                <button className={style.new_account_button}>
-                  Create new account
+                <button
+                  className={`${style.new_account_button} ${style.register_btn_forrLog} `}>
+                  Log in
                 </button>
               </div>
             </div>
