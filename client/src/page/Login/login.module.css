@@ -10,6 +10,31 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url(../../../public/assets/backgrounrd_login.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+.login_page_h1 {
+  border-radius: 10px;
+  padding: 10px;
+  width: max-content;
+  background-color: rgba(0, 0, 255, 0.5);
+  font-size: 50px;
+  margin-bottom: 10px;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  margin: 2px;
+}
+.login_page_h3 {
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  width: fit-content;
+  border-radius: 10px;
+  padding: 5px;
+  color: white;
+  font-weight: 600;
 }
 .login_two_side {
   font-family: Times, serif;
@@ -23,19 +48,9 @@
   flex-direction: column;
   justify-content: center;
 }
-h1 {
-  font-size: 50px;
-  margin-bottom: 10px;
-  color: rgb(22, 111, 229);
-  font-weight: bold;
-}
-h3 {
-  font-size: 28px;
-  font-weight: 400;
-  margin-bottom: 20px;
-}
+
 .login_right_side {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.7);
   display: flex;
   width: 40%;
   padding: 15px 20px;
@@ -51,9 +66,11 @@ h3 {
   padding: 15px 10px;
   font-size: 16px;
   outline: 2px blue;
-  margin-bottom: 5px;
+  /* margin-bottom: 5px; */
   border: 1px solid rgba(128, 128, 128, 0.5);
-  border-radius: 5px;
+  /* border-radius: 5px; */
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
 }
 .input_password:focus {
   outline-width: medium !important;
@@ -73,17 +90,16 @@ form {
   padding: 14px 10px;
   font-size: 20px;
   font-weight: 600;
-  background-color: rgb(22, 111, 229);
+  background-color: rgba(0, 0, 255, 0.8);
   border: none;
   border-radius: 5px;
   color: white;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   cursor: pointer;
   transition: 0.3s;
 }
 .button_login:hover {
-  color: rgb(22, 111, 229);
-  background-color: rgba(22, 111, 229, 0.2);
+  transform: scale(0.95);
 }
 .forget_link {
   text-decoration: none;
@@ -98,17 +114,19 @@ form {
   margin: 0 auto;
   padding: 15px 5px;
   color: white;
-  background-color: rgb(54, 164, 32);
+  background-color: rgba(0, 128, 0, 0.8);
   border: none;
   border-radius: 5px;
   font-size: 17px;
   font-weight: 600;
-  margin-bottom: 24px;
+  /* margin-bottom: 24px; */
+  margin-top: 5px;
   transition: 0.3s;
 }
 .new_account_button:hover {
-  color: rgb(54, 164, 32);
-  background-color: rgba(54, 164, 32, 0.2);
+  /* color: rgb(54, 164, 32);
+  background-color: rgba(54, 164, 32, 0.2); */
+  transform: scale(0.95);
 }
 hr {
   margin: 20px 0px;
@@ -116,7 +134,7 @@ hr {
 }
 .input_valid_div {
   height: 80px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   text-align: left;
 }
 .formik_error {

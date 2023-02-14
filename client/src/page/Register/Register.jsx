@@ -21,7 +21,7 @@ const Register = () => {
       username: Yup.string()
         .min(6, "Username must be greater than 6 !")
         .max(50, "Username must be less than 50 !")
-        .required("Fill Email Address !"),
+        .required("Fill Username !"),
       confirmPassword: Yup.string()
         .oneOf([Yup.ref("password"), null], "Passwords must be match !")
         .required("Confirm your password !"),
@@ -36,8 +36,8 @@ const Register = () => {
         <div className={style.loginPage_contanier}>
           <div className={style.login_two_side}>
             <div className={style.login_left_side}>
-              <h1>Codemedia</h1>
-              <h3>
+              <h1 className={style.register_page_h1}>Codemedia</h1>
+              <h3 className={style.register_page_h3}>
                 Codemedia helps you connect and share with the people in your
                 life.
               </h3>
@@ -124,9 +124,9 @@ const Register = () => {
                   Create account
                 </button>
 
-                <a href="#" className={style.forget_link}>
+                {/* <a href="#" className={style.forget_link}>
                   Forgotten password?
-                </a>
+                </a> */}
                 <hr />
 
                 <button

@@ -15,7 +15,7 @@ const Login = () => {
         .required("Fill Password !"),
 
       email: Yup.string()
-        .email("Invalid email address")
+        .email("Invalid email address !")
         .required("Fill Email Address !"),
     }),
     onSubmit: (values) => {
@@ -27,8 +27,8 @@ const Login = () => {
       <div className={style.loginPage_contanier}>
         <div className={style.login_two_side}>
           <div className={style.login_left_side}>
-            <h1>Codemedia</h1>
-            <h3>
+            <h1 className={style.login_page_h1}>Codemedia</h1>
+            <h3 className={style.login_page_h3}>
               Codemedia helps you connect and share with the people in your
               life.
             </h3>
