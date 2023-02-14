@@ -7,9 +7,11 @@ const Mainsidebar = () => {
     // <div className={style.main_side_contanier}>
     <div className={style.main_side_section}>
       <div className={style.main_side_wrapper}>
-        <Share />
-        <Post />
-        <Post />
+        <div className={style.post_wrapper_main}>
+          <Share />
+          <Post />
+          <Post />
+        </div>
       </div>
     </div>
     // </div>

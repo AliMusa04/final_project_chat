@@ -6,10 +6,13 @@ import Login from "./page/Login/Login";
 import Register from "./page/Register/Register";
 import style from "./components/RightSidebar/rightSide.module.css";
 import Home from "./page/Home/Home";
+import Profile from "./page/Profile/Profile";
 
 function App() {
   return (
-    <Home />
+    <Register />
+    // <Home />
+    // <Profile />
     // <>
     //   <Navbar />
     //   <div className={style.home_contanier}>

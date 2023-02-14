@@ -1,0 +1,46 @@
+.profile_right_cont {
+  /* width: 600px; */
+  width: 50%;
+  margin-top: 30px;
+  margin-left: 15px;
+}
+.info_text_title {
+  font-weight: 600;
+  font-size: 20px;
+}
+.profile_right_user_info_h3 {
+  font-size: 27px;
+  margin-bottom: 10px;
+}
+.info_text_p {
+  font-size: 18px;
+}
+.profile_right_user_friends_wrapper {
+  margin-top: 20px;
+}
+.profile_right_user_info {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.profile_right_friends_friend_card_img {
+  width: 130px;
+  height: 130px;
+}
+.profile_right_friends_friend_pic {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.profile_right_friends_friend_card_username {
+  text-align: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 500;
+}
+.profile_right_friends {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.profile_right_friends_friend_card {
+  cursor: pointer;
+}

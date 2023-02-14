@@ -8,17 +8,12 @@
   width: 360px;
   display: flex;
 }
-/* .home_contanier_mid {
-  width: 600px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-} */
 
 /* SPONSORED SECTION */
 .right_side_wrapper {
+  position: sticky !important;
+  top: 65px !important;
   width: 100%;
-  padding-left: 30px;
   padding-top: 30px;
 }
 .sponsored_pics_card_img {
@@ -35,6 +30,7 @@
   padding-left: 10px;
   border-radius: 10px;
   cursor: pointer;
+  transition: 0.3;
 }
 .sponsored_pics_card_text {
   display: flex;
@@ -101,14 +97,14 @@
   padding: 5px;
   border-radius: 10px;
   margin-bottom: 5px;
-
+  transition: 0.3s;
   cursor: pointer;
 }
 .right_side_friends_title_h3 {
   padding-left: 5px;
 }
 .right_side_friends_prof:hover {
-  background-color: rgba(128, 128, 128, 0.3);
+  background-color: rgba(128, 128, 128, 0.2);
 }
 .right_side_friends_username_div {
   margin-left: 10px;
