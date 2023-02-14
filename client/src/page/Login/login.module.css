@@ -1,7 +1,11 @@
 .loginPage_contanier {
   display: flex;
   justify-content: center;
-  padding: 72px 0px 112px;
+  /* padding: 72px 0px 112px; */
+  /* background-image: url(../../../public/assets/backgrounrd_login.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover; */
 }
 .login_page {
   width: 100%;
@@ -124,8 +128,6 @@ form {
   transition: 0.3s;
 }
 .new_account_button:hover {
-  /* color: rgb(54, 164, 32);
-  background-color: rgba(54, 164, 32, 0.2); */
   transform: scale(0.95);
 }
 hr {
@@ -140,4 +142,59 @@ hr {
 .formik_error {
   color: red;
   font-weight: 500;
+}
+
+@media screen and (max-width: 900px) {
+  .login_page {
+    height: 100vh;
+  }
+  .login_two_side {
+    width: 650px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+  }
+  .login_left_side {
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+  .login_right_side {
+    width: 80%;
+  }
+  .login_page_h1 {
+    margin-bottom: 15px;
+  }
+  .login_page_h3 {
+    display: none;
+    /* font-size: 20px;
+    margin: 0; */
+  }
+}
+@media screen and (max-width: 648px) {
+  .login_page {
+    height: 100vh;
+    /* padding: auto 0 !important; */
+    padding: 0 !important;
+  }
+  .login_page_h3 {
+    display: none;
+  }
+  .login_two_side {
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0;
+  }
+  .login_left_side {
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+  .login_right_side {
+    width: 100%;
+  }
 }
