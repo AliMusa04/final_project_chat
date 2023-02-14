@@ -273,3 +273,45 @@ aside {
 .no_comment_div {
   text-align: center;
 }
+
+@media screen and (max-width: 900px) {
+  .post_parent_div {
+    width: 440px;
+  }
+  .icon {
+    font-size: 17px;
+  }
+  .share_text {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .post_parent_div {
+    width: 440px;
+  }
+  .icon {
+    font-size: 17px;
+  }
+  .share_text {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 648px) {
+  .post_parent_div {
+    width: 300px;
+  }
+  .icon {
+    font-size: 17px;
+  }
+  .share_text {
+    font-size: 15px;
+  }
+  .post_left_text_user {
+    font-size: 15px;
+  }
+  .post_top {
+    padding-right: 7px;
+  }
+}

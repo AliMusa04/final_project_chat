@@ -93,3 +93,21 @@ hr {
   height: 24px;
   border-radius: 50%;
 }
+
+@media screen and (max-width: 900px) {
+  .left_side_section {
+    width: 200px;
+  }
+  hr {
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 648px) {
+  .left_side_section {
+    width: 50px;
+  }
+  .option_text {
+    display: none;
+  }
+}

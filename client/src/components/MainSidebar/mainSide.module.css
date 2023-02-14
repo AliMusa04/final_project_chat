@@ -11,7 +11,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
 }
 
 .main_side_wrapper {
@@ -21,13 +21,25 @@
   margin: 0 !important;
 }
 @media screen and (max-width: 900px) {
-  .main_side_contanier {
+  /* .main_side_contanier {
     width: 300px;
+  } */
+  .post_wrapper_main {
+    width: 100%;
+  }
+  .main_side_wrapper {
+    width: 100%;
+  }
+  .main_side_section {
+    width: 440px;
   }
 }
 
 @media screen and (max-width: 648px) {
   .main_side_contanier {
-    width: 200px;
+    width: 110px;
+  }
+  .main_side_section {
+    width: 310px;
   }
 }

@@ -41,6 +41,7 @@
   display: flex;
 }
 .share_wrapper_icons {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   padding-top: 8px;
@@ -68,13 +69,11 @@
 .share_btn {
   padding: 2px 12px;
   border: none;
-  /* background-color: blue; */
   color: white;
   font-weight: 500;
   border-radius: 5px;
 
   color: #fff;
-  /* border: 3px solid blue; */
   background-image: -webkit-linear-gradient(
     30deg,
     #c266d3 50%,
@@ -95,4 +94,45 @@
   display: flex;
   align-items: center;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+@media screen and (max-width: 900px) {
+  .share_wrapper {
+    width: 100%;
+  }
+  .icon {
+    font-size: 20px;
+  }
+  .share_text {
+    font-size: 15px;
+  }
+  .share_icon {
+    padding: 4px 8px;
+  }
+}
+
+@media screen and (max-width: 648px) {
+  .share_wrapper {
+    width: 100%;
+  }
+  .icon {
+    font-size: 15px;
+  }
+  .share_text {
+    font-size: 10px;
+  }
+  .share_icon {
+    padding: 2px 4px;
+  }
+  .share_top_input {
+    padding: 4px 8px;
+    margin-left: 5px;
+  }
+  .share_btn {
+    padding: 2px 6px;
+    border: none;
+    color: white;
+    font-weight: 500;
+    border-radius: 5px;
+    font-size: 10px;
+  }
 }

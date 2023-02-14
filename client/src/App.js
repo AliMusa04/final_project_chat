@@ -10,11 +10,9 @@ import Profile from "./page/Profile/Profile";
 
 function App() {
   return (
-    <>
-      {/* <Register /> */}
-      <Login />
-    </>
-    // <Home />
+    <Home />
+    //* <Register /> */}
+    //* <Login /> */}
     // <Profile />
     // <>
     //   <Navbar />

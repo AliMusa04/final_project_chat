@@ -65,6 +65,14 @@
     width: 100%;
   }
 }
+@media screen and (max-width: 900px) {
+  .right_side_section {
+    display: none;
+  }
+  .home_contanier_mid {
+    width: 100%;
+  }
+}
 /* FRIENDS SECTION */
 .right_side_friends {
   margin-top: 30px;
