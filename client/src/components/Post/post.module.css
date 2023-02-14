@@ -314,4 +314,32 @@ aside {
   .post_top {
     padding-right: 7px;
   }
+  .post_left_text_date {
+    font-size: 10px;
+  }
+  .post_center_desc_text {
+    font-size: 16px;
+  }
+  .post_like_text {
+    font-size: 12px;
+  }
+  .comment_count {
+    font-size: 12px;
+  }
+  .post_img_like_div {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+  }
+  .like_func_icon {
+    font-size: 18px;
+  }
+  .like_func_text {
+    font-size: 14px;
+  }
+  .post_img_like {
+    width: 20px;
+    height: 20px;
+  }
 }

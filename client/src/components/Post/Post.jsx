@@ -89,7 +89,7 @@ const Post = () => {
       {/* POST DESC AND PICS */}
       <div className={style.post_center}>
         <div className={style.post_center_desc}>
-          <p>my first desc</p>
+          <p className={style.post_center_desc_text}>my first desc</p>
           {/* <EmojiPicker onEmojiClick /> */}
         </div>
         <div className={style.post_center_img_div}>
