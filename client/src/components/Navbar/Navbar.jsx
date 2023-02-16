@@ -13,6 +13,7 @@ import { RiFeedbackFill } from "react-icons/ri";
 import { MdLogout } from "react-icons/md";
 import { BiMenuAltRight } from "react-icons/bi";
 import styleMain from "../MainSidebar/mainSide.module.css";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -38,9 +39,9 @@ const Navbar = () => {
         className={style.navbar}>
         {/* NAVBAR LEFT */}
         <div className={style.navbar_left_part}>
-          <a href="#" className={style.navbar_left_h1}>
+          <Link to={"/"} className={style.navbar_left_h1}>
             codemedia
-          </a>
+          </Link>
         </div>
         {/* NAVBAR MIDDLE */}
         {/* <div className={styleMain.main_side_contanier}> */}

@@ -1,11 +1,17 @@
 import React from "react";
 import style from "./rightProfile.module.css";
+import { BiEditAlt } from "react-icons/bi";
 
 const RightProfile = () => {
   return (
     <div className={style.profile_right_cont}>
       <div className={style.profile_right_user_info}>
-        <h3 className={style.profile_right_user_info_h3}>User information</h3>
+        <div className={style.edit_btn_div}>
+          <h3 className={style.profile_right_user_info_h3}>User information</h3>
+          <button>
+            Edit <BiEditAlt />
+          </button>
+        </div>
         <div className={style.info_text}>
           <p className={style.info_text_p}>
             <span className={style.info_text_title}>City: </span> Baku

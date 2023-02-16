@@ -8,6 +8,7 @@ import { MdGroups } from "react-icons/md";
 import { SiYoutubegaming } from "react-icons/si";
 import { TbGridDots } from "react-icons/tb";
 import { GiLinkedRings } from "react-icons/gi";
+import { Link, NavLink } from "react-router-dom";
 
 const Leftsidebar = () => {
   const [home, setHome] = useState(true);
@@ -129,41 +130,49 @@ const Leftsidebar = () => {
   return (
     <div className={style.left_side_section}>
       <div className={style.left_side_options_wrapper}>
-        <div className={style.left_side_option}>
-          <div
-            style={{ backgroundColor: `${home ? "blue" : "transparent"}` }}
-            className={home ? style.active_div_left : style.active_div}></div>
-          <div
-            onClick={() => {
-              homeFunc();
-              console.log("salam");
-            }}
-            className={style.left_side_option_icon_text}>
-            <AiFillHome className={`${style.option_icon} `} />
-            <h5 className={style.option_text}>Home</h5>
-          </div>
-        </div>
-
-        <div className={style.left_side_option}>
-          <div
-            className={
-              profile ? style.active_div_left : style.active_div
-            }></div>
-          <div
-            onClick={() => {
-              profileFunc();
-            }}
-            className={style.left_side_option_icon_text}>
-            <div className={style.left_side_profile_div}>
-              <img
-                className={style.left_side_profile_pics}
-                src="https://th.bing.com/th/id/R.4b1ebbdf9a6a42f23de2678c80eb02df?rik=SEPvooeqfgw0kA&riu=http%3a%2f%2fimages.unsplash.com%2fphoto-1535713875002-d1d0cf377fde%3fcrop%3dentropy%26cs%3dtinysrgb%26fit%3dmax%26fm%3djpg%26ixid%3dMnwxMjA3fDB8MXxzZWFyY2h8NHx8bWFsZSUyMHByb2ZpbGV8fDB8fHx8MTYyNTY2NzI4OQ%26ixlib%3drb-1.2.1%26q%3d80%26w%3d1080&ehk=Gww3MHYoEwaudln4mR6ssDjrAMbAvyoXYMsyKg5p0Ac%3d&risl=&pid=ImgRaw&r=0"
-                alt=""
-              />
+        <NavLink to={"/"}>
+          <div className={style.left_side_option}>
+            <div
+              style={{ backgroundColor: `${home ? "blue" : "transparent"}` }}
+              className={home ? style.active_div_left : style.active_div}></div>
+            <div
+              onClick={() => {
+                homeFunc();
+                console.log("salam");
+              }}
+              className={style.left_side_option_icon_text}>
+              <AiFillHome className={`${style.option_icon} `} />
+              <h5 className={style.option_text}>Home</h5>
             </div>
-            <h5 className={style.option_text}>Ali Musayev</h5>
           </div>
-        </div>
+        </NavLink>
+
+        <NavLink
+          to={"/profile"}
+          onClick={() => {
+            profileFunc();
+          }}>
+          <div className={style.left_side_option}>
+            <div
+              className={
+                profile ? style.active_div_left : style.active_div
+              }></div>
+            <div
+              onClick={() => {
+                profileFunc();
+              }}
+              className={style.left_side_option_icon_text}>
+              <div className={style.left_side_profile_div}>
+                <img
+                  className={style.left_side_profile_pics}
+                  src="https://th.bing.com/th/id/R.4b1ebbdf9a6a42f23de2678c80eb02df?rik=SEPvooeqfgw0kA&riu=http%3a%2f%2fimages.unsplash.com%2fphoto-1535713875002-d1d0cf377fde%3fcrop%3dentropy%26cs%3dtinysrgb%26fit%3dmax%26fm%3djpg%26ixid%3dMnwxMjA3fDB8MXxzZWFyY2h8NHx8bWFsZSUyMHByb2ZpbGV8fDB8fHx8MTYyNTY2NzI4OQ%26ixlib%3drb-1.2.1%26q%3d80%26w%3d1080&ehk=Gww3MHYoEwaudln4mR6ssDjrAMbAvyoXYMsyKg5p0Ac%3d&risl=&pid=ImgRaw&r=0"
+                  alt=""
+                />
+              </div>
+              <h5 className={style.option_text}>Ali Musayev</h5>
+            </div>
+          </div>
+        </NavLink>
 
         <div className={style.line_div}>
           <hr />

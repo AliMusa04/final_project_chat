@@ -7,10 +7,14 @@ import Register from "./page/Register/Register";
 import style from "./components/RightSidebar/rightSide.module.css";
 import Home from "./page/Home/Home";
 import Profile from "./page/Profile/Profile";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { route } from "./routes/route";
 
+const router = createBrowserRouter(route);
 function App() {
   return (
-    <Home />
+    <RouterProvider router={router} />
+    // <Home />
     //* <Register /> */}
     //* <Login /> */}
     // <Profile />

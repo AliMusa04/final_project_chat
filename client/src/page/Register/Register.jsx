@@ -27,7 +27,7 @@ const Register = () => {
         .required("Confirm your password !"),
     }),
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      console.log(values);
     },
   });
   return (
@@ -54,7 +54,7 @@ const Register = () => {
                       type="email"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={formik.values.firstName}
+                      value={formik.values.email}
                     />
                     {formik.touched.email && formik.errors.email ? (
                       <div className={style.formik_error}>
@@ -117,12 +117,12 @@ const Register = () => {
                       </div>
                     ) : null}
                   </div>
+                  <button
+                    type="submit"
+                    className={`${style.button_login} ${style.register_create_btn}`}>
+                    Create account
+                  </button>
                 </form>
-                <button
-                  type="submit"
-                  className={`${style.button_login} ${style.register_create_btn}`}>
-                  Create account
-                </button>
 
                 {/* <a href="#" className={style.forget_link}>
                   Forgotten password?

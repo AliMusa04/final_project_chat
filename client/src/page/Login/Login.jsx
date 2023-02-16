@@ -2,6 +2,7 @@ import React from "react";
 import style from "./login.module.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { loginUser } from "../../apicall/usersApi";
 
 const Login = () => {
   const formik = useFormik({
@@ -11,15 +12,37 @@ const Login = () => {
     },
     validationSchema: Yup.object({
       password: Yup.string()
-        .min(8, "Must be 8 characters or more ")
+        .min(6, "Must be 8 characters or more ")
         .required("Fill Password !"),
 
       email: Yup.string()
         .email("Invalid email address !")
         .required("Fill Email Address !"),
     }),
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      // alert(JSON.stringify(values, null, 2));
+      console.log(values);
+      // try {
+      //   console.log(values);
+      // } catch (err) {
+      //   console.log(err);
+      // }
+
+      // try {
+      //   const response = await loginUser(values);
+      //   if (response.success) {
+      //     localStorage.setItem("token", response.data);
+      //     window.location.href = "/";
+      //   } else {
+      //     console.log(response.message);
+      //     // message.error(response.message);
+      //   }
+      // } catch (error) {
+      //   // dispatch(HideLoading());
+      //   console.log(error.message);
+      //   // message.error(error.message);
+      // }
+      // formik.resetForm();
     },
   });
   return (
@@ -45,7 +68,7 @@ const Login = () => {
                     type="email"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.firstName}
+                    value={formik.values.email}
                   />
                   {formik.touched.email && formik.errors.email ? (
                     <div className={style.formik_error}>
@@ -71,10 +94,10 @@ const Login = () => {
                     </div>
                   ) : null}
                 </div>
+                <button type="submit" className={style.button_login}>
+                  Log in
+                </button>
               </form>
-              <button type="submit" className={style.button_login}>
-                Log in
-              </button>
 
               <a href="#" className={style.forget_link}>
                 Forgotten password?
