@@ -6,7 +6,7 @@ const { default: axiosInstance } = require(".");
 export const loginUser = async (payload) => {
   try {
     const response = await axiosInstance.post(
-      "http://localhost:8080/api/auth/login",
+      `${BASE_URL}/auth/login`,
       payload
     );
     return response.data;
@@ -29,10 +29,10 @@ export const registerUser = async (payload) => {
 };
 
 // Get USER INFO
-export const getUserInfo = async ({ id }) => {
+export const getUserInfo = async () => {
   try {
     const response = await axiosInstance.post(
-      `http://localhost:8080/api/users/${id}`
+      `http://localhost:8080/api/users/getuser`
     );
     return response.data;
   } catch (error) {

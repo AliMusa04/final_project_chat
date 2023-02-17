@@ -4,7 +4,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const Register = () => {
   const formik = useFormik({
@@ -35,6 +36,7 @@ const Register = () => {
           .post("http://localhost:8080/api/auth/register", values)
           .then(() => {
             toast.success("Account created !");
+            <Navigate to={"/login"} />;
           })
           .catch(() => {
             toast.error("Account already exist !");
@@ -42,10 +44,16 @@ const Register = () => {
       } catch (err) {
         toast.error(err);
       }
+      formik.resetForm();
     },
   });
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Register Page</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <section className={style.login_page}>
         <div className={style.loginPage_contanier}>
           <div className={style.login_two_side}>
@@ -142,7 +150,7 @@ const Register = () => {
                   Forgotten password?
                 </a> */}
                 <hr />
-                <Link to={"/login"}>
+                <Link to={"/"}>
                   <button
                     className={`${style.new_account_button} ${style.register_btn_forrLog} `}>
                     Log in

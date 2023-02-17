@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./login.module.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { loginUser } from "../../apicall/usersApi";
-import { Toaster } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import { useDispatch, useSelector } from "react-redux";
+import { message } from "antd";
+import { SetUser } from "../../redux/slice/userSlice/userSlice";
 
 const Login = () => {
+  const user = useSelector((state) => state.users.value);
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -22,32 +28,29 @@ const Login = () => {
         .required("Fill Email Address !"),
     }),
     onSubmit: async (values) => {
-      // alert(JSON.stringify(values, null, 2));
-
-      // try {
-      //   console.log(values);
-      // } catch (err) {
-      //   console.log(err);
-      // }
       try {
         const response = await loginUser(values);
+        // console.log(response.data);
         if (response.success) {
+          toast.success("User access succsesfully");
           localStorage.setItem("token", response.data);
-          window.location.href = "/";
+          window.location.href = "/home";
         } else {
-          console.log(response.message);
-          // message.error(response.message);
+          toast.error(response.message);
         }
       } catch (error) {
-        // dispatch(HideLoading());
-        console.log(error.message);
-        // message.error(error.message);
+        toast.error(error.message);
       }
       formik.resetForm();
     },
   });
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Login Page</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <section className={style.login_page}>
         <div className={style.loginPage_contanier}>
           <div className={style.login_two_side}>

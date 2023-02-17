@@ -13,12 +13,13 @@ import { RiFeedbackFill } from "react-icons/ri";
 import { MdLogout } from "react-icons/md";
 import { BiMenuAltRight } from "react-icons/bi";
 import styleMain from "../MainSidebar/mainSide.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [account, setAccount] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggle = () => {
     setAccount(!account);
@@ -195,7 +196,12 @@ const Navbar = () => {
                   </div>
 
                   {/* LOGOUT */}
-                  <div className={style.option}>
+                  <div
+                    onClick={() => {
+                      localStorage.removeItem("token");
+                      navigate("/");
+                    }}
+                    className={style.option}>
                     <div className={style.option_left}>
                       <div className={style.option_left_icon_backg}>
                         <MdLogout className={style.settings_icon} />
