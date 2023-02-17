@@ -2,6 +2,9 @@ import React from "react";
 import style from "./register.module.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
+import { toast, Toaster } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const formik = useFormik({
@@ -26,8 +29,19 @@ const Register = () => {
         .oneOf([Yup.ref("password"), null], "Passwords must be match !")
         .required("Confirm your password !"),
     }),
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      try {
+        axios
+          .post("http://localhost:8080/api/auth/register", values)
+          .then(() => {
+            toast.success("Account created !");
+          })
+          .catch(() => {
+            toast.error("Account already exist !");
+          });
+      } catch (err) {
+        toast.error(err);
+      }
     },
   });
   return (
@@ -128,16 +142,18 @@ const Register = () => {
                   Forgotten password?
                 </a> */}
                 <hr />
-
-                <button
-                  className={`${style.new_account_button} ${style.register_btn_forrLog} `}>
-                  Log in
-                </button>
+                <Link to={"/login"}>
+                  <button
+                    className={`${style.new_account_button} ${style.register_btn_forrLog} `}>
+                    Log in
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </section>
+      <Toaster position="top-center" reverseOrder={false} />
     </>
   );
 };
