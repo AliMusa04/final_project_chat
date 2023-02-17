@@ -44,3 +44,30 @@
 .profile_right_friends_friend_card {
   cursor: pointer;
 }
+.edit_btn_div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.edit_btn {
+  height: 60%;
+  padding: 0px 8px;
+  color: white;
+  border: none;
+  outline: none;
+  background-color: rgba(0, 0, 255, 0.7);
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+}
+h3 {
+  margin: 0 !important;
+}
+.edit_icon {
+  margin-left: 5px;
+}
+.edit_cover_phot {
+  display: flex;
+  flex-direction: column;
+}
