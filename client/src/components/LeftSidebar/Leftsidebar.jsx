@@ -9,6 +9,7 @@ import { SiYoutubegaming } from "react-icons/si";
 import { TbGridDots } from "react-icons/tb";
 import { GiLinkedRings } from "react-icons/gi";
 import { Link, NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Leftsidebar = () => {
   const [home, setHome] = useState(true);
@@ -126,7 +127,7 @@ const Leftsidebar = () => {
     setSee(false);
     setShort(true);
   };
-
+  const user = useSelector((state) => state.users.value);
   return (
     <div className={style.left_side_section}>
       <div className={style.left_side_options_wrapper}>
@@ -148,7 +149,7 @@ const Leftsidebar = () => {
         </NavLink>
 
         <NavLink
-          to={"/profile/63efa182e33f44017ac06731"}
+          to={`/profile/${user && user._id}`}
           onClick={() => {
             profileFunc();
           }}>

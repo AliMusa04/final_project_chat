@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Post from "../Post/Post";
 import Share from "../Share/Share";
 import style from "./mainSide.module.css";
 const Mainsidebar = ({ username }) => {
+  const user = useSelector((state) => state.users.value);
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     const getPost = async () => {
@@ -12,9 +14,7 @@ const Mainsidebar = ({ username }) => {
             .get(`http://localhost:8080/api/posts/profile/${username}`)
             .then((res) => setPosts(res.data))
         : await axios
-            .get(
-              "http://localhost:8080/api/posts/timeline/63efa182e33f44017ac06731"
-            )
+            .get(`http://localhost:8080/api/posts/timeline/${user && user._id}`)
             .then((res) => setPosts(res.data));
     };
     getPost();

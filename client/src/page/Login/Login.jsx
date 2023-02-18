@@ -38,8 +38,11 @@ const Login = () => {
           console.log(loading);
           dispatch(hideLoad());
           toast.success("User access succsesfully");
-          localStorage.setItem("token", response.data);
-          dispatch(SetUser(response.user));
+          await localStorage.setItem("token", response.data);
+          // if (localStorage.getItem("token")) {
+          //   getUserInfo();
+          // }
+          // dispatch(SetUser(response.user));
           // getUserInfo(response.user._id);
           console.log(response);
           window.location.href = "/home";
