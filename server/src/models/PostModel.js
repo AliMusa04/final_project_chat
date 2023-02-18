@@ -1,9 +1,11 @@
+const { string } = require("joi");
 const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema(
   {
     userId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
     desc: {
@@ -16,21 +18,17 @@ const postSchema = new mongoose.Schema(
     comments: {
       type: Array,
       default: [
-        {
-          userIdCom: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "users",
-            required: true,
-          },
-          descCom: {
-            type: String,
-            required: true,
-            max: 100,
-          },
-          commentId: {
-            type: String,
-          },
-        },
+        // {
+        //   userIdCom: {
+        //     type: String,
+        //   },
+        //   descCom: {
+        //     type: String,
+        //   },
+        //   commentId: {
+        //     type: String,
+        //   },
+        // },
       ],
     },
     likes: {

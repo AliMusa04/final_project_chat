@@ -1,8 +1,10 @@
 const router = require("express").Router();
 const userModel = require("../models/UserModel");
 const bcrypt = require("bcrypt");
+const authMiddle = require("../middleware/authMiddle");
 
 //UPDATE USER PROPETY
+//:id
 router.put("/:id", async (req, res) => {
   if (req.body.id === req.params.id || req.body.isAdmin) {
     if (req.body.password) {
@@ -28,6 +30,7 @@ router.put("/:id", async (req, res) => {
 });
 
 //DELETE USER
+//:id
 router.delete("/:id", async (req, res) => {
   if (req.body.id === req.params.id || req.body.isAdmin) {
     try {
@@ -52,12 +55,30 @@ router.get("/", async (req, res) => {
 });
 
 //GET USER
-router.get("/:id", async (req, res) => {
+router.get("/getuser/:id", async (req, res) => {
   try {
     const user = await userModel.findOne({ _id: req.params.id });
-    res.status(200).send(user);
+    res.status(200).send({
+      message: "User info find succsessfuly ",
+      success: true,
+      data: user,
+    });
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).send({ message: err.message, data: err, success: false });
+  }
+});
+
+//GET USER AUTHMIDDLE
+router.get("/:id", authMiddle, async (req, res) => {
+  try {
+    const user = await userModel.findOne({ _id: req.params.id });
+    res.status(200).send({
+      message: "User info find succsessfuly ",
+      success: true,
+      data: user,
+    });
+  } catch (err) {
+    res.status(500).send({ message: err.message, data: err, success: false });
   }
 });
 

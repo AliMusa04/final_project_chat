@@ -20,10 +20,9 @@ const userSchema = new mongoose.Schema(
       require: true,
       min: 20,
     },
-    desc: {
+    userDesc: {
       type: String,
       max: 50,
-      // default: "",
     },
     profilePic: {
       type: String,
@@ -51,7 +50,7 @@ const userSchema = new mongoose.Schema(
     },
     reltionship: {
       type: Number,
-      enum: [1, 2, 3],
+      // enum: [1, 2, 3],
     },
     isAdmin: {
       type: Boolean,

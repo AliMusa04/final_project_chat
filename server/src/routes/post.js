@@ -1,6 +1,7 @@
 const PostModel = require("../models/PostModel");
 const UserModel = require("../models/UserModel");
 const { uuid } = require("uuidv4");
+const authMiddle = require("../middleware/authMiddle");
 
 const router = require("express").Router();
 
@@ -50,7 +51,9 @@ router.delete("/:id", async (req, res) => {
 //LIKE AND DISLIKE POST
 router.put("/like/:id", async (req, res) => {
   try {
-    const likedPost = await PostModel.findById({ _id: req.params.id });
+    const likedPost = await PostModel.findById({ _id: req.params.id }).populate(
+      "userId"
+    );
     if (!likedPost.likes.includes(req.body.id)) {
       await likedPost.updateOne({ $push: { likes: req.body.id } });
       res.status(200).send("Post liked");
@@ -62,7 +65,6 @@ router.put("/like/:id", async (req, res) => {
     res.status(500).send(err);
   }
 });
-module.exports = router;
 
 //GET POST
 router.get("/:id", async (req, res) => {
@@ -78,12 +80,12 @@ router.get("/:id", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const allPost = await PostModel.find()
-      .populate("comments.userIdCom")
+      .populate("userId")
       .exec((err, data) => {
         if (err) return res.status(500).send({ err });
         res.send(data);
       });
-    // .populate("userIdCom");
+    // .populate("userId");
     // res.status(200).send(allPost);
   } catch (err) {
     res.status(500).send(err);
@@ -91,13 +93,15 @@ router.get("/", async (req, res) => {
 });
 
 //GET FRIENDS AND YOURSELF POST
-router.get("/timeline/all", async (req, res) => {
+router.get("/timeline/:id", async (req, res) => {
   try {
-    const adminUser = await UserModel.findOne({ _id: req.body.id });
-    const adminPosts = await PostModel.find({ userId: adminUser._id });
+    const adminUser = await UserModel.findOne({ _id: req.params.id });
+    const adminPosts = await PostModel.find({ userId: adminUser._id }).populate(
+      "userId"
+    );
     const friendsPost = await Promise.all(
       adminUser.following.map((friendId) => {
-        return PostModel.find({ userId: friendId });
+        return PostModel.find({ userId: friendId }).populate("userId");
       })
     );
     res.status(200).send(adminPosts.concat(...friendsPost));
@@ -106,6 +110,16 @@ router.get("/timeline/all", async (req, res) => {
   }
 });
 
+//ROUTER GET
+router.get("/profile/:username", async (req, res) => {
+  try {
+    const user = await UserModel.findOne({ username: req.params.username });
+    const posts = await PostModel.find({ userId: user._id }).populate("userId");
+    res.status(200).send(posts);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
 //COMMENT PUT API
 router.put("/comment/:id", async (req, res) => {
   try {
@@ -148,3 +162,4 @@ router.put("/comment/:id", async (req, res) => {
 // });
 
 // userIdCom: req.body.id, descCom: req.body.desc
+module.exports = router;

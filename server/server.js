@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const cors = require("cors");
 require("dotenv").config();
 const PORT = 8080;
 const routeUser = require("./src/routes/users");
@@ -18,6 +19,7 @@ mongoose.connect(process.env.URL_MONGO).then(() => {
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
+app.use(cors());
 
 //ROUTES
 app.use("/api/users", routeUser);
