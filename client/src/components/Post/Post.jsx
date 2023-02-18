@@ -15,13 +15,14 @@ import { MdSend } from "react-icons/md";
 import EmojiPicker from "emoji-picker-react";
 
 import { Picker } from "emoji-mart";
+import { format } from "timeago.js";
 // import "emoji-mart/css/emoji-mart.css";
 
-const Post = () => {
+const Post = ({ post }) => {
+  console.log(post);
   const [comment, setCom] = useState("");
   const [show, setShow] = useState(false);
   // console.log(comment);
-
   const [like, setLike] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -52,13 +53,17 @@ const Post = () => {
           <div className={style.post_top_left_img_div}>
             <img
               className={style.post_top_left_img}
-              src="https://th.bing.com/th/id/R.4b1ebbdf9a6a42f23de2678c80eb02df?rik=SEPvooeqfgw0kA&riu=http%3a%2f%2fimages.unsplash.com%2fphoto-1535713875002-d1d0cf377fde%3fcrop%3dentropy%26cs%3dtinysrgb%26fit%3dmax%26fm%3djpg%26ixid%3dMnwxMjA3fDB8MXxzZWFyY2h8NHx8bWFsZSUyMHByb2ZpbGV8fDB8fHx8MTYyNTY2NzI4OQ%26ixlib%3drb-1.2.1%26q%3d80%26w%3d1080&ehk=Gww3MHYoEwaudln4mR6ssDjrAMbAvyoXYMsyKg5p0Ac%3d&risl=&pid=ImgRaw&r=0"
+              src={post.userId.profilePic || "assets/NoProfImg.webp"}
               alt=""
             />
           </div>
           <div className={style.post_left_text}>
-            <h5 className={style.post_left_text_user}>Ali Musayev</h5>
-            <p className={style.post_left_text_date}> 5 mins ago</p>
+            <h5 className={style.post_left_text_user}>
+              {post.userId.username}
+            </h5>
+            <p className={style.post_left_text_date}>
+              {format(post.createdAt)}
+            </p>
           </div>
         </div>
         <div className={style.post_top_right}>
@@ -89,7 +94,7 @@ const Post = () => {
       {/* POST DESC AND PICS */}
       <div className={style.post_center}>
         <div className={style.post_center_desc}>
-          <p className={style.post_center_desc_text}>my first desc</p>
+          <p className={style.post_center_desc_text}>{post?.desc}</p>
           {/* <EmojiPicker onEmojiClick /> */}
         </div>
         <div className={style.post_center_img_div}>
@@ -112,11 +117,11 @@ const Post = () => {
               />
             </div>
             <p className={style.post_like_text}>
-              <span>32</span> people liked it
+              <span>{post.likes.length}</span> people liked it
             </p>
           </div>
           <div className={style.post_bottom_comment}>
-            <span className={style.comment_count}>123</span>
+            <span className={style.comment_count}>{post.comments.length}</span>
             <FaRegCommentAlt className={style.post_comment_icon} />
           </div>
         </div>
@@ -153,22 +158,28 @@ const Post = () => {
         {/* COMMENT SECTION */}
         <div className={style.post_bottom_comment_section}>
           <div className={style.post_bottom_comments_wrapper}>
-            <div className={style.post_bottom_comment}>
-              <p className={style.user_comment}>lorem100</p>
-            </div>
-            <div className={style.post_bottom_comment}>
-              <p className={style.user_comment}>salam ilk komment</p>
-            </div>
-            <div className={style.post_bottom_comment}>
-              <p className={style.user_comment}>salam ilk komment</p>
-            </div>
-
-            <div className={style.post_bottom_comment}>
-              <p className={style.user_comment}>salam ilk komment</p>
-            </div>
-            {/* <div className={style.no_comment_div}>
-              <p className={style.no_comment_div_p}>No comment yet !</p>
-            </div> */}
+            {post.comments ? (
+              post.comments.map((com) => {
+                return com ? (
+                  <div key={com._id} className={style.post_bottom_comment}>
+                    <p className={style.user_comment}>{com?.descCom}</p>
+                  </div>
+                ) : (
+                  <div className={style.no_comment_div}>
+                    <p className={style.no_comment_div_p}>No comment yet !</p>
+                  </div>
+                );
+                // : (
+                //   <div className={style.no_comment_div}>
+                //     <p className={style.no_comment_div_p}>No comment yet !</p>
+                //   </div>
+                // );
+              })
+            ) : (
+              <div className={style.no_comment_div}>
+                <p className={style.no_comment_div_p}>No comment yet !</p>
+              </div>
+            )}
           </div>
           <div className={style.post_bottom_comment_input}>
             <div className={style.post_bottom_comment_profPic_div}>

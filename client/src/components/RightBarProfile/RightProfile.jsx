@@ -3,7 +3,7 @@ import style from "./rightProfile.module.css";
 import { BiEditAlt } from "react-icons/bi";
 import { Modal } from "antd";
 
-const RightProfile = () => {
+const RightProfile = ({ user }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -55,8 +55,10 @@ const RightProfile = () => {
                 <option disabled value="">
                   Choose relation
                 </option>
-                <option value="">Single</option>
-                <option value="">Married</option>
+                <option value="1">Single</option>
+                <option value="2">Married</option>
+                <option value="3">In a relationship </option>
+                <option value="4">No Information </option>
               </select>
             </div>
             <div className={style.button_edit_submit}>
@@ -65,69 +67,28 @@ const RightProfile = () => {
           </Modal>
           <div className={style.info_text}>
             <p className={style.info_text_p}>
-              <span className={style.info_text_title}>City: </span> Baku
+              <span className={style.info_text_title}>City: </span>
+              {user.city ? user.city : "No Information"}
             </p>
             <p className={style.info_text_p}>
-              <span className={style.info_text_title}>From: </span> Lacin
+              <span className={style.info_text_title}>From: </span>
+              {user.from ? user.from : "No Information"}
             </p>
             <p className={style.info_text_p}>
-              <span className={style.info_text_title}>Relationship: </span>{" "}
-              Single
+              <span className={style.info_text_title}>Relationship: </span>
+              {user.reltionship === 1
+                ? "single"
+                : user.reltionship === 2
+                ? "Married"
+                : user.reltionship === 3
+                ? "In a relationship"
+                : "No Information"}
             </p>
           </div>
         </div>
 
         <div className={style.profile_right_user_friends_wrapper}>
           <div className={style.profile_right_friends}>
-            <div className={style.profile_right_friends_friend_card}>
-              <div className={style.profile_right_friends_friend_card_img}>
-                <img
-                  className={style.profile_right_friends_friend_pic}
-                  src="https://www.elitesingles.co.uk/wp-content/uploads/sites/59/2019/11/2b_en_articleslide_sm2-350x264.jpg"
-                  alt=""
-                />
-              </div>
-              <p className={style.profile_right_friends_friend_card_username}>
-                Sadiq Ibrahimli
-              </p>
-            </div>
-
-            <div className={style.profile_right_friends_friend_card}>
-              <div className={style.profile_right_friends_friend_card_img}>
-                <img
-                  className={style.profile_right_friends_friend_pic}
-                  src="https://www.elitesingles.co.uk/wp-content/uploads/sites/59/2019/11/2b_en_articleslide_sm2-350x264.jpg"
-                  alt=""
-                />
-              </div>
-              <p className={style.profile_right_friends_friend_card_username}>
-                Sadiq Ibrahimli
-              </p>
-            </div>
-            <div className={style.profile_right_friends_friend_card}>
-              <div className={style.profile_right_friends_friend_card_img}>
-                <img
-                  className={style.profile_right_friends_friend_pic}
-                  src="https://www.elitesingles.co.uk/wp-content/uploads/sites/59/2019/11/2b_en_articleslide_sm2-350x264.jpg"
-                  alt=""
-                />
-              </div>
-              <p className={style.profile_right_friends_friend_card_username}>
-                Sadiq Ibrahimli
-              </p>
-            </div>
-            <div className={style.profile_right_friends_friend_card}>
-              <div className={style.profile_right_friends_friend_card_img}>
-                <img
-                  className={style.profile_right_friends_friend_pic}
-                  src="https://www.elitesingles.co.uk/wp-content/uploads/sites/59/2019/11/2b_en_articleslide_sm2-350x264.jpg"
-                  alt=""
-                />
-              </div>
-              <p className={style.profile_right_friends_friend_card_username}>
-                Sadiq Ibrahimli
-              </p>
-            </div>
             <div className={style.profile_right_friends_friend_card}>
               <div className={style.profile_right_friends_friend_card_img}>
                 <img

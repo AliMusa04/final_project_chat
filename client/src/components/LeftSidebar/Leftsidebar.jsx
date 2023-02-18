@@ -130,7 +130,7 @@ const Leftsidebar = () => {
   return (
     <div className={style.left_side_section}>
       <div className={style.left_side_options_wrapper}>
-        <NavLink to={"/"}>
+        <NavLink to={"/home"}>
           <div className={style.left_side_option}>
             <div
               style={{ backgroundColor: `${home ? "blue" : "transparent"}` }}
@@ -148,7 +148,7 @@ const Leftsidebar = () => {
         </NavLink>
 
         <NavLink
-          to={"/profile"}
+          to={"/profile/63efa4249f29b2276a9b4cf7"}
           onClick={() => {
             profileFunc();
           }}>

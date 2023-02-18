@@ -33,6 +33,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  object-fit: cover;
 }
 .post_left_text_date {
   font-size: 12px;
@@ -50,6 +51,8 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .post_center_desc {

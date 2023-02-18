@@ -40,7 +40,7 @@ const Navbar = () => {
         className={style.navbar}>
         {/* NAVBAR LEFT */}
         <div className={style.navbar_left_part}>
-          <Link to={"/"} className={style.navbar_left_h1}>
+          <Link to={"/home"} className={style.navbar_left_h1}>
             codemedia
           </Link>
         </div>

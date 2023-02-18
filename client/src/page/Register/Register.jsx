@@ -36,7 +36,6 @@ const Register = () => {
           .post("http://localhost:8080/api/auth/register", values)
           .then(() => {
             toast.success("Account created !");
-            <Navigate to={"/login"} />;
           })
           .catch(() => {
             toast.error("Account already exist !");
