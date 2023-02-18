@@ -69,9 +69,9 @@ router.get("/getuser/:id", async (req, res) => {
 });
 
 //GET USER AUTHMIDDLE
-router.get("/:id", authMiddle, async (req, res) => {
+router.get("/getuser", authMiddle, async (req, res) => {
   try {
-    const user = await userModel.findOne({ _id: req.params.id });
+    const user = await userModel.findOne({ _id: req.body.id });
     res.status(200).send({
       message: "User info find succsessfuly ",
       success: true,
