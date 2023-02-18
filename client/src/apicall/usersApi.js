@@ -29,10 +29,10 @@ export const registerUser = async (payload) => {
 };
 
 // Get USER INFO
-export const getUserInfo = async () => {
+export const getUserInfo = async (id) => {
   try {
-    const response = await axiosInstance.post(
-      `http://localhost:8080/api/users/getuser`
+    const response = await axiosInstance.get(
+      `http://localhost:8080/api/users/${id}`
     );
     return response.data;
   } catch (error) {

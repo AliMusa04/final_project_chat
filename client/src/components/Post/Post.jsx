@@ -53,7 +53,7 @@ const Post = ({ post }) => {
           <div className={style.post_top_left_img_div}>
             <img
               className={style.post_top_left_img}
-              src={post.userId.profilePic || "assets/NoProfImg.webp"}
+              src={post.userId.profilePic || "/assets/NoProfImg.webp"}
               alt=""
             />
           </div>

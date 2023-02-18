@@ -148,7 +148,7 @@ const Leftsidebar = () => {
         </NavLink>
 
         <NavLink
-          to={"/profile/63efa4249f29b2276a9b4cf7"}
+          to={"/profile/63efa182e33f44017ac06731"}
           onClick={() => {
             profileFunc();
           }}>

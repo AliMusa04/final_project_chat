@@ -218,20 +218,20 @@ const Navbar = () => {
         </div>
       </div>
       <div
-        class="offcanvas offcanvas-end w-60 p-3"
+        className="offcanvas offcanvas-end w-60 p-3"
         tabindex="-1"
         id="offcanvasRight"
         aria-labelledby="offcanvasRightLabel">
-        <div class="offcanvas-header">
+        <div className="offcanvas-header">
           {/* <h5 id="offcanvasRightLabel">Codemedia</h5> */}
           <h2 className={style.canvas_head}>Codemedia</h2>
           <button
             type="button"
-            class="btn-close text-reset"
+            className="btn-close text-reset"
             data-bs-dismiss="offcanvas"
             aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body">
+        <div className="offcanvas-body">
           <div className={style.offcanvas_body_content}>
             <div className={style.offcanvas_icons}>
               <div className={style.offcanvas_icons_text}>

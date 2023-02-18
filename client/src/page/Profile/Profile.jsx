@@ -17,7 +17,7 @@ const Profile = () => {
     axios
       .get(`http://localhost:8080/api/users/getuser/${params.id}`)
       .then((res) => setUser(res.data.data));
-  }, []);
+  }, [params.id]);
   return (
     <>
       <Navbar />
@@ -28,7 +28,7 @@ const Profile = () => {
             <div className={style.profile_page_cover_div}>
               <img
                 className={style.profile_page_cover}
-                src={user.coverPic || "assets/noCoverPic2.jpg"}
+                src={user.coverPic || "/assets/noCoverPic2.jpg"}
                 alt=""
               />
             </div>
@@ -36,7 +36,7 @@ const Profile = () => {
               <img
                 className={style.profile_page_pics_img}
                 src={
-                  user.profilePic ? user.profilePic : "assets/NoProfImg.webp"
+                  user.profilePic ? user.profilePic : "/assets/NoProfImg.webp"
                 }
                 alt=""
               />

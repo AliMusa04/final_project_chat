@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import style from "./login.module.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { loginUser } from "../../apicall/usersApi";
+import { getUserInfo, loginUser } from "../../apicall/usersApi";
 import { toast, Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
-import { message } from "antd";
+import { message, Spin } from "antd";
 import { SetUser } from "../../redux/slice/userSlice/userSlice";
+import { hideLoad, showLoad } from "../../redux/slice/loadingSlice/loadSlice";
 
 const Login = () => {
   const user = useSelector((state) => state.users.value);
+  const loading = useSelector((state) => state.loading.value);
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -28,17 +30,25 @@ const Login = () => {
         .required("Fill Email Address !"),
     }),
     onSubmit: async (values) => {
+      dispatch(showLoad(true));
       try {
+        console.log(loading);
         const response = await loginUser(values);
-        // console.log(response.data);
         if (response.success) {
+          console.log(loading);
+          dispatch(hideLoad());
           toast.success("User access succsesfully");
           localStorage.setItem("token", response.data);
+          dispatch(SetUser(response.user));
+          // getUserInfo(response.user._id);
+          console.log(response);
           window.location.href = "/home";
         } else {
+          dispatch(hideLoad());
           toast.error(response.message);
         }
       } catch (error) {
+        dispatch(hideLoad());
         toast.error(error.message);
       }
       formik.resetForm();
@@ -99,8 +109,11 @@ const Login = () => {
                       </div>
                     ) : null}
                   </div>
-                  <button type="submit" className={style.button_login}>
-                    Log in
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className={style.button_login}>
+                    {loading ? <Spin style={{ color: "white" }} /> : "Log in"}
                   </button>
                 </form>
 
