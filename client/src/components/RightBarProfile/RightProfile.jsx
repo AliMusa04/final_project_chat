@@ -68,11 +68,11 @@ const RightProfile = ({ user }) => {
           <div className={style.info_text}>
             <p className={style.info_text_p}>
               <span className={style.info_text_title}>City: </span>
-              {user.city ? user.city : "No Information"}
+              {user?.city ? user?.city : "No Information"}
             </p>
             <p className={style.info_text_p}>
               <span className={style.info_text_title}>From: </span>
-              {user.from ? user.from : "No Information"}
+              {user?.from ? user?.from : "No Information"}
             </p>
             <p className={style.info_text_p}>
               <span className={style.info_text_title}>Relationship: </span>

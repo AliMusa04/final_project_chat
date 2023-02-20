@@ -33,7 +33,7 @@ function App() {
           path="/register"
           element={!user ? <Register /> : <Navigate to={"/"} />}
         />
-        {user && <Route path="/profile/:id" element={<Profile />} />}
+        <Route path="/profile/:id" element={<Profile />} />
       </Routes>
     </BrowserRouter>
     // <Routes>

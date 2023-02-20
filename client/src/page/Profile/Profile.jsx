@@ -27,7 +27,7 @@ const Profile = () => {
             <div className={style.profile_page_cover_div}>
               <img
                 className={style.profile_page_cover}
-                src={user.coverPic || "/assets/noCoverPic2.jpg"}
+                src={user?.coverPic || "/assets/noCoverPic2.jpg"}
                 alt=""
               />
             </div>
@@ -35,18 +35,18 @@ const Profile = () => {
               <img
                 className={style.profile_page_pics_img}
                 src={
-                  user.profilePic ? user.profilePic : "/assets/NoProfImg.webp"
+                  user?.profilePic ? user?.profilePic : "/assets/NoProfImg.webp"
                 }
                 alt=""
               />
             </div>
             <div className={style.profile_page_username_desc}>
-              <h3>{user.username}</h3>
-              <p>{user.userDesc ? user.userDesc : "Write about yourself"}</p>
+              <h3>{user?.username}</h3>
+              <p>{user?.userDesc ? user?.userDesc : "Write about yourself"}</p>
             </div>
           </div>
           <div className={style.profile_page_right_bottom_section}>
-            <Mainsidebar username={user.username} />
+            <Mainsidebar username={user?.username} />
             <RightProfile user={user} />
           </div>
         </div>

@@ -12,13 +12,16 @@ const Mainsidebar = ({ username }) => {
 
   useEffect(() => {
     const getPost = async () => {
-      username
-        ? await axios
-            .get(`http://localhost:8080/api/posts/profile/${user.username}`)
-            .then((res) => setPosts(res.data))
-        : await axiosInstance
-            .get(`/posts/timeline`)
-            .then((res) => setPosts(res.data));
+      const res = username
+        ? await axios.get(
+            `http://localhost:8080/api/posts/profile/${user.username}`
+          )
+        : await axiosInstance.get(`/posts/timeline`);
+      setPosts(
+        res.data.sort((d1, d2) => {
+          return new Date(d2.createdAt) - new Date(d1.createdAt);
+        })
+      );
     };
     getPost();
   }, [username, user._id]);

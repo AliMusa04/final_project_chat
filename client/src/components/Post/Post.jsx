@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 import axiosInstance from "../../apicall";
 import { BASE_URL } from "../../consts";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Post = ({ post }) => {
   const user = useSelector((state) => state.users.value);
@@ -49,30 +50,36 @@ const Post = ({ post }) => {
   };
 
   const likeDislike = async () => {
+    setLikeCount(like ? likeCount - 1 : likeCount + 1);
+    setLike(!like);
     try {
       await axiosInstance.put(`${BASE_URL}/posts/like/${post._id}`);
     } catch (err) {
       console.log(err);
     }
-    setLikeCount(like ? likeCount - 1 : likeCount + 1);
-    setLike(!like);
   };
 
   useEffect(() => {
     setLike(post.likes.includes(user._id));
   }, [post.likes, user._id]);
 
+  // const deletePost = async (id) => {
+  //   await axiosInstance.delete(`${BASE_URL}/posts/${id}`);
+  //   window.location.reload;
+  // };
   return (
     <div className={style.post_parent_div}>
       <div className={style.post_top}>
         <div className={style.post_top_left}>
-          <div className={style.post_top_left_img_div}>
-            <img
-              className={style.post_top_left_img}
-              src={post.userId.profilePic || "/assets/NoProfImg.webp"}
-              alt=""
-            />
-          </div>
+          <Link to={`/profile/${post.userId._id}`}>
+            <div className={style.post_top_left_img_div}>
+              <img
+                className={style.post_top_left_img}
+                src={post.userId.profilePic || "/assets/NoProfImg.webp"}
+                alt=""
+              />
+            </div>
+          </Link>
           <div className={style.post_left_text}>
             <h5 className={style.post_left_text_user}>
               {post.userId.username}
@@ -84,6 +91,9 @@ const Post = ({ post }) => {
         </div>
         <div className={style.post_top_right}>
           <Button
+            style={{
+              display: post.userId._id === user._id ? "inline" : "none",
+            }}
             className={style.post_btn}
             id="fade-button"
             aria-controls={open ? "fade-menu" : undefined}
@@ -101,7 +111,12 @@ const Post = ({ post }) => {
             open={open}
             onClose={handleClose}
             TransitionComponent={Fade}>
-            <MenuItem onClick={handleClose} className={style.menu_item_post}>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                // deletePost(post._id);/
+              }}
+              className={style.menu_item_post}>
               Delete <RiDeleteBin5Line className={style.post_delete_btn} />
             </MenuItem>
           </Menu>
@@ -114,11 +129,7 @@ const Post = ({ post }) => {
           {/* <EmojiPicker onEmojiClick /> */}
         </div>
         <div className={style.post_center_img_div}>
-          <img
-            className={style.post_center_img}
-            src="https://th.bing.com/th/id/R.4b1ebbdf9a6a42f23de2678c80eb02df?rik=SEPvooeqfgw0kA&riu=http%3a%2f%2fimages.unsplash.com%2fphoto-1535713875002-d1d0cf377fde%3fcrop%3dentropy%26cs%3dtinysrgb%26fit%3dmax%26fm%3djpg%26ixid%3dMnwxMjA3fDB8MXxzZWFyY2h8NHx8bWFsZSUyMHByb2ZpbGV8fDB8fHx8MTYyNTY2NzI4OQ%26ixlib%3drb-1.2.1%26q%3d80%26w%3d1080&ehk=Gww3MHYoEwaudln4mR6ssDjrAMbAvyoXYMsyKg5p0Ac%3d&risl=&pid=ImgRaw&r=0"
-            alt=""
-          />
+          <img className={style.post_center_img} src={post?.img} alt="" />
         </div>
       </div>
       <div className={style.post_bottom_wrapper}>
