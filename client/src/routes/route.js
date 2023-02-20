@@ -6,24 +6,24 @@ import Profile from "../page/Profile/Profile";
 import Register from "../page/Register/Register";
 import { SetUser } from "../redux/slice/userSlice/userSlice";
 
-export const route = [
-  {
-    path: "/",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/home",
-    element: <Home />,
-  },
-  {
-    path: "/profile/:id",
-    element: <Profile />,
-  },
-];
+// export const route = [
+//   {
+//     path: "/",
+//     element: <Login />,
+//   },
+//   {
+//     path: "/register",
+//     element: <Register />,
+//   },
+//   {
+//     path: "/home",
+//     element: <Home />,
+//   },
+//   {
+//     path: "/profile/:id",
+//     element: <Profile />,
+//   },
+// ];
 
 // const getUserData = async () => {
 //   try {

@@ -32,20 +32,16 @@ const Login = () => {
     onSubmit: async (values) => {
       dispatch(showLoad(true));
       try {
-        console.log(loading);
         const response = await loginUser(values);
         if (response.success) {
-          console.log(loading);
           dispatch(hideLoad());
-          toast.success("User access succsesfully");
-          await localStorage.setItem("token", response.data);
+          // toast.success("User access succsesfully");
+          localStorage.setItem("token", JSON.stringify(response.data));
           // if (localStorage.getItem("token")) {
           //   getUserInfo();
           // }
-          // dispatch(SetUser(response.user));
-          // getUserInfo(response.user._id);
-          console.log(response);
-          window.location.href = "/home";
+
+          window.location.href = "/";
         } else {
           dispatch(hideLoad());
           toast.error(response.message);

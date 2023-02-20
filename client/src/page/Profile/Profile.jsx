@@ -12,7 +12,6 @@ import style from "./profile.module.css";
 const Profile = () => {
   const [user, setUser] = useState([]);
   const params = useParams();
-  console.log(user);
   useEffect(() => {
     axios
       .get(`http://localhost:8080/api/users/getuser/${params.id}`)

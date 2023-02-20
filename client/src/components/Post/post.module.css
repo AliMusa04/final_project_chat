@@ -33,7 +33,6 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  object-fit: cover;
 }
 .post_left_text_date {
   font-size: 12px;
@@ -51,7 +50,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  object-fit: cover;
+  object-fit: cover !important;
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
@@ -67,6 +66,8 @@
   width: 100%;
   max-height: 500px;
   object-fit: cover;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 .post_delete_btn {
   margin-left: 5px;
@@ -158,6 +159,8 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }
 .post_bottom_comment_input {
   display: flex;

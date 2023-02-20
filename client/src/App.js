@@ -7,27 +7,52 @@ import Register from "./page/Register/Register";
 import style from "./components/RightSidebar/rightSide.module.css";
 import Home from "./page/Home/Home";
 import Profile from "./page/Profile/Profile";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { route } from "./routes/route";
 
-const router = createBrowserRouter(route);
+import { route } from "./routes/route";
+import { useSelector } from "react-redux";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+
+// const router = createBrowserRouter(route);
 function App() {
+  // const user = false;
+  const user = useSelector((state) => state.users.value);
+
   return (
-    <RouterProvider router={router} />
-    // <Home />
-    //* <Register /> */}
-    //* <Login /> */}
-    // <Profile />
-    // <>
-    //   <Navbar />
-    //   <div className={style.home_contanier}>
-    //     <Leftsidebar />
-    //     <div className={style.home_contanier_mid}>
-    //       <Mainsidebar />
-    //     </div>
-    //     <Rightsidebar />
-    //   </div>
-    // </>
+    // <RouterProvider router={router} />
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={user ? <Home /> : <Navigate to={"/login"} />}
+        />
+        <Route
+          path="/login"
+          element={!user ? <Login /> : <Navigate to={"/"} />}
+        />
+        <Route
+          path="/register"
+          element={!user ? <Register /> : <Navigate to={"/"} />}
+        />
+        {user && <Route path="/profile/:id" element={<Profile />} />}
+      </Routes>
+    </BrowserRouter>
+    // <Routes>
+    //   {/* <Switch> */}
+    //   <Route exact path="/">
+    //     {user ? <Home /> : <Navigate to="/register" />}
+    //   </Route>
+    //   <Route path="/register">
+    //     {!user ? <Register /> : <Navigate to="/" />}
+    //   </Route>
+    //   <Route path="/login">{!user ? <Login /> : <Navigate to="/" />}</Route>
+
+    //   {user && (
+    //     <Route path="/profile/:id">
+    //       <Profile />
+    //     </Route>
+    //   )}
+    //   {/* </Switch> */}
+    // </Routes>
   );
 }
 

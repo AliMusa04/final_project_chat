@@ -17,33 +17,34 @@ const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const user = useSelector((state) => state.users.value);
-  console.log(user);
+  console.log(JSON.parse(localStorage.getItem("token")));
+  // const user = useSelector((state) => state.users.value);
+
   // const [dataVerify, setData] = useState([]);
   // console.log(dataVerify);
 
-  const getUserData = async () => {
-    try {
-      const response = await getUserInfo();
-      if (response.success) {
-        dispatch(SetUser(response.data));
-        // setData(response.data);
-      } else {
-        toast.error(response.message);
-      }
-    } catch (error) {
-      // navigate("/login");
-      toast.error(error.message);
-    }
-  };
+  // const getUserData = async () => {
+  //   try {
+  //     const response = await getUserInfo();
+  //     if (response.success) {
+  //       dispatch(SetUser(response.data));
+  //       // setData(response.data);
+  //     } else {
+  //       toast.error(response.message);
+  //     }
+  //   } catch (error) {
+  //     // navigate("/login");
+  //     toast.error(error.message);
+  //   }
+  // };
 
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      getUserData();
-    } else {
-      navigate("/login");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem("token")) {
+  //     getUserData();
+  //   } else {
+  //     navigate("/login");
+  //   }
+  // }, []);
 
   // useEffect(() => {
   //   const getUser = () => {};

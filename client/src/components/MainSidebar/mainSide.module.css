@@ -13,7 +13,12 @@
   flex-direction: column;
   align-items: center;
 }
-
+.noPost {
+  margin-top: 20px;
+  font-size: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 600;
+}
 .main_side_wrapper {
   width: 550px;
   /* padding: 30px; */

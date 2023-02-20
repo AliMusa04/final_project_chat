@@ -16,16 +16,26 @@ import EmojiPicker from "emoji-picker-react";
 
 import { Picker } from "emoji-mart";
 import { format } from "timeago.js";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { useEffect } from "react";
+import axiosInstance from "../../apicall";
 // import "emoji-mart/css/emoji-mart.css";
 
 const Post = ({ post }) => {
-  console.log(post);
+  const user = useSelector((state) => state.users.value);
+  // const token = useSelector((state) => state.users.value);
+  // console.log(token);
+
   const [comment, setCom] = useState("");
   const [show, setShow] = useState(false);
-  // console.log(comment);
+  // const [user, setUser] = useState({});
+
   const [like, setLike] = useState(false);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -34,7 +44,7 @@ const Post = ({ post }) => {
   };
 
   const funcLikeUnlike = () => {
-    setLike(!like);
+    return setLike(post.likes.includes(user?._id));
   };
 
   const emojiShowHideFunc = () => {
@@ -45,6 +55,24 @@ const Post = ({ post }) => {
     msg += e.emoji;
     console.log(e.unified);
     setCom(msg);
+  };
+  // console.log(post._id);
+  const likeFunc = async () => {
+    try {
+      await axios
+        .put(
+          `/posts/like/${post._id}`,
+          user._id
+          // {
+          //   headers: {
+          //     Authorization: `Bearer ${token} `,
+          //   },
+          // }
+        )
+        .then((res) => res.message);
+    } catch (err) {
+      return err.message;
+    }
   };
   return (
     <div className={style.post_parent_div}>
@@ -62,7 +90,7 @@ const Post = ({ post }) => {
               {post.userId.username}
             </h5>
             <p className={style.post_left_text_date}>
-              {format(post.createdAt)}
+              {format(post?.createdAt)}
             </p>
           </div>
         </div>
@@ -129,7 +157,9 @@ const Post = ({ post }) => {
         <div className={style.post_bottom_like_btn}>
           {/* LIKE BUTTON */}
           <div
-            onClick={funcLikeUnlike}
+            onClick={() => {
+              likeFunc();
+            }}
             className={style.post_bottom_like_btn_func}>
             <div className={style.post_bottom_like_btn_func_icons}>
               {like ? (
@@ -159,22 +189,11 @@ const Post = ({ post }) => {
         <div className={style.post_bottom_comment_section}>
           <div className={style.post_bottom_comments_wrapper}>
             {post.comments ? (
-              post.comments.map((com) => {
-                return com ? (
-                  <div key={com._id} className={style.post_bottom_comment}>
-                    <p className={style.user_comment}>{com?.descCom}</p>
-                  </div>
-                ) : (
-                  <div className={style.no_comment_div}>
-                    <p className={style.no_comment_div_p}>No comment yet !</p>
-                  </div>
-                );
-                // : (
-                //   <div className={style.no_comment_div}>
-                //     <p className={style.no_comment_div_p}>No comment yet !</p>
-                //   </div>
-                // );
-              })
+              post.comments.map((com) => (
+                <div key={com._id} className={style.post_bottom_comment}>
+                  <p className={style.user_comment}>{com?.descCom}</p>
+                </div>
+              ))
             ) : (
               <div className={style.no_comment_div}>
                 <p className={style.no_comment_div_p}>No comment yet !</p>
@@ -185,7 +204,9 @@ const Post = ({ post }) => {
             <div className={style.post_bottom_comment_profPic_div}>
               <img
                 className={style.post_bottom_comment_img}
-                src="https://th.bing.com/th/id/R.4b1ebbdf9a6a42f23de2678c80eb02df?rik=SEPvooeqfgw0kA&riu=http%3a%2f%2fimages.unsplash.com%2fphoto-1535713875002-d1d0cf377fde%3fcrop%3dentropy%26cs%3dtinysrgb%26fit%3dmax%26fm%3djpg%26ixid%3dMnwxMjA3fDB8MXxzZWFyY2h8NHx8bWFsZSUyMHByb2ZpbGV8fDB8fHx8MTYyNTY2NzI4OQ%26ixlib%3drb-1.2.1%26q%3d80%26w%3d1080&ehk=Gww3MHYoEwaudln4mR6ssDjrAMbAvyoXYMsyKg5p0Ac%3d&risl=&pid=ImgRaw&r=0"
+                src={
+                  user.profilePic ? user?.profilePic : "/assets/NoProfImg.webp"
+                }
                 alt=""
               />
             </div>
