@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import style from "./login.module.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { getUserInfo, loginUser } from "../../apicall/usersApi";
+import { loginUser } from "../../apicall/usersApi";
 import { toast, Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
-import { message, Spin } from "antd";
+import { Spin } from "antd";
 import { SetUser } from "../../redux/slice/userSlice/userSlice";
 import { hideLoad, showLoad } from "../../redux/slice/loadingSlice/loadSlice";
 
@@ -42,6 +42,7 @@ const Login = () => {
           // }
 
           window.location.href = "/";
+          formik.resetForm();
         } else {
           dispatch(hideLoad());
           toast.error(response.message);
@@ -50,7 +51,6 @@ const Login = () => {
         dispatch(hideLoad());
         toast.error(error.message);
       }
-      formik.resetForm();
     },
   });
   return (

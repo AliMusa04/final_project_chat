@@ -21,7 +21,7 @@ import { SetUser } from "../../redux/slice/userSlice/userSlice";
 
 const Navbar = () => {
   const user = useSelector((state) => state.users.value);
-  console.log(user);
+
   const [open, setOpen] = useState(false);
   const [account, setAccount] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -33,16 +33,15 @@ const Navbar = () => {
       const response = await getUserInfo();
       if (response.success) {
         dispatch(SetUser(response.data));
-        // setData(response.data);
       } else {
         toast.error(response.message);
       }
     } catch (error) {
-      // navigate("/login");
       toast.error(error.message);
     }
   };
 
+  const [searchInp, setSearch] = useState("");
   useEffect(() => {
     if (localStorage.getItem("token")) {
       getUserData();
@@ -50,6 +49,7 @@ const Navbar = () => {
       navigate("/login");
     }
   }, []);
+
   const toggle = () => {
     setAccount(!account);
   };
@@ -69,7 +69,7 @@ const Navbar = () => {
         className={style.navbar}>
         {/* NAVBAR LEFT */}
         <div className={style.navbar_left_part}>
-          <Link to={"/home"} className={style.navbar_left_h1}>
+          <Link to={"/"} className={style.navbar_left_h1}>
             codemedia
           </Link>
         </div>
@@ -89,6 +89,7 @@ const Navbar = () => {
                 placeholder="Search for friends"
                 type="text"
                 className={style.navbar_middle_search_input}
+                onChange={(e) => setSearch(e.target.value)}
               />
               <BsSearch className={style.search_icon} />
             </div>
@@ -103,7 +104,15 @@ const Navbar = () => {
                   className={
                     style.navbar_middle_search_input_bottom_results_text
                   }>
-                  <p className={style.results_text}>No search anymore</p>
+                  {searchInp ? (
+                    <div className={style.searchInp_friends_wrapper}>
+                      <div className={style.searchInp_friends}>
+                        <p>Friends</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className={style.results_text}>No search anymore</p>
+                  )}
                   <FaRegWindowClose
                     onClick={() => {
                       closeFunc();

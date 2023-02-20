@@ -139,7 +139,6 @@ const Leftsidebar = () => {
             <div
               onClick={() => {
                 homeFunc();
-                console.log("salam");
               }}
               className={style.left_side_option_icon_text}>
               <AiFillHome className={`${style.option_icon} `} />

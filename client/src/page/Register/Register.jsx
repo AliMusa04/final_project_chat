@@ -145,9 +145,6 @@ const Register = () => {
                   </button>
                 </form>
 
-                {/* <a href="#" className={style.forget_link}>
-                  Forgotten password?
-                </a> */}
                 <hr />
                 <Link to={"/"}>
                   <button

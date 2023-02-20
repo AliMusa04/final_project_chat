@@ -14,25 +14,20 @@ import { BsEmojiSmile } from "react-icons/bs";
 import { MdSend } from "react-icons/md";
 import EmojiPicker from "emoji-picker-react";
 
-import { Picker } from "emoji-mart";
 import { format } from "timeago.js";
 import { useSelector } from "react-redux";
-import axios from "axios";
-import { useEffect } from "react";
 import axiosInstance from "../../apicall";
-// import "emoji-mart/css/emoji-mart.css";
+import { BASE_URL } from "../../consts";
+import { useEffect } from "react";
 
 const Post = ({ post }) => {
   const user = useSelector((state) => state.users.value);
-  // const token = useSelector((state) => state.users.value);
-  // console.log(token);
 
   const [comment, setCom] = useState("");
   const [show, setShow] = useState(false);
-  // const [user, setUser] = useState({});
 
   const [like, setLike] = useState(false);
-
+  const [likeCount, setLikeCount] = useState(post.likes.length);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -41,10 +36,6 @@ const Post = ({ post }) => {
   };
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const funcLikeUnlike = () => {
-    return setLike(post.likes.includes(user?._id));
   };
 
   const emojiShowHideFunc = () => {
@@ -56,24 +47,21 @@ const Post = ({ post }) => {
     console.log(e.unified);
     setCom(msg);
   };
-  // console.log(post._id);
-  const likeFunc = async () => {
+
+  const likeDislike = async () => {
     try {
-      await axios
-        .put(
-          `/posts/like/${post._id}`,
-          user._id
-          // {
-          //   headers: {
-          //     Authorization: `Bearer ${token} `,
-          //   },
-          // }
-        )
-        .then((res) => res.message);
+      await axiosInstance.put(`${BASE_URL}/posts/like/${post._id}`);
     } catch (err) {
-      return err.message;
+      console.log(err);
     }
+    setLikeCount(like ? likeCount - 1 : likeCount + 1);
+    setLike(!like);
   };
+
+  useEffect(() => {
+    setLike(post.likes.includes(user._id));
+  }, [post.likes, user._id]);
+
   return (
     <div className={style.post_parent_div}>
       <div className={style.post_top}>
@@ -145,7 +133,7 @@ const Post = ({ post }) => {
               />
             </div>
             <p className={style.post_like_text}>
-              <span>{post.likes.length}</span> people liked it
+              <span>{likeCount}</span> people liked it
             </p>
           </div>
           <div className={style.post_bottom_comment}>
@@ -158,7 +146,7 @@ const Post = ({ post }) => {
           {/* LIKE BUTTON */}
           <div
             onClick={() => {
-              likeFunc();
+              likeDislike();
             }}
             className={style.post_bottom_like_btn_func}>
             <div className={style.post_bottom_like_btn_func_icons}>

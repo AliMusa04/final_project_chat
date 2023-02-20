@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import style from "./rightSide.module.css";
 // import InputEmoji from "react-input-emoji";
 
 const Rightsidebar = () => {
+  const user = useSelector((state) => state.users.value);
   return (
     <div className={style.right_side_section}>
       <div className={style.right_side_wrapper}>
@@ -48,66 +50,6 @@ const Rightsidebar = () => {
             <h3 className={style.right_side_friends_title_h3}>Friends</h3>
           </div>
           <div className={style.right_side_friends_wrapper}>
-            <div className={style.right_side_friends_prof}>
-              <div className={style.right_side_friends_prof_pic_div}>
-                <img
-                  className={style.right_side_friends_prof_img}
-                  src="https://th.bing.com/th/id/R.c236f52cfbe7eeb72632631679c50409?rik=pYriBBpJIibYpQ&pid=ImgRaw&r=0"
-                  alt=""
-                />
-              </div>
-              <div className={style.right_side_friends_username_div}>
-                <h5 className={style.right_side_friends_username}>
-                  Sadiq Ibrahimli
-                </h5>
-              </div>
-            </div>
-
-            <div className={style.right_side_friends_prof}>
-              <div className={style.right_side_friends_prof_pic_div}>
-                <img
-                  className={style.right_side_friends_prof_img}
-                  src="https://th.bing.com/th/id/R.c236f52cfbe7eeb72632631679c50409?rik=pYriBBpJIibYpQ&pid=ImgRaw&r=0"
-                  alt=""
-                />
-              </div>
-              <div className={style.right_side_friends_username_div}>
-                <h5 className={style.right_side_friends_username}>
-                  Sadiq Ibrahimli
-                </h5>
-              </div>
-            </div>
-
-            <div className={style.right_side_friends_prof}>
-              <div className={style.right_side_friends_prof_pic_div}>
-                <img
-                  className={style.right_side_friends_prof_img}
-                  src="https://th.bing.com/th/id/R.c236f52cfbe7eeb72632631679c50409?rik=pYriBBpJIibYpQ&pid=ImgRaw&r=0"
-                  alt=""
-                />
-              </div>
-              <div className={style.right_side_friends_username_div}>
-                <h5 className={style.right_side_friends_username}>
-                  Sadiq Ibrahimli
-                </h5>
-              </div>
-            </div>
-
-            <div className={style.right_side_friends_prof}>
-              <div className={style.right_side_friends_prof_pic_div}>
-                <img
-                  className={style.right_side_friends_prof_img}
-                  src="https://th.bing.com/th/id/R.c236f52cfbe7eeb72632631679c50409?rik=pYriBBpJIibYpQ&pid=ImgRaw&r=0"
-                  alt=""
-                />
-              </div>
-              <div className={style.right_side_friends_username_div}>
-                <h5 className={style.right_side_friends_username}>
-                  Sadiq Ibrahimli
-                </h5>
-              </div>
-            </div>
-
             <div className={style.right_side_friends_prof}>
               <div className={style.right_side_friends_prof_pic_div}>
                 <img

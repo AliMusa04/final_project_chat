@@ -1,27 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import style from "./home.module.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Leftsidebar from "../../components/LeftSidebar/Leftsidebar";
 import Mainsidebar from "../../components/MainSidebar/Mainsidebar";
 import Rightsidebar from "../../components/RightSidebar/Rightsidebar";
-import { useSelect } from "@mui/base";
-import { useDispatch, useSelector } from "react-redux";
-import { getUserInfo } from "../../apicall/usersApi";
-import { useState } from "react";
-import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { SetUser } from "../../redux/slice/userSlice/userSlice";
 // import style from "../../components/RightSidebar/rightSide.module.css";
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   console.log(JSON.parse(localStorage.getItem("token")));
   // const user = useSelector((state) => state.users.value);
-
-  // const [dataVerify, setData] = useState([]);
-  // console.log(dataVerify);
 
   // const getUserData = async () => {
   //   try {
@@ -37,14 +24,6 @@ const Home = () => {
   //     toast.error(error.message);
   //   }
   // };
-
-  // useEffect(() => {
-  //   if (localStorage.getItem("token")) {
-  //     getUserData();
-  //   } else {
-  //     navigate("/login");
-  //   }
-  // }, []);
 
   // useEffect(() => {
   //   const getUser = () => {};

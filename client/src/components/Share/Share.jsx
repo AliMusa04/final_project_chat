@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 const Share = () => {
   const user = useSelector((state) => state.users.value);
+
   return (
     <div className={style.share_wrapper}>
       <div className={style.share_wrapper_top}>
@@ -21,17 +22,23 @@ const Share = () => {
           <input
             className={style.share_top_input}
             type="text"
-            placeholder="What's in your mind ?"
+            placeholder={`What's in your mind ${user.username} ?`}
           />
         </div>
       </div>
       <div className={style.share_wrapper_icons}>
         <div className={style.icons_wrapper}>
           {/* PHOTO VIDEO */}
-          <div className={style.share_icon}>
+          <label htmlFor="file" className={style.share_icon}>
             <FaPhotoVideo style={{ color: "red" }} className={style.icon} />
             <p className={style.share_text}>Photo/video</p>
-          </div>
+            <input
+              style={{ display: "none" }}
+              type="file"
+              id="file"
+              accept=".jpg,.jpeg"
+            />
+          </label>
           {/* LOCATION */}
           <div className={style.share_icon}>
             <HiLocationMarker
