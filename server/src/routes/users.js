@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 const authMiddle = require("../middleware/authMiddle");
 
 //UPDATE USER PROPETY
-//:id
 router.put("/:id", authMiddle, async (req, res) => {
   if (req.body.id === req.params.id || req.body.isAdmin) {
     if (req.body.password) {
@@ -55,9 +54,9 @@ router.get("/", async (req, res) => {
 });
 
 //GET USER
-router.get("/getuser/:id", async (req, res) => {
+router.get("/getuser/:username", async (req, res) => {
   try {
-    const user = await userModel.findOne({ _id: req.params.id });
+    const user = await userModel.findOne({ username: req.params.username });
     res.status(200).send({
       message: "User info find succsessfuly ",
       success: true,

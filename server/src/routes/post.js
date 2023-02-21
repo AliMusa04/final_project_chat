@@ -20,32 +20,32 @@ router.post("/", authMiddle, async (req, res) => {
 });
 
 //UPDATE FOR POST
-router.put("/:id", authMiddle, async (req, res) => {
-  try {
-    const newPost = await PostModel.findById({ _id: req.params.id });
-    if (newPost.userId === req.body.id) {
-      await newPost.updateOne({ $set: req.body });
-      res.status(200).send("Post updated succsefully");
-    } else {
-      res.status(403).send("You can't update other's post");
-    }
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});
+// router.put("/:id", authMiddle, async (req, res) => {
+//   try {
+//     const newPost = await PostModel.findById({ _id: req.params.id });
+//     if (newPost.userId === req.body.id) {
+//       await newPost.updateOne({ $set: req.body });
+//       res.status(200).send("Post updated succsefully");
+//     } else {
+//       res.status(403).send("You can't update other's post");
+//     }
+//   } catch (err) {
+//     res.status(500).send(err);
+//   }
+// });
 
 //DELETE POST
 router.delete("/:id", authMiddle, async (req, res) => {
   try {
-    const deletedPost = await PostModel.findById({ _id: req.params.id });
-    if (deletedPost.userId === req.body.id) {
-      await deletedPost.deleteOne();
-      res.status(200).send({ message: "This Post deleted", deletedPost });
+    const post = await PostModel.findById(req.params.id);
+    if (post.userId._id === req.body.id) {
+      await PostModel.deleteOne();
+      res.status(200).json("the post has been deleted");
     } else {
-      res.status(400).send("You can't delete  other's post ");
+      res.status(403).json("you can delete only your post");
     }
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).json(err);
   }
 });
 
@@ -94,7 +94,7 @@ router.get("/", async (req, res) => {
 });
 
 //GET FRIENDS AND YOURSELF POST
-router.get("/timeline", authMiddle, async (req, res) => {
+router.get("/timeline/:id", authMiddle, async (req, res) => {
   try {
     // if (req.body.id === req.params.id) {
     const adminUser = await UserModel.findOne({ _id: req.body.id });
@@ -115,7 +115,7 @@ router.get("/timeline", authMiddle, async (req, res) => {
   }
 });
 
-//ROUTER GET
+//ROUTER GET user post only
 router.get("/profile/:username", async (req, res) => {
   try {
     const user = await UserModel.findOne({ username: req.params.username });
@@ -125,6 +125,7 @@ router.get("/profile/:username", async (req, res) => {
     res.status(500).send(err.message);
   }
 });
+
 //COMMENT PUT API
 router.put("/comment/:id", authMiddle, async (req, res) => {
   try {
@@ -139,7 +140,7 @@ router.put("/comment/:id", authMiddle, async (req, res) => {
           },
         },
       });
-      res.status(200).send({ message: "Comment created" });
+      res.status(200).send({ message: "Comment created", descCom });
     } else {
       res.status(403).send("this post isn't exsits");
     }

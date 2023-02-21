@@ -8,10 +8,13 @@ const PORT = 8080;
 const routeUser = require("./src/routes/users");
 const routeAuth = require("./src/routes/auth");
 const postRoute = require("./src/routes/post");
+const connect = require("./src/database/connect");
+const PostModel = require("./src/models/PostModel");
 
 const app = express();
 mongoose.set("strictQuery", false);
-mongoose.connect(process.env.URL_MONGO).then(() => {
+
+connect().then(() => {
   console.log("Connected with DataBase");
 });
 
@@ -21,7 +24,19 @@ app.use(morgan("common"));
 app.use(cors());
 app.use(express.json());
 
-//ROUTES
+// UPLOAD IMG API
+// app.post("/api/upload", async (req, res) => {
+//   const newImg = await new PostModel({
+//     img: req.body,
+//   });
+//   try {
+//     await newImg.save();
+//     res.status(200).send({ message: "Img uploaded" });
+//   } catch (err) {
+//     res.status(500).send({ message: err.message });
+//   }
+// });
+// //ROUTES
 app.use("/api/users", routeUser);
 
 app.use("/api/auth", routeAuth);
