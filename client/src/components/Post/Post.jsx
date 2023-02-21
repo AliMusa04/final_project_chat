@@ -71,7 +71,7 @@ const Post = ({ post }) => {
     <div className={style.post_parent_div}>
       <div className={style.post_top}>
         <div className={style.post_top_left}>
-          <Link to={`/profile/${post.userId._id}`}>
+          <Link to={`/profile/${post.userId.username}`}>
             <div className={style.post_top_left_img_div}>
               <img
                 className={style.post_top_left_img}
@@ -189,7 +189,7 @@ const Post = ({ post }) => {
           <div className={style.post_bottom_comments_wrapper}>
             {post.comments ? (
               post.comments.map((com) => (
-                <div key={com._id} className={style.post_bottom_comment}>
+                <div key={com.commentId} className={style.post_bottom_comment}>
                   <p className={style.user_comment}>{com?.descCom}</p>
                 </div>
               ))

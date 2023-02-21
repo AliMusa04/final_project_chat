@@ -148,7 +148,7 @@ const Leftsidebar = () => {
         </NavLink>
 
         <NavLink
-          to={`/profile/${user?._id}`}
+          to={`/profile/${user.username}`}
           onClick={() => {
             profileFunc();
           }}>

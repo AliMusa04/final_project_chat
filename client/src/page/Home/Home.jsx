@@ -4,11 +4,13 @@ import Navbar from "../../components/Navbar/Navbar";
 import Leftsidebar from "../../components/LeftSidebar/Leftsidebar";
 import Mainsidebar from "../../components/MainSidebar/Mainsidebar";
 import Rightsidebar from "../../components/RightSidebar/Rightsidebar";
+import { useSelector } from "react-redux";
+import { Spin } from "antd";
 // import style from "../../components/RightSidebar/rightSide.module.css";
 
 const Home = () => {
-  console.log(JSON.parse(localStorage.getItem("token")));
-  // const user = useSelector((state) => state.users.value);
+  // console.log(JSON.parse(localStorage.getItem("token")));
+  const user = useSelector((state) => state.users.value);
 
   // const getUserData = async () => {
   //   try {
@@ -39,7 +41,7 @@ const Home = () => {
       <div className={style.home_contanier}>
         <Leftsidebar />
         <div className={style.home_contanier_mid}>
-          <Mainsidebar />
+          <Mainsidebar id={user._id} />
         </div>
         <Rightsidebar />
       </div>

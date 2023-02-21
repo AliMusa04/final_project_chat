@@ -4,12 +4,14 @@ export const userSlice = createSlice({
   name: "users",
   initialState: {
     value: JSON.parse(localStorage.getItem("token")) || null,
-    token: "",
+    post: [],
   },
   reducers: {
     SetUser: (state, action) => {
       return { ...state, value: action.payload };
-      // state.value = action.payload;
+    },
+    setPost: (state, action) => {
+      return { ...state, post: action.payload };
     },
   },
 });

@@ -9,29 +9,59 @@ import { useRef } from "react";
 import axiosInstance from "../../apicall";
 import { BASE_URL } from "../../consts";
 import { useEffect } from "react";
+import axios from "axios";
 
+const convertBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = () => {
+      resolve(fileReader.result);
+    };
+    fileReader.onerror = (err) => {
+      reject(err);
+    };
+  });
+};
 const Share = () => {
   const user = useSelector((state) => state.users.value);
   const descInp = useRef();
   const [file, setFile] = useState(null);
 
-  // const handleSubmit = async (e) => {
-  //   // if (e && e.preventDefault) {
-  //   //   e.preventDefault();
-  //   // }
+  const handleFileUpload = async (pic) => {
+    const file = pic;
+    const base64 = await convertBase64(file);
+    setFile(base64);
+  };
 
-  //   const newPost = {
-  //     userId: user._id,
-  //     desc: descInp.current.value,
-  //   };
+  // const createPostImg = async (newImage) => {
   //   try {
-  //     axiosInstance.post(`${BASE_URL}/posts`, newPost);
-  //     window.location.reload();
-  //   } catch (err) {}
+  //     await axios.post(`${BASE_URL}/upload`, newImage);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
   // };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newPost = {
+      userId: user._id,
+      desc: descInp.current.value,
+    };
+    if (file) {
+      newPost.img = file;
+      try {
+        console.log("Succsess");
+      } catch (err) {}
+    }
+    try {
+      await axiosInstance.post(`${BASE_URL}/posts`, newPost);
+      // window.location.reload();
+    } catch (err) {}
+  };
+
   // useEffect(() => {
   //   handleSubmit();
-  // }, []);
+  // }, [posts]);
   return (
     <div className={style.share_wrapper}>
       <div className={style.share_wrapper_top}>
@@ -51,7 +81,7 @@ const Share = () => {
           />
         </div>
       </div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className={style.share_wrapper_icons}>
           <div className={style.icons_wrapper}>
             {/* PHOTO VIDEO */}
@@ -62,7 +92,11 @@ const Share = () => {
                 style={{ display: "none" }}
                 type="file"
                 id="file"
-                accept=".jpg,.jpeg"
+                accept=".jpg, .jpeg, .png"
+                onChange={(e) =>
+                  // setFile(e.target.files[0])
+                  handleFileUpload(e.target.files[0])
+                }
               />
             </label>
             {/* LOCATION */}

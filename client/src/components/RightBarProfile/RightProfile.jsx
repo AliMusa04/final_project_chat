@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import style from "./rightProfile.module.css";
 import { BiEditAlt } from "react-icons/bi";
 import { Modal } from "antd";
+import { useSelector } from "react-redux";
 
 const RightProfile = ({ user }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,6 +15,7 @@ const RightProfile = ({ user }) => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+  const userAdmin = useSelector((state) => state.users.value);
   return (
     <>
       <div className={style.profile_right_cont}>
@@ -22,9 +24,13 @@ const RightProfile = ({ user }) => {
             <h3 className={style.profile_right_user_info_h3}>
               User information
             </h3>
-            <button onClick={showModal} className={style.edit_btn}>
-              Edit <BiEditAlt className={style.edit_icon} />
-            </button>
+            {userAdmin._id === user._id ? (
+              <button onClick={showModal} className={style.edit_btn}>
+                Edit <BiEditAlt className={style.edit_icon} />
+              </button>
+            ) : (
+              <p style={{ display: "none" }}>halo</p>
+            )}
           </div>
           <Modal
             width={400}
