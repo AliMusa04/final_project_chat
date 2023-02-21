@@ -52,9 +52,13 @@ router.post("/login", async (req, res) => {
         .status(404)
         .send({ success: false, message: "password is incorrect" });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_KEY, {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign(
+      { id: user._id, isAdmin: user.isAdmin },
+      process.env.JWT_KEY,
+      {
+        expiresIn: "1d",
+      }
+    );
     res
       .status(200)
       .send({ message: "User is loged in", success: true, data: token, user });

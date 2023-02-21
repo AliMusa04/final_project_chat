@@ -16,10 +16,10 @@ mongoose.connect(process.env.URL_MONGO).then(() => {
 });
 
 //MIDDLEWARE
-app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
 app.use(cors());
+app.use(express.json());
 
 //ROUTES
 app.use("/api/users", routeUser);

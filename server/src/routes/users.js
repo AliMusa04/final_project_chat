@@ -5,7 +5,7 @@ const authMiddle = require("../middleware/authMiddle");
 
 //UPDATE USER PROPETY
 //:id
-router.put("/:id", async (req, res) => {
+router.put("/:id", authMiddle, async (req, res) => {
   if (req.body.id === req.params.id || req.body.isAdmin) {
     if (req.body.password) {
       try {
@@ -31,18 +31,18 @@ router.put("/:id", async (req, res) => {
 
 //DELETE USER
 //:id
-router.delete("/:id", async (req, res) => {
-  if (req.body.id === req.params.id || req.body.isAdmin) {
-    try {
-      const user = await userModel.findByIdAndDelete({ _id: req.params.id });
-      res.status(200).send({ message: "Account deleted succesfully", user });
-    } catch (err) {
-      res.status(500).send(err);
-    }
-  } else {
-    return res.status(403).send({ message: "you can't delete other account" });
-  }
-});
+// router.delete("/:id", authMiddle, async (req, res) => {
+//   if (req.body.id === req.params.id || req.body.isAdmin) {
+//     try {
+//       const user = await userModel.findByIdAndDelete({ _id: req.params.id });
+//       res.status(200).send({ message: "Account deleted succesfully", user });
+//     } catch (err) {
+//       res.status(500).send(err);
+//     }
+//   } else {
+//     return res.status(403).send({ message: "you can't delete other account" });
+//   }
+// });
 
 //GET ALL USER
 router.get("/", async (req, res) => {
@@ -83,7 +83,7 @@ router.get("/getuser", authMiddle, async (req, res) => {
 });
 
 //FOLLOW USER
-router.put("/follow/:id", async (req, res) => {
+router.put("/follow/:id", authMiddle, async (req, res) => {
   if (req.body.id !== req.params.id) {
     try {
       const followtoUser = await userModel.findByIdAndUpdate({
@@ -109,7 +109,7 @@ router.put("/follow/:id", async (req, res) => {
 });
 
 //UNFOLLOW USER
-router.put("/unfollow/:id", async (req, res) => {
+router.put("/unfollow/:id", authMiddle, async (req, res) => {
   if (req.body.id !== req.params.id) {
     try {
       const followToUser = await userModel.findById({ _id: req.params.id });
