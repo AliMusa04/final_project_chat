@@ -20,11 +20,13 @@ import axiosInstance from "../../apicall";
 import { BASE_URL } from "../../consts";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const Post = ({ post }) => {
   const user = useSelector((state) => state.users.value);
 
   const [comment, setCom] = useState("");
+  console.log(comment);
   const [show, setShow] = useState(false);
 
   const [like, setLike] = useState(false);
@@ -35,6 +37,7 @@ const Post = ({ post }) => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -62,6 +65,25 @@ const Post = ({ post }) => {
   useEffect(() => {
     setLike(post.likes.includes(user._id));
   }, [post.likes, user._id]);
+
+  const postComment = async () => {
+    if (comment) {
+      try {
+        await axiosInstance.put(
+          `${BASE_URL}/posts/comment/${post._id}`,
+          comment
+        );
+        toast.success("Comment posted");
+      } catch (err) {
+        console.log(err.message);
+      }
+    } else {
+      toast.error("You have to write");
+    }
+  };
+  // useEffect(() => {
+  //   postComment();
+  // }, [post._id]);
 
   // const deletePost = async (id) => {
   //   await axiosInstance.delete(`${BASE_URL}/posts/${id}`);
@@ -233,7 +255,7 @@ const Post = ({ post }) => {
                   />
                 )}
               </div>
-              <button className={style.send_btn_comment}>
+              <button onClick={postComment} className={style.send_btn_comment}>
                 <MdSend className={style.comment_send_icon} />
               </button>
             </div>

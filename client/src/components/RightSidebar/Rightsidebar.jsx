@@ -1,10 +1,23 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { BASE_URL } from "../../consts";
 import style from "./rightSide.module.css";
 // import InputEmoji from "react-input-emoji";
 
 const Rightsidebar = () => {
   const user = useSelector((state) => state.users.value);
+  const [friends, setFriends] = useState([]);
+  const getFriends = async () => {
+    try {
+      const friendsUser = await axios.get(
+        `${BASE_URL}/users/friends/${user?._id}`
+      );
+      setFriends(friendsUser.data);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
   return (
     <div className={style.right_side_section}>
       <div className={style.right_side_wrapper}>

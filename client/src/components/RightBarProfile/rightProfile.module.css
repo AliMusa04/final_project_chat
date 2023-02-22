@@ -71,3 +71,74 @@ h3 {
   display: flex;
   flex-direction: column;
 }
+.righbar_profile_wrapper {
+  display: flex;
+}
+.follow_btn {
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: #1566d7;
+  color: white;
+  font-weight: 600;
+  padding: 5px 15px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+  transition: 0.3s;
+}
+.follow_btn:hover {
+  border-color: blue;
+  background-color: transparent;
+  color: blue;
+}
+.follow_btn_icon {
+  margin-left: 5px;
+  font-size: 15px;
+}
+.unFollow_btn {
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: green;
+  color: white;
+  font-weight: 600;
+  padding: 5px 15px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+  transition: 0.3s;
+}
+.unFollow_btn:hover {
+  border-color: green;
+  background-color: transparent;
+  color: green;
+}
+.unFollow_btn_icon {
+  margin-left: 5px;
+  font-size: 15px;
+}
+.coverPhotoWrap {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(128, 128, 128, 0.2);
+  padding: 10px;
+  align-items: center;
+  font-size: 16px;
+  border-radius: 10px;
+}
+.photoDelete {
+  font-size: 22px;
+  color: rgb(255, 0, 0);
+  cursor: pointer;
+}
+.photo_icon_back {
+  background-color: white;
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}

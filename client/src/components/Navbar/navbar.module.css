@@ -9,8 +9,9 @@
   z-index: 999;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
-/* .navbar_left_part {
-} */
+.navbar_left_part {
+  flex: 2;
+}
 .navbar_left_h1 {
   font-size: 30px;
   font-weight: bold;
@@ -24,12 +25,14 @@
 }
 
 .navbar_middle_part {
+  flex: 5.5;
   width: 500px;
   position: relative;
   display: flex;
   align-items: center;
 }
 .navbar_middle_search_div {
+  padding-left: 10px;
   width: 500px;
   display: flex;
   align-items: center;
@@ -116,6 +119,7 @@
   border-radius: 50%;
 }
 .navbar_right_part_icons {
+  flex: 3.5;
   display: flex;
   gap: 10px;
 }

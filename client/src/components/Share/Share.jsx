@@ -31,14 +31,15 @@ const Share = () => {
   const [file, setFile] = useState(null);
   const dispatch = useDispatch();
   const [testFile, setTestfile] = useState(null);
+
   const handleFileUpload = async (pic) => {
     const file = pic;
     setTestfile(file);
     const base64 = await convertBase64(file);
     setFile(base64);
   };
+
   const newPost = useSelector((state) => state.users.post);
-  console.log(newPost);
   // const createPostImg = async (newImage) => {
   //   try {
   //     await axios.post(`${BASE_URL}/upload`, newImage);
@@ -60,7 +61,8 @@ const Share = () => {
     }
     try {
       await axiosInstance.post(`${BASE_URL}/posts`, newPost);
-      dispatch(setPost(newPost));
+      // dispatch(setPost(newPost));
+      window.location.reload();
     } catch (err) {}
   };
 

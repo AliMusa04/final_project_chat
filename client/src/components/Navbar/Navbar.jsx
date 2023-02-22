@@ -16,7 +16,7 @@ import styleMain from "../MainSidebar/mainSide.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../apicall/usersApi";
-import { toast } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import { SetUser } from "../../redux/slice/userSlice/userSlice";
 
 const Navbar = () => {
@@ -62,6 +62,7 @@ const Navbar = () => {
 
   return (
     <>
+      <Toaster position="top-right" reverseOrder={false} />
       <div
         onClick={() => {
           // closeFunc();
