@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./rightProfile.module.css";
 import { BiEditAlt } from "react-icons/bi";
 import { Modal } from "antd";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { BASE_URL } from "../../consts";
 
 const RightProfile = ({ user }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,6 +18,32 @@ const RightProfile = ({ user }) => {
     setIsModalOpen(false);
   };
   const userAdmin = useSelector((state) => state.users.value);
+  const [friends, setFriends] = useState([]);
+  console.log(friends);
+  // const getFriends = async () => {
+  //   try {
+  //     const friendsUser = await axios.get(
+  //       `${BASE_URL}/users/friends/${user._id}`
+  //     );
+  //     setFriends(friendsUser.data);
+  //   } catch (err) {
+  //     console.log(err.message);
+  //   }
+  // };
+  useEffect(() => {
+    const getFriends = async () => {
+      try {
+        const friendsUser = await axios.get(
+          `${BASE_URL}/users/friends/${user._id}`
+        );
+        setFriends(friendsUser.data);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+    getFriends();
+  }, [user._id]);
+
   return (
     <>
       <div className={style.profile_right_cont}>
@@ -95,11 +123,14 @@ const RightProfile = ({ user }) => {
 
         <div className={style.profile_right_user_friends_wrapper}>
           <div className={style.profile_right_friends}>
+            {/* {friends &&
+              friends?.map((friend) => {
+                return ( */}
             <div className={style.profile_right_friends_friend_card}>
               <div className={style.profile_right_friends_friend_card_img}>
                 <img
                   className={style.profile_right_friends_friend_pic}
-                  src="https://www.elitesingles.co.uk/wp-content/uploads/sites/59/2019/11/2b_en_articleslide_sm2-350x264.jpg"
+                  src={"/assets/NoProfImg.webp"}
                   alt=""
                 />
               </div>
@@ -107,6 +138,7 @@ const RightProfile = ({ user }) => {
                 Sadiq Ibrahimli
               </p>
             </div>
+            {/* // ); // })} */}
           </div>
         </div>
       </div>

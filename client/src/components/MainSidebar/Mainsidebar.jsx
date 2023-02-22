@@ -33,7 +33,7 @@ const Mainsidebar = ({ username, id }) => {
     };
     getPost();
     dispatch(hideLoad());
-  }, [username]);
+  }, [username, id]);
 
   return (
     // <div className={style.main_side_contanier}>

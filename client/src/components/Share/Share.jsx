@@ -3,13 +3,15 @@ import style from "./share.module.css";
 import { FaPhotoVideo } from "react-icons/fa";
 import { FaRegLaugh } from "react-icons/fa";
 import { HiLocationMarker } from "react-icons/hi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useRef } from "react";
 import axiosInstance from "../../apicall";
 import { BASE_URL } from "../../consts";
 import { useEffect } from "react";
 import axios from "axios";
+import { setPost } from "../../redux/slice/userSlice/userSlice";
+import { MdDeleteForever } from "react-icons/md";
 
 const convertBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -27,13 +29,16 @@ const Share = () => {
   const user = useSelector((state) => state.users.value);
   const descInp = useRef();
   const [file, setFile] = useState(null);
-
+  const dispatch = useDispatch();
+  const [testFile, setTestfile] = useState(null);
   const handleFileUpload = async (pic) => {
     const file = pic;
+    setTestfile(file);
     const base64 = await convertBase64(file);
     setFile(base64);
   };
-
+  const newPost = useSelector((state) => state.users.post);
+  console.log(newPost);
   // const createPostImg = async (newImage) => {
   //   try {
   //     await axios.post(`${BASE_URL}/upload`, newImage);
@@ -55,13 +60,13 @@ const Share = () => {
     }
     try {
       await axiosInstance.post(`${BASE_URL}/posts`, newPost);
-      // window.location.reload();
+      dispatch(setPost(newPost));
     } catch (err) {}
   };
 
   // useEffect(() => {
   //   handleSubmit();
-  // }, [posts]);
+  // }, [newPost]);
   return (
     <div className={style.share_wrapper}>
       <div className={style.share_wrapper_top}>
@@ -81,6 +86,19 @@ const Share = () => {
           />
         </div>
       </div>
+      {testFile && (
+        <div className={style.testImgWrapper}>
+          <img
+            className={style.imgTest}
+            src={URL.createObjectURL(testFile)}
+            alt=""
+          />
+          <MdDeleteForever
+            className={style.testImgCancel}
+            onClick={() => setTestfile(null)}
+          />
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <div className={style.share_wrapper_icons}>
           <div className={style.icons_wrapper}>
@@ -93,10 +111,7 @@ const Share = () => {
                 type="file"
                 id="file"
                 accept=".jpg, .jpeg, .png"
-                onChange={(e) =>
-                  // setFile(e.target.files[0])
-                  handleFileUpload(e.target.files[0])
-                }
+                onChange={(e) => handleFileUpload(e.target.files[0])}
               />
             </label>
             {/* LOCATION */}
