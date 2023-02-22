@@ -22,7 +22,7 @@ connect().then(() => {
 app.use(helmet());
 app.use(morgan("common"));
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "25mb" }));
 
 // UPLOAD IMG API
 // app.post("/api/upload", async (req, res) => {

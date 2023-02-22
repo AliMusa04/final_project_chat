@@ -2,6 +2,7 @@ const router = require("express").Router();
 const userModel = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 const authMiddle = require("../middleware/authMiddle");
+const UserModel = require("../models/UserModel");
 
 //UPDATE USER PROPETY
 router.put("/:id", authMiddle, async (req, res) => {
@@ -80,6 +81,44 @@ router.get("/getuser", authMiddle, async (req, res) => {
     res.status(500).send({ message: err.message, data: err, success: false });
   }
 });
+
+router.get("/friends/:id", async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.params.id);
+    const userFriends = await Promise.all(
+      user.following.map((friendId) => {
+        return UserModel.findById(friendId);
+      })
+    );
+    let friendsAll = [];
+    userFriends.map((friend) => {
+      const { _id, profilePic, username } = friend;
+      friendsAll.push({ _id, profilePic, username });
+    });
+    res.status(200).send(friendsAll);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
+//get friends
+// router.get("/friends/:userId", async (req, res) => {
+//   try {
+//     const user = await User.findById(req.params.userId);
+//     const friends = await Promise.all(
+//       user.followings.map((friendId) => {
+//         return User.findById(friendId);
+//       })
+//     );
+//     let friendList = [];
+//     friends.map((friend) => {
+//       const { _id, username, profilePicture } = friend;
+//       friendList.push({ _id, username, profilePicture });
+//     });
+//     res.status(200).json(friendList)
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 //FOLLOW USER
 router.put("/follow/:id", authMiddle, async (req, res) => {

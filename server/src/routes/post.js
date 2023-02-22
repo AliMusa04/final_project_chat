@@ -115,7 +115,7 @@ router.get("/timeline/:id", authMiddle, async (req, res) => {
   }
 });
 
-//ROUTER GET user post only
+//ROUTER GET user posts only
 router.get("/profile/:username", async (req, res) => {
   try {
     const user = await UserModel.findOne({ username: req.params.username });
@@ -145,7 +145,7 @@ router.put("/comment/:id", authMiddle, async (req, res) => {
       res.status(403).send("this post isn't exsits");
     }
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).send(err.message);
   }
 });
 
