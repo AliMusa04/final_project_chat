@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import style from "./navbar.module.css";
 import { BsMessenger } from "react-icons/bs";
 import { MdNotificationsActive } from "react-icons/md";
@@ -18,6 +18,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../apicall/usersApi";
 import { toast, Toaster } from "react-hot-toast";
 import { SetUser } from "../../redux/slice/userSlice/userSlice";
+import axios from "axios";
+import { BASE_URL } from "../../consts";
 
 const Navbar = () => {
   const user = useSelector((state) => state.users.value);
@@ -40,8 +42,15 @@ const Navbar = () => {
       toast.error(error.message);
     }
   };
+  const [alluser, setAlluser] = useState([]);
+  useEffect(() => {
+    axios.get(`${BASE_URL}/users`).then((res) => {
+      setAlluser(res.data);
+    });
+  }, []);
 
   const [searchInp, setSearch] = useState("");
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       getUserData();
@@ -50,6 +59,7 @@ const Navbar = () => {
     }
   }, []);
 
+  const searchRef = useRef();
   const toggle = () => {
     setAccount(!account);
   };
@@ -87,6 +97,7 @@ const Navbar = () => {
                 onFocus={() => {
                   openFunc();
                 }}
+                ref={searchRef}
                 placeholder="Search for friends"
                 type="text"
                 className={style.navbar_middle_search_input}
@@ -105,15 +116,53 @@ const Navbar = () => {
                   className={
                     style.navbar_middle_search_input_bottom_results_text
                   }>
-                  {searchInp ? (
-                    <div className={style.searchInp_friends_wrapper}>
-                      <div className={style.searchInp_friends}>
-                        <p>Friends</p>
-                      </div>
-                    </div>
-                  ) : (
-                    <p className={style.results_text}>No search anymore</p>
-                  )}
+                  <div className={style.searchInp_friends_wrapper}>
+                    {searchInp ? (
+                      alluser
+                        .filter((user) => {
+                          if (searchInp === "") {
+                            return user;
+                          } else if (
+                            user?.username
+                              .toLowerCase()
+                              .includes(searchInp.toLowerCase().trim())
+                          ) {
+                            return user;
+                          }
+                          // else {
+                          //   return <p>User not found</p>;
+                          // }
+                        })
+                        .map((user) => {
+                          return (
+                            <Link to={`/profile/${user.username}`}>
+                              <div
+                                onClick={closeFunc}
+                                key={user._id}
+                                className={style.searchInp_friends}>
+                                <div
+                                  className={style.searchInp_friends_img_div}>
+                                  <img
+                                    className={style.searchInp_friends_img}
+                                    src={
+                                      user?.profilePic
+                                        ? user?.profilePic
+                                        : "/assets/NoProfImg.webp"
+                                    }
+                                    alt=""
+                                  />
+                                </div>
+                                <p className={style.search_user_name}>
+                                  {user?.username}
+                                </p>
+                              </div>
+                            </Link>
+                          );
+                        })
+                    ) : (
+                      <p className={style.results_text}>No search yet</p>
+                    )}
+                  </div>
                   <FaRegWindowClose
                     onClick={() => {
                       closeFunc();

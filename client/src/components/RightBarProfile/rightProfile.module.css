@@ -70,6 +70,7 @@ h3 {
 .edit_cover_phot {
   display: flex;
   flex-direction: column;
+  margin-bottom: 5px;
 }
 .righbar_profile_wrapper {
   display: flex;
@@ -122,7 +123,7 @@ h3 {
   display: flex;
   justify-content: space-between;
   background-color: rgba(128, 128, 128, 0.2);
-  padding: 10px;
+  padding: 5px 10px;
   align-items: center;
   font-size: 16px;
   border-radius: 10px;
@@ -141,4 +142,36 @@ h3 {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+}
+.button_edit_submit {
+  display: flex;
+  justify-content: center;
+}
+.btn_update {
+  width: 100%;
+  margin-top: 10px;
+  padding: 3px;
+  outline: none;
+  border-color: transparent;
+  background-color: green;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+.btn_update:hover {
+  color: green;
+  background-color: transparent;
+  border-color: green;
+}
+.input_update {
+  padding: 4px 10px;
+  outline: none;
+}
+.title_update {
+  font-weight: 500;
+}
+.following_wrap {
+  margin-bottom: 20px;
 }

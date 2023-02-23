@@ -22,11 +22,10 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
-const Post = ({ post }) => {
+const Post = ({ post, deleteFunc }) => {
   const user = useSelector((state) => state.users.value);
 
   const [comment, setCom] = useState("");
-  console.log(comment);
   const [show, setShow] = useState(false);
 
   const [like, setLike] = useState(false);
@@ -81,14 +80,7 @@ const Post = ({ post }) => {
       toast.error("You have to write");
     }
   };
-  // useEffect(() => {
-  //   postComment();
-  // }, [post._id]);
 
-  // const deletePost = async (id) => {
-  //   await axiosInstance.delete(`${BASE_URL}/posts/${id}`);
-  //   window.location.reload;
-  // };
   return (
     <div className={style.post_parent_div}>
       <div className={style.post_top}>
@@ -136,6 +128,7 @@ const Post = ({ post }) => {
             <MenuItem
               onClick={() => {
                 handleClose();
+                deleteFunc(post._id);
                 // deletePost(post._id);/
               }}
               className={style.menu_item_post}>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import style from "./rightProfile.module.css";
 import { BiEditAlt } from "react-icons/bi";
 import { Modal, Select } from "antd";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../../consts";
 import { Link } from "react-router-dom";
@@ -13,6 +13,7 @@ import { toast } from "react-hot-toast";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { BsFillCameraFill } from "react-icons/bs";
 import { useRef } from "react";
+import { SetUser } from "../../redux/slice/userSlice/userSlice";
 
 const convertBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -27,7 +28,7 @@ const convertBase64 = (file) => {
   });
 };
 
-const RightProfile = ({ user }) => {
+const RightProfile = ({ user, submitFunc }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -42,6 +43,7 @@ const RightProfile = ({ user }) => {
 
   const userAdmin = useSelector((state) => state.users.value);
   const [friends, setFriends] = useState([]);
+
   // const getFriends = async () => {
 
   //   try {
@@ -78,17 +80,19 @@ const RightProfile = ({ user }) => {
   // }, []);
 
   useEffect(() => {
-    setIsFollow(userAdmin.following.includes(user._id));
+    setIsFollow(userAdmin?.following?.includes(user._id));
   }, [userAdmin, user._id]);
 
   const getFriends = async () => {
     try {
-      const friendsUser = await axios.get(
-        `${BASE_URL}/users/friends/${user?._id}`
-      );
-      setFriends(friendsUser.data);
+      if (user._id) {
+        const friendsUser = await axios.get(
+          `${BASE_URL}/users/friends/${user._id}`
+        );
+        setFriends(friendsUser.data);
+      }
     } catch (err) {
-      console.log(err.message);
+      console.log({ message: err.message });
     }
   };
 
@@ -110,37 +114,76 @@ const RightProfile = ({ user }) => {
 
   const [profFile, setprofFile] = useState("");
   const [coverFile, setcoverFile] = useState("");
-  // const [cityInp, setcityInp] = useState("");
-  // const [fromInp, setfromInp] = useState("");
-  // const [relationInp, setrelationInp] = useState("");
-  // const [descInp, setDesc] = useState("");
+  const [relationInp, setrelationInp] = useState("");
+  const dispatch = useDispatch();
   const cityRef = useRef();
   const fromRef = useRef();
-  const relationRef = useRef();
+  // const relationRef = useRef();
   const descRef = useRef();
 
   const handleChange = (value) => {
-    // setrelationInp(value.value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
+    setrelationInp(value.value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const newPost = {
-  //     userDesc: descInp,
-  //     city: descInp.current.value,
-  //   };
-  //   if (file) {
-  //     newPost.img = file;
-  //     try {
-  //       console.log("Succsess");
-  //     } catch (err) {}
-  //   }
-  //   try {
-  //     await axiosInstance.post(`${BASE_URL}/posts`, newPost);
-  //     // dispatch(setPost(newPost));
-  //     window.location.reload();
-  //   } catch (err) {}
-  // };
+  const handleSubmit = async (e) => {
+    e?.preventDefault();
+
+    const newPost = {};
+    if (coverFile) {
+      newPost.coverPic = coverFile;
+      try {
+        console.log("Succsess");
+      } catch (err) {}
+    } else if (profFile) {
+      newPost.profilePic = profFile;
+      try {
+        console.log("Succsess");
+      } catch (err) {}
+    } else if (descRef?.current?.value) {
+      newPost.userDesc = descRef.current.value;
+      try {
+        console.log("Succsess");
+      } catch (err) {}
+    } else if (cityRef?.current?.value) {
+      newPost.city = cityRef.current.value;
+      try {
+        console.log("Succsess");
+      } catch (err) {}
+    } else if (fromRef?.current?.value) {
+      newPost.from = fromRef.current.value;
+      try {
+        console.log("Succsess");
+      } catch (err) {}
+    } else if (relationInp) {
+      newPost.reltionship = relationInp;
+      try {
+        console.log("Succsess");
+      } catch (err) {
+        // toast.error("Already updated");
+      }
+    }
+    try {
+      if (newPost) {
+        await axiosInstance
+          .put(`${BASE_URL}/users/${userAdmin._id}`, newPost)
+          .then(() => {
+            // toast.success("Updated");
+            // toast.success("update");
+            console.log("slaam");
+          });
+      } else if (!newPost) {
+        // toast.error("No update");
+      }
+      // dispatch(setPost(newPost));
+      // window.location.reload();
+    } catch (err) {
+      console.log({ message: err.message });
+    }
+  };
+
+  useEffect(() => {
+    handleSubmit();
+  }, [userAdmin._id]);
 
   return (
     <>
@@ -177,9 +220,9 @@ const RightProfile = ({ user }) => {
             open={isModalOpen}
             onOk={handleOk}
             onCancel={handleCancel}>
-            <form>
+            <form onSubmit={handleSubmit} action="#">
               <div className={style.edit_cover_phot}>
-                <label>For cover photo </label>
+                <label className={style.title_update}>For cover photo </label>
                 <label htmlFor="cover" className={style.coverPhotoWrap}>
                   <div className={style.photo_icon_back}>
                     <BsFillCameraFill />
@@ -203,7 +246,7 @@ const RightProfile = ({ user }) => {
                 </label>
               </div>
               <div className={style.edit_cover_phot}>
-                <label>For profile photo </label>
+                <label className={style.title_update}>For profile photo </label>
                 <label htmlFor="profile" className={style.coverPhotoWrap}>
                   <div className={style.photo_icon_back}>
                     <BsFillCameraFill />
@@ -227,10 +270,14 @@ const RightProfile = ({ user }) => {
                 </label>
               </div>
               <div className={style.edit_cover_phot}>
-                <label>For Desciription </label>
+                <label className={style.title_update}>For Desciription </label>
                 <input
+                  className={style.input_update}
                   ref={descRef}
-                  placeholder="123456"
+                  placeholder={`${
+                    userAdmin.userDesc ? userAdmin.userDesc : "No information"
+                  }`}
+                  // value={`${userAdmin?.userDesc}`}
                   // onChange={(e) => {
                   //   setDesc(e.target.value);
                   // }}
@@ -238,21 +285,34 @@ const RightProfile = ({ user }) => {
                 />
               </div>
               <div className={style.edit_cover_phot}>
-                <label>For City </label>
-                <input ref={cityRef} type={"text"} />
+                <label className={style.title_update}>For City </label>
+                <input
+                  className={style.input_update}
+                  placeholder={`${
+                    userAdmin.city ? userAdmin.city : "No information"
+                  }`}
+                  ref={cityRef}
+                  type={"text"}
+                />
               </div>
               <div className={style.edit_cover_phot}>
-                <label>For From </label>
-                <input ref={fromRef} type={"text"} />
+                <label className={style.title_update}>For From </label>
+                <input
+                  className={style.input_update}
+                  placeholder={`${
+                    userAdmin.from ? userAdmin.from : "No information"
+                  }`}
+                  ref={fromRef}
+                  type={"text"}
+                />
               </div>
               <div className={style.edit_cover_phot}>
-                <label>Choose Relationship </label>
+                <label className={style.title_update}>
+                  Choose Relationship{" "}
+                </label>
                 <Select
-                  ref={relationRef}
                   labelInValue
-                  defaultValue={{
-                    label: "Choose",
-                  }}
+                  defaultValue={"Choose"}
                   style={{
                     width: "100%",
                   }}
@@ -289,7 +349,9 @@ const RightProfile = ({ user }) => {
               </select> */}
               </div>
               <div className={style.button_edit_submit}>
-                <button type="submit">Submit</button>
+                <button type="submit" className={style.btn_update}>
+                  Submit
+                </button>
               </div>
             </form>
           </Modal>
@@ -316,40 +378,86 @@ const RightProfile = ({ user }) => {
         </div>
 
         <div className={style.profile_right_user_friends_wrapper}>
-          <h4>Friends</h4>
-          <div className={style.profile_right_friends}>
-            {friends ? (
-              friends.map((friend) => {
-                return (
-                  <Link to={`/profile/${friend.username}`}>
-                    <div
-                      key={friend._id}
-                      className={style.profile_right_friends_friend_card}>
+          <div className={style.following_wrap}>
+            <h4>Following</h4>
+            <div className={style.profile_right_friends}>
+              {friends ? (
+                friends.map((friend) => {
+                  return (
+                    <Link to={`/profile/${friend.username}`}>
                       <div
-                        className={style.profile_right_friends_friend_card_img}>
-                        <img
-                          className={style.profile_right_friends_friend_pic}
-                          src={
-                            friend?.profilePic
-                              ? friend?.profilePic
-                              : "/assets/NoProfImg.webp"
-                          }
-                          alt=""
-                        />
+                        key={friend._id}
+                        className={style.profile_right_friends_friend_card}>
+                        <div
+                          key={friend._id}
+                          className={
+                            style.profile_right_friends_friend_card_img
+                          }>
+                          <img
+                            className={style.profile_right_friends_friend_pic}
+                            src={
+                              friend?.profilePic
+                                ? friend?.profilePic
+                                : "/assets/NoProfImg.webp"
+                            }
+                            alt=""
+                          />
+                        </div>
+                        <p
+                          className={
+                            style.profile_right_friends_friend_card_username
+                          }>
+                          {friend?.username}
+                        </p>
                       </div>
-                      <p
-                        className={
-                          style.profile_right_friends_friend_card_username
-                        }>
-                        {friend?.username}
-                      </p>
-                    </div>
-                  </Link>
-                );
-              })
-            ) : (
-              <h2>No friends yet</h2>
-            )}
+                    </Link>
+                  );
+                })
+              ) : (
+                <h2>No friends yet</h2>
+              )}
+            </div>
+          </div>
+
+          <div className={style.following_wrap}>
+            <h4>Follower</h4>
+            <div className={style.profile_right_friends}>
+              {friends ? (
+                friends.map((friend) => {
+                  return (
+                    <Link to={`/profile/${friend.username}`}>
+                      <div
+                        key={friend._id}
+                        className={style.profile_right_friends_friend_card}>
+                        <div
+                          key={friend._id}
+                          className={
+                            style.profile_right_friends_friend_card_img
+                          }>
+                          <img
+                            className={style.profile_right_friends_friend_pic}
+                            src={
+                              friend?.profilePic
+                                ? friend?.profilePic
+                                : "/assets/NoProfImg.webp"
+                            }
+                            alt=""
+                          />
+                        </div>
+                        <p
+                          className={
+                            style.profile_right_friends_friend_card_username
+                          }>
+                          {friend?.username}
+                        </p>
+                      </div>
+                    </Link>
+                  );
+                })
+              ) : (
+                <h2>No friends yet</h2>
+              )}
+            </div>
           </div>
         </div>
       </div>

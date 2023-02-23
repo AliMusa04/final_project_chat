@@ -25,12 +25,12 @@ const convertBase64 = (file) => {
     };
   });
 };
-const Share = () => {
+const Share = ({ submitPost }) => {
   const user = useSelector((state) => state.users.value);
   const descInp = useRef();
   const [file, setFile] = useState(null);
-  const dispatch = useDispatch();
   const [testFile, setTestfile] = useState(null);
+  const dispatch = useDispatch();
 
   const handleFileUpload = async (pic) => {
     const file = pic;
@@ -47,28 +47,25 @@ const Share = () => {
   //     console.log(err);
   //   }
   // };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const newPost = {
-      userId: user._id,
-      desc: descInp.current.value,
-    };
-    if (file) {
-      newPost.img = file;
-      try {
-        console.log("Succsess");
-      } catch (err) {}
-    }
-    try {
-      await axiosInstance.post(`${BASE_URL}/posts`, newPost);
-      // dispatch(setPost(newPost));
-      window.location.reload();
-    } catch (err) {}
-  };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const newPost = {
+  //     userId: user._id,
+  //     desc: descInp.current.value,
+  //   };
+  //   if (file) {
+  //     newPost.img = file;
+  //     try {
+  //       console.log("Succsess");
+  //     } catch (err) {}
+  //   }
+  //   try {
+  //     await axiosInstance.post(`${BASE_URL}/posts`, newPost);
+  //     // dispatch(setPost(newPost));
+  //     // window.location.reload();
+  //   } catch (err) {}
+  // };
 
-  // useEffect(() => {
-  //   handleSubmit();
-  // }, [newPost]);
   return (
     <div className={style.share_wrapper}>
       <div className={style.share_wrapper_top}>
@@ -101,7 +98,13 @@ const Share = () => {
           />
         </div>
       )}
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={async (e) => {
+          await submitPost(e, user._id, descInp.current.value, file);
+          descInp.current.value = "";
+          setFile(null);
+          setTestfile(null);
+        }}>
         <div className={style.share_wrapper_icons}>
           <div className={style.icons_wrapper}>
             {/* PHOTO VIDEO */}
