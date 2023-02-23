@@ -38,8 +38,8 @@ router.post("/", authMiddle, async (req, res) => {
 router.delete("/:id", authMiddle, async (req, res) => {
   try {
     const post = await PostModel.findById(req.params.id);
-    if (post.userId._id === req.body.id) {
-      await PostModel.deleteOne();
+    if (post.userId._id == req.body.id) {
+      await PostModel.findByIdAndDelete({ _id: post._id });
       res.status(200).json("the post has been deleted");
     } else {
       res.status(403).json("you can delete only your post");
@@ -127,20 +127,23 @@ router.get("/profile/:username", async (req, res) => {
 });
 
 //COMMENT PUT API
-router.put("/comment/:id", authMiddle, async (req, res) => {
+router.post("/comment/:id", authMiddle, async (req, res) => {
   try {
     const commentPost = await PostModel.findById({ _id: req.params.id });
+    const userComment = await UserModel.findById(req.body.id);
+    const { _id, username, profilePic } = userComment;
+    const userProp = {};
     if (commentPost) {
       await commentPost.updateOne({
         $push: {
           comments: {
-            userIdCom: req.body.id,
+            user: { _id, username, profilePic },
             descCom: req.body.desc,
             commentId: uuid(),
           },
         },
       });
-      res.status(200).send({ message: "Comment created", descCom });
+      res.status(200).send({ message: "Comment created" });
     } else {
       res.status(403).send("this post isn't exsits");
     }
