@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import style from "./post.module.css";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
@@ -22,14 +22,15 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
-const Post = ({ post, deleteFunc }) => {
+const Post = ({ post, deleteFunc, postComment }) => {
   const user = useSelector((state) => state.users.value);
 
-  const [comment, setCom] = useState("");
   const [show, setShow] = useState(false);
 
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likes.length);
+
+  //POST DROP DOWN STATE
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -37,20 +38,24 @@ const Post = ({ post, deleteFunc }) => {
     setAnchorEl(event.currentTarget);
   };
 
+  //DROP DOWN CLOSE
   const handleClose = () => {
     setAnchorEl(null);
   };
 
+  //EMOJI SHOW
   const emojiShowHideFunc = () => {
     setShow(!show);
   };
+
+  //GET EMOJI
   const handleEmojiClick = (e, emoji) => {
     let msg = comment;
     msg += e.emoji;
     console.log(e.unified);
     setCom(msg);
   };
-
+  //LIKE FUNC AND DISLIKE
   const likeDislike = async () => {
     setLikeCount(like ? likeCount - 1 : likeCount + 1);
     setLike(!like);
@@ -61,28 +66,33 @@ const Post = ({ post, deleteFunc }) => {
     }
   };
 
+  //LIKES RENDER
   useEffect(() => {
     setLike(post.likes.includes(user._id));
   }, [post.likes, user._id]);
+  const commentRef = useRef();
 
-  const postComment = async () => {
-    if (comment) {
-      try {
-        await axiosInstance.put(
-          `${BASE_URL}/posts/comment/${post._id}`,
-          comment
-        );
-        toast.success("Comment posted");
-      } catch (err) {
-        console.log(err.message);
-      }
-    } else {
-      toast.error("You have to write");
-    }
-  };
+  const [comment, setCom] = useState("");
+  //POST COMMNET
+  // const postComment = async () => {
+  //   if (commentRef.target.value) {
+  //     try {
+  //       await axiosInstance.put(
+  //         `${BASE_URL}/posts/comment/${post._id}`,
+  //         commentRef.target.value
+  //       );
+  //       toast.success("Comment posted");
+  //     } catch (err) {
+  //       console.log(err.message);
+  //     }
+  //   } else {
+  //     toast.error("You have to write");
+  //   }
+  // };
 
   return (
     <div className={style.post_parent_div}>
+      {/* POST TOP SECTION */}
       <div className={style.post_top}>
         <div className={style.post_top_left}>
           <Link to={`/profile/${post.userId.username}`}>
@@ -129,7 +139,6 @@ const Post = ({ post, deleteFunc }) => {
               onClick={() => {
                 handleClose();
                 deleteFunc(post._id);
-                // deletePost(post._id);/
               }}
               className={style.menu_item_post}>
               Delete <RiDeleteBin5Line className={style.post_delete_btn} />
@@ -202,16 +211,28 @@ const Post = ({ post, deleteFunc }) => {
         {/* COMMENT SECTION */}
         <div className={style.post_bottom_comment_section}>
           <div className={style.post_bottom_comments_wrapper}>
-            {post.comments ? (
-              post.comments.map((com) => (
+            {post.comments.map((com) =>
+              com ? (
                 <div key={com.commentId} className={style.post_bottom_comment}>
-                  <p className={style.user_comment}>{com?.descCom}</p>
+                  <p className={style.user_comment}>
+                    <div className={style.comment_user_name_img_div}>
+                      <img
+                        className={style.comment_user_prof}
+                        src={com.user.profilePic}
+                        alt=""
+                      />
+                      <span className={style.comment_username}>
+                        {com?.user.username}
+                      </span>
+                    </div>
+                    <span className={style.comment_desc}>{com?.descCom}</span>
+                  </p>
                 </div>
-              ))
-            ) : (
-              <div className={style.no_comment_div}>
-                <p className={style.no_comment_div_p}>No comment yet !</p>
-              </div>
+              ) : (
+                <div className={style.no_comment_div}>
+                  <p className={style.no_comment_div_p}>No comment yet !</p>
+                </div>
+              )
             )}
           </div>
           <div className={style.post_bottom_comment_input}>
@@ -226,6 +247,7 @@ const Post = ({ post, deleteFunc }) => {
             </div>
             <div className={style.post_bottom_comment_emoji}>
               <input
+                ref={commentRef}
                 className={style.comment_input}
                 type="text"
                 placeholder="Write a comment..."
@@ -248,7 +270,11 @@ const Post = ({ post, deleteFunc }) => {
                   />
                 )}
               </div>
-              <button onClick={postComment} className={style.send_btn_comment}>
+              <button
+                onClick={() => {
+                  postComment(comment, post._id);
+                }}
+                className={style.send_btn_comment}>
                 <MdSend className={style.comment_send_icon} />
               </button>
             </div>

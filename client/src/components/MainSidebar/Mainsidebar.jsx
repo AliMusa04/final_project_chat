@@ -1,6 +1,7 @@
 import { Spin } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from "../../apicall";
 import { BASE_URL } from "../../consts";
@@ -84,6 +85,25 @@ const Mainsidebar = ({ username, id, userId }) => {
     getPost();
   }, []);
 
+  //COMMENT POST
+  const postComment = async (comment, postId) => {
+    const newComment = {};
+    if (comment) {
+      newComment.desc = comment;
+      try {
+        await axiosInstance
+          .post(`${BASE_URL}/posts/comment/${postId}`, newComment)
+          .then(() => {
+            getPost();
+          });
+        toast.success("Comment posted");
+      } catch (err) {
+        console.log({ message: err.message });
+      }
+    } else {
+      toast.error("You have to write");
+    }
+  };
   return (
     // <div className={style.main_side_contanier}>
     <div className={style.main_side_section}>
@@ -96,7 +116,12 @@ const Mainsidebar = ({ username, id, userId }) => {
             posts &&
             posts.map((post) => {
               return (
-                <Post key={post?._id} deleteFunc={deletePost} post={post} />
+                <Post
+                  key={post?._id}
+                  deleteFunc={deletePost}
+                  postComment={postComment}
+                  post={post}
+                />
               );
             })
           )}
