@@ -138,7 +138,7 @@ const Navbar = () => {
                             <Link to={`/profile/${user.username}`}>
                               <div
                                 onClick={closeFunc}
-                                key={user._id}
+                                key={user.username}
                                 className={style.searchInp_friends}>
                                 <div
                                   className={style.searchInp_friends_img_div}>

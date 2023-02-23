@@ -1,23 +1,37 @@
+import { Spin } from "antd";
 import axios from "axios";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { BASE_URL } from "../../consts";
+import { hideLoad, showLoad } from "../../redux/slice/loadingSlice/loadSlice";
 import style from "./rightSide.module.css";
 // import InputEmoji from "react-input-emoji";
 
 const Rightsidebar = () => {
   const user = useSelector((state) => state.users.value);
+  const loading = useSelector((state) => state.loading.value);
   const [friends, setFriends] = useState([]);
+  const dispatch = useDispatch();
+
   const getFriends = async () => {
+    dispatch(showLoad());
     try {
-      const friendsUser = await axios.get(
-        `${BASE_URL}/users/friends/${user?._id}`
-      );
-      setFriends(friendsUser.data);
+      if (user._id && user._id !== undefined) {
+        const friendsUser = await axios.get(
+          `${BASE_URL}/users/friends/${user._id}`
+        );
+        setFriends(friendsUser.data);
+        dispatch(hideLoad());
+      }
     } catch (err) {
-      console.log(err.message);
+      dispatch(hideLoad());
+      console.log({ message: err.message });
     }
   };
+  useEffect(() => {
+    getFriends();
+  }, [user._id]);
   return (
     <div className={style.right_side_section}>
       <div className={style.right_side_wrapper}>
@@ -63,65 +77,37 @@ const Rightsidebar = () => {
             <h3 className={style.right_side_friends_title_h3}>Friends</h3>
           </div>
           <div className={style.right_side_friends_wrapper}>
-            <div className={style.right_side_friends_prof}>
-              <div className={style.right_side_friends_prof_pic_div}>
-                <img
-                  className={style.right_side_friends_prof_img}
-                  src="https://th.bing.com/th/id/R.c236f52cfbe7eeb72632631679c50409?rik=pYriBBpJIibYpQ&pid=ImgRaw&r=0"
-                  alt=""
-                />
-              </div>
-              <div className={style.right_side_friends_username_div}>
-                <h5 className={style.right_side_friends_username}>
-                  Sadiq Ibrahimli
-                </h5>
-              </div>
-            </div>
-
-            <div className={style.right_side_friends_prof}>
-              <div className={style.right_side_friends_prof_pic_div}>
-                <img
-                  className={style.right_side_friends_prof_img}
-                  src="https://th.bing.com/th/id/R.c236f52cfbe7eeb72632631679c50409?rik=pYriBBpJIibYpQ&pid=ImgRaw&r=0"
-                  alt=""
-                />
-              </div>
-              <div className={style.right_side_friends_username_div}>
-                <h5 className={style.right_side_friends_username}>
-                  Sadiq Ibrahimli
-                </h5>
-              </div>
-            </div>
-
-            <div className={style.right_side_friends_prof}>
-              <div className={style.right_side_friends_prof_pic_div}>
-                <img
-                  className={style.right_side_friends_prof_img}
-                  src="https://th.bing.com/th/id/R.c236f52cfbe7eeb72632631679c50409?rik=pYriBBpJIibYpQ&pid=ImgRaw&r=0"
-                  alt=""
-                />
-              </div>
-              <div className={style.right_side_friends_username_div}>
-                <h5 className={style.right_side_friends_username}>
-                  Sadiq Ibrahimli
-                </h5>
-              </div>
-            </div>
-
-            <div className={style.right_side_friends_prof}>
-              <div className={style.right_side_friends_prof_pic_div}>
-                <img
-                  className={style.right_side_friends_prof_img}
-                  src="https://th.bing.com/th/id/R.c236f52cfbe7eeb72632631679c50409?rik=pYriBBpJIibYpQ&pid=ImgRaw&r=0"
-                  alt=""
-                />
-              </div>
-              <div className={style.right_side_friends_username_div}>
-                <h5 className={style.right_side_friends_username}>
-                  Sadiq Ibrahimli
-                </h5>
-              </div>
-            </div>
+            {loading ? (
+              <Spin />
+            ) : (
+              friends &&
+              friends.map((friend) => {
+                return (
+                  <Link to={`/profile/${friend?.username}`}>
+                    <div
+                      key={friend?._id}
+                      className={style.right_side_friends_prof}>
+                      <div className={style.right_side_friends_prof_pic_div}>
+                        <img
+                          className={style.right_side_friends_prof_img}
+                          src={
+                            friend.profilePic
+                              ? friend?.profilePic
+                              : "/assets/NoProfImg.webp"
+                          }
+                          alt=""
+                        />
+                      </div>
+                      <div className={style.right_side_friends_username_div}>
+                        <h5 className={style.right_side_friends_username}>
+                          {friend.username}
+                        </h5>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })
+            )}
           </div>
         </div>
       </div>

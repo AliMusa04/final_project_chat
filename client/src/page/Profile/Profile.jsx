@@ -92,6 +92,64 @@ const Profile = () => {
   //   }
   // };
 
+  const handleSubmit = async (
+    e,
+    coverFile,
+    profFile,
+    descRef,
+    cityRef,
+    fromRef,
+    relationInp
+  ) => {
+    e?.preventDefault();
+    const newPost = {};
+    if (coverFile) {
+      newPost.coverPic = coverFile;
+      try {
+        console.log("Succsess");
+      } catch (err) {}
+    } else if (profFile) {
+      newPost.profilePic = profFile;
+      try {
+        console.log("Succsess");
+      } catch (err) {}
+    } else if (descRef) {
+      newPost.userDesc = descRef;
+      try {
+        console.log("Succsess");
+      } catch (err) {}
+    } else if (cityRef) {
+      newPost.city = cityRef;
+      try {
+        console.log("Succsess");
+      } catch (err) {}
+    } else if (fromRef) {
+      newPost.from = fromRef;
+      try {
+        console.log("Succsess");
+      } catch (err) {}
+    } else if (relationInp) {
+      newPost.reltionship = relationInp;
+      try {
+        console.log("Succsess");
+      } catch (err) {}
+    }
+    try {
+      if (newPost && userAdmin._id !== undefined) {
+        await axiosInstance
+          .put(`${BASE_URL}/users/${userAdmin._id}`, newPost)
+          .then(() => {
+            toast.success("Updated");
+            fetchUser();
+          });
+      } else if (!newPost) {
+        toast.error("No update");
+      }
+    } catch (err) {
+      console.log({ message: err.message });
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -122,7 +180,7 @@ const Profile = () => {
           </div>
           <div className={style.profile_page_right_bottom_section}>
             <Mainsidebar username={user.username} id={user._id} />
-            <RightProfile user={user} />
+            <RightProfile user={user} submitFunc={handleSubmit} />
           </div>
         </div>
       </div>

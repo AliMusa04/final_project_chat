@@ -44,18 +44,6 @@ const RightProfile = ({ user, submitFunc }) => {
   const userAdmin = useSelector((state) => state.users.value);
   const [friends, setFriends] = useState([]);
 
-  // const getFriends = async () => {
-
-  //   try {
-  //     const friendsUser = await axios.get(
-  //       `${BASE_URL}/users/friends/${user._id}`
-  //     );
-  //     setFriends(friendsUser.data);
-  //   } catch (err) {
-  //     console.log(err.message);
-  //   }
-  // };
-
   const handleFollowUnFollow = async () => {
     try {
       if (isFollow) {
@@ -131,6 +119,7 @@ const RightProfile = ({ user, submitFunc }) => {
   const [profFile, setprofFile] = useState("");
   const [coverFile, setcoverFile] = useState("");
   const [relationInp, setrelationInp] = useState("");
+  const [city, setCity] = useState("");
   const dispatch = useDispatch();
   const cityRef = useRef();
   const fromRef = useRef();
@@ -141,65 +130,64 @@ const RightProfile = ({ user, submitFunc }) => {
     setrelationInp(value.value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
   };
 
-  const handleSubmit = async (e) => {
-    e?.preventDefault();
+  // const handleSubmit = async (e) => {
+  //   e?.preventDefault();
+  //   const newPost = {};
+  //   if (coverFile) {
+  //     newPost.coverPic = coverFile;
+  //     try {
+  //       console.log("Succsess");
+  //     } catch (err) {}
+  //   } else if (profFile) {
+  //     newPost.profilePic = profFile;
+  //     try {
+  //       console.log("Succsess");
+  //     } catch (err) {}
+  //   } else if (descRef?.current?.value) {
+  //     newPost.userDesc = descRef.current.value;
+  //     try {
+  //       console.log("Succsess");
+  //     } catch (err) {}
+  //   } else if (cityRef?.current?.value) {
+  //     newPost.city = cityRef.current.value;
+  //     try {
+  //       console.log("Succsess");
+  //     } catch (err) {}
+  //   } else if (fromRef?.current?.value) {
+  //     newPost.from = fromRef.current.value;
+  //     try {
+  //       console.log("Succsess");
+  //     } catch (err) {}
+  //   } else if (relationInp) {
+  //     newPost.reltionship = relationInp;
+  //     try {
+  //       console.log("Succsess");
+  //     } catch (err) {
+  //       // toast.error("Already updated");
+  //     }
+  //   }
+  //   try {
+  //     if (newPost && userAdmin._id !== undefined) {
+  //       await axiosInstance
+  //         .put(`${BASE_URL}/users/${userAdmin._id}`, newPost)
+  //         .then(() => {
+  //           toast.success("Updated");
+  //           // toast.success("update");
+  //           console.log("slaam");
+  //         });
+  //     } else if (!newPost) {
+  //       toast.error("No update");
+  //     }
+  //     // dispatch(setPost(newPost));
+  //     // window.location.reload();
+  //   } catch (err) {
+  //     console.log({ message: err.message });
+  //   }
+  // };
 
-    const newPost = {};
-    if (coverFile) {
-      newPost.coverPic = coverFile;
-      try {
-        console.log("Succsess");
-      } catch (err) {}
-    } else if (profFile) {
-      newPost.profilePic = profFile;
-      try {
-        console.log("Succsess");
-      } catch (err) {}
-    } else if (descRef?.current?.value) {
-      newPost.userDesc = descRef.current.value;
-      try {
-        console.log("Succsess");
-      } catch (err) {}
-    } else if (cityRef?.current?.value) {
-      newPost.city = cityRef.current.value;
-      try {
-        console.log("Succsess");
-      } catch (err) {}
-    } else if (fromRef?.current?.value) {
-      newPost.from = fromRef.current.value;
-      try {
-        console.log("Succsess");
-      } catch (err) {}
-    } else if (relationInp) {
-      newPost.reltionship = relationInp;
-      try {
-        console.log("Succsess");
-      } catch (err) {
-        // toast.error("Already updated");
-      }
-    }
-    try {
-      if (newPost) {
-        await axiosInstance
-          .put(`${BASE_URL}/users/${userAdmin._id}`, newPost)
-          .then(() => {
-            // toast.success("Updated");
-            // toast.success("update");
-            console.log("slaam");
-          });
-      } else if (!newPost) {
-        // toast.error("No update");
-      }
-      // dispatch(setPost(newPost));
-      // window.location.reload();
-    } catch (err) {
-      console.log({ message: err.message });
-    }
-  };
-
-  useEffect(() => {
-    handleSubmit();
-  }, [userAdmin._id]);
+  // useEffect(() => {
+  //   handleSubmit();
+  // }, [userAdmin._id]);
 
   return (
     <>
@@ -236,7 +224,21 @@ const RightProfile = ({ user, submitFunc }) => {
             open={isModalOpen}
             onOk={handleOk}
             onCancel={handleCancel}>
-            <form onSubmit={handleSubmit} action="#">
+            <form
+              onSubmit={async (e) => {
+                await submitFunc(
+                  e,
+                  coverFile,
+                  profFile,
+                  descRef?.current?.value,
+                  city,
+                  // cityRef?.current?.value,
+                  fromRef?.current?.value,
+                  relationInp
+                );
+                handleCancel();
+              }}
+              action="#">
               <div className={style.edit_cover_phot}>
                 <label className={style.title_update}>For cover photo </label>
                 <label htmlFor="cover" className={style.coverPhotoWrap}>
@@ -250,12 +252,15 @@ const RightProfile = ({ user, submitFunc }) => {
                     type={"file"}
                   />
                   {coverFile ? (
-                    <MdOutlineDeleteForever
-                      onClick={() => {
-                        setcoverFile("");
-                      }}
-                      className={style.photoDelete}
-                    />
+                    <>
+                      <p>File selected </p>
+                      <MdOutlineDeleteForever
+                        onClick={() => {
+                          setcoverFile("");
+                        }}
+                        className={style.photoDelete}
+                      />
+                    </>
                   ) : (
                     ""
                   )}
@@ -274,12 +279,15 @@ const RightProfile = ({ user, submitFunc }) => {
                     type={"file"}
                   />
                   {profFile ? (
-                    <MdOutlineDeleteForever
-                      onClick={() => {
-                        setprofFile("");
-                      }}
-                      className={style.photoDelete}
-                    />
+                    <>
+                      <p>File selected </p>
+                      <MdOutlineDeleteForever
+                        onClick={() => {
+                          setprofFile("");
+                        }}
+                        className={style.photoDelete}
+                      />
+                    </>
                   ) : (
                     ""
                   )}
@@ -291,7 +299,7 @@ const RightProfile = ({ user, submitFunc }) => {
                   className={style.input_update}
                   ref={descRef}
                   placeholder={`${
-                    userAdmin.userDesc ? userAdmin.userDesc : "No information"
+                    user.userDesc ? user.userDesc : "No information"
                   }`}
                   // value={`${userAdmin?.userDesc}`}
                   // onChange={(e) => {
@@ -304,27 +312,24 @@ const RightProfile = ({ user, submitFunc }) => {
                 <label className={style.title_update}>For City </label>
                 <input
                   className={style.input_update}
-                  placeholder={`${
-                    userAdmin.city ? userAdmin.city : "No information"
-                  }`}
+                  placeholder={`${user.city ? user.city : "No information"}`}
                   ref={cityRef}
                   type={"text"}
+                  onChange={(e) => setCity(e.target.value)}
                 />
               </div>
               <div className={style.edit_cover_phot}>
                 <label className={style.title_update}>For From </label>
                 <input
                   className={style.input_update}
-                  placeholder={`${
-                    userAdmin.from ? userAdmin.from : "No information"
-                  }`}
+                  placeholder={`${user.from ? user.from : "No information"}`}
                   ref={fromRef}
                   type={"text"}
                 />
               </div>
               <div className={style.edit_cover_phot}>
                 <label className={style.title_update}>
-                  Choose Relationship{" "}
+                  Choose Relationship
                 </label>
                 <Select
                   labelInValue
@@ -432,7 +437,7 @@ const RightProfile = ({ user, submitFunc }) => {
                   return (
                     <Link to={`/profile/${friend.username}`}>
                       <div
-                        key={friend._id}
+                        key={friend.username}
                         className={style.profile_right_friends_friend_card}>
                         <div
                           key={friend._id}
