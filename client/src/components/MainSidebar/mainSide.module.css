@@ -25,6 +25,27 @@
   /* padding-top: 30px; */
   margin: 0 !important;
 }
+.sure_buttons_div {
+  /* gap: 20px; */
+  margin-top: 20px;
+}
+.sure_btn {
+  border-radius: 5px;
+  margin-right: 10px;
+  padding: 5px 10px;
+  outline: none;
+  border: none;
+  color: white;
+  font-weight: 500;
+  font-size: 15px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+#continue_btn {
+  background-color: rgba(0, 128, 0, 0.9);
+}
+#cancel_btn {
+  background-color: rgba(220, 20, 60, 0.9);
+}
 @media screen and (max-width: 900px) {
   /* .main_side_contanier {
     width: 300px;

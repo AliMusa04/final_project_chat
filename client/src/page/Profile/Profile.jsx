@@ -34,64 +34,6 @@ const Profile = () => {
     fetchUser();
   }, [params.username]);
 
-  // const handleSubmit = async (
-  //   e,
-  //   coverFile,
-  //   profFile,
-  //   descRef,
-  //   cityRef,
-  //   fromRef,
-  //   relationInp
-  // ) => {
-  //   e.preventDefault();
-
-  //   const newPost = {
-  //     // reltionship: relationInp,
-  //   };
-  //   if (coverFile) {
-  //     newPost.coverPic = coverFile;
-  //     try {
-  //       console.log("Succsess");
-  //     } catch (err) {}
-  //   } else if (profFile) {
-  //     newPost.profilePic = profFile;
-  //     try {
-  //       console.log("Succsess");
-  //     } catch (err) {}
-  //   } else if (descRef) {
-  //     newPost.userDesc = descRef.current.value;
-  //     try {
-  //       console.log("Succsess");
-  //     } catch (err) {}
-  //   } else if (cityRef) {
-  //     newPost.city = cityRef.current.value;
-  //     try {
-  //       console.log("Succsess");
-  //     } catch (err) {}
-  //   } else if (fromRef) {
-  //     newPost.from = fromRef.current.value;
-  //     try {
-  //       console.log("Succsess");
-  //     } catch (err) {}
-  //   } else if (relationInp) {
-  //     newPost.reltionship = relationInp;
-  //     try {
-  //       console.log("Succsess");
-  //     } catch (err) {
-  //       toast.success("Already updated");
-  //     }
-  //   }
-  //   try {
-  //     await axiosInstance.put(`${BASE_URL}/users/${userAdmin._id}`, newPost);
-  //     fetchUser();
-  //     toast.success("Updated");
-  //   } catch (err) {
-  //     toast.error("No update");
-
-  //     console.log(err.message);
-  //   }
-  // };
-
   const handleSubmit = async (
     e,
     coverFile,

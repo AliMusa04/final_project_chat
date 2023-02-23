@@ -1,4 +1,4 @@
-import { Spin } from "antd";
+import { Modal, Spin } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -15,8 +15,8 @@ const Mainsidebar = ({ username, id, userId }) => {
   const user = useSelector((state) => state.users.value);
   const loading = useSelector((state) => state.loading.value);
   const dispatch = useDispatch();
+  const [isSure, setisSure] = useState(false);
 
-  // await axios.get(`${BASE_URL}/posts/profile/${username}`)
   const getPost = async () => {
     dispatch(showLoad());
     username
@@ -55,11 +55,15 @@ const Mainsidebar = ({ username, id, userId }) => {
     dispatch(hideLoad());
   }, [username, id]);
 
-  const deletePost = (id) => {
-    axiosInstance.delete(`${BASE_URL}/posts/${id}`).then(() => {
-      getPost();
-    });
+  const deletePost = async (id) => {
+    if (id && id !== undefined)
+      axiosInstance.delete(`${BASE_URL}/posts/${id}`).then(() => {
+        getPost();
+      });
   };
+  useEffect(() => {
+    deletePost();
+  }, [isSure]);
 
   //POST PUSH
   const handleSubmit = async (e, userId, desc, file) => {
@@ -104,35 +108,51 @@ const Mainsidebar = ({ username, id, userId }) => {
       toast.error("You have to write");
     }
   };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     // <div className={style.main_side_contanier}>
-    <div className={style.main_side_section}>
-      <div className={style.main_side_wrapper}>
-        <div className={style.post_wrapper_main}>
-          {!username && <Share submitPost={handleSubmit} />}
-          {loading ? (
-            <Spin size="large" />
-          ) : (
-            posts &&
-            posts.map((post) => {
-              return (
-                <Post
-                  key={post?._id}
-                  deleteFunc={deletePost}
-                  postComment={postComment}
-                  post={post}
-                />
-              );
-            })
-          )}
-          {/* <p
+    <>
+      <div className={style.main_side_section}>
+        <div className={style.main_side_wrapper}>
+          <div className={style.post_wrapper_main}>
+            {!username && <Share submitPost={handleSubmit} />}
+            {loading ? (
+              <Spin size="large" />
+            ) : (
+              posts &&
+              posts.map((post) => {
+                return (
+                  <Post
+                    key={post?._id}
+                    deleteFunc={deletePost}
+                    postComment={postComment}
+                    post={post}
+                    showModal={showModal}
+                    isSure={isSure}
+                  />
+                );
+              })
+            )}
+            {/* <p
             style={{ display: posts ? "flex" : "none" }}
             className={style.noPost}>
             No post yet !
           </p> */}
+          </div>
         </div>
       </div>
-    </div>
+    </>
     // </div>
   );
 };
