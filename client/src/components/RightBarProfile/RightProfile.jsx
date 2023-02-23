@@ -40,7 +40,7 @@ const RightProfile = ({ user, submitFunc }) => {
     setIsModalOpen(false);
   };
   const [isFollow, setIsFollow] = useState(false);
-
+  const [follower, setFollower] = useState([]);
   const userAdmin = useSelector((state) => state.users.value);
   const [friends, setFriends] = useState([]);
 
@@ -59,11 +59,19 @@ const RightProfile = ({ user, submitFunc }) => {
   const handleFollowUnFollow = async () => {
     try {
       if (isFollow) {
-        await axiosInstance.put(`${BASE_URL}/users/unfollow/${user._id}`);
+        await axiosInstance
+          .put(`${BASE_URL}/users/unfollow/${user._id}`)
+          .then(() => {
+            getFollowers();
+          });
         toast.success("User is unfollowed");
         getFriends();
       } else {
-        await axiosInstance.put(`${BASE_URL}/users/follow/${user._id}`);
+        await axiosInstance
+          .put(`${BASE_URL}/users/follow/${user._id}`)
+          .then(() => {
+            getFollowers();
+          });
         toast.success("User is following");
         getFriends();
       }
@@ -72,16 +80,23 @@ const RightProfile = ({ user, submitFunc }) => {
     }
     setIsFollow(!isFollow);
   };
-  // useEffect(() => {
-  //   try {
-  //   } catch (err) {
-  //     console.log(err.mess);
-  //   }
-  // }, []);
 
   useEffect(() => {
     setIsFollow(userAdmin?.following?.includes(user._id));
   }, [userAdmin, user._id]);
+
+  const getFollowers = async () => {
+    try {
+      if (user._id) {
+        const friendsUser = await axios.get(
+          `${BASE_URL}/users/friends/follower/${user._id}`
+        );
+        setFollower(friendsUser.data);
+      }
+    } catch (err) {
+      console.log({ message: err.message });
+    }
+  };
 
   const getFriends = async () => {
     try {
@@ -98,6 +113,7 @@ const RightProfile = ({ user, submitFunc }) => {
 
   useEffect(() => {
     getFriends();
+    getFollowers();
   }, [user._id]);
 
   const handleFileUploadCover = async (pic) => {
@@ -336,17 +352,6 @@ const RightProfile = ({ user, submitFunc }) => {
                     },
                   ]}
                 />
-                {/* <select
-                onChange={(e) => setrelationInp(e.target.value)}
-                type={"select"}>
-                <option disabled value="">
-                  Choose relation
-                </option>
-                <option value="1">Single</option>
-                <option value="2">Married</option>
-                <option value="3">In a relationship </option>
-                <option value="4">No Information </option>
-              </select> */}
               </div>
               <div className={style.button_edit_submit}>
                 <button type="submit" className={style.btn_update}>
@@ -379,14 +384,14 @@ const RightProfile = ({ user, submitFunc }) => {
 
         <div className={style.profile_right_user_friends_wrapper}>
           <div className={style.following_wrap}>
-            <h4>Following</h4>
+            <h4>Followings</h4>
             <div className={style.profile_right_friends}>
               {friends ? (
                 friends.map((friend) => {
                   return (
                     <Link to={`/profile/${friend.username}`}>
                       <div
-                        key={friend._id}
+                        key={friend.username}
                         className={style.profile_right_friends_friend_card}>
                         <div
                           key={friend._id}
@@ -420,10 +425,10 @@ const RightProfile = ({ user, submitFunc }) => {
           </div>
 
           <div className={style.following_wrap}>
-            <h4>Follower</h4>
+            <h4>Followers</h4>
             <div className={style.profile_right_friends}>
-              {friends ? (
-                friends.map((friend) => {
+              {follower ? (
+                follower.map((friend) => {
                   return (
                     <Link to={`/profile/${friend.username}`}>
                       <div

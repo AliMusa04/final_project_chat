@@ -214,7 +214,7 @@ const Post = ({ post, deleteFunc, postComment }) => {
             {post.comments.map((com) =>
               com ? (
                 <div key={com.commentId} className={style.post_bottom_comment}>
-                  <p className={style.user_comment}>
+                  <div className={style.user_comment}>
                     <div className={style.comment_user_name_img_div}>
                       <img
                         className={style.comment_user_prof}
@@ -226,7 +226,7 @@ const Post = ({ post, deleteFunc, postComment }) => {
                       </span>
                     </div>
                     <span className={style.comment_desc}>{com?.descCom}</span>
-                  </p>
+                  </div>
                 </div>
               ) : (
                 <div className={style.no_comment_div}>
