@@ -129,8 +129,7 @@ const Mainsidebar = ({ username, id, userId }) => {
             {!username && <Share submitPost={handleSubmit} />}
             {loading ? (
               <Spin size="large" />
-            ) : (
-              posts &&
+            ) : posts !== [] ? (
               posts.map((post) => {
                 return (
                   <Post
@@ -143,12 +142,14 @@ const Mainsidebar = ({ username, id, userId }) => {
                   />
                 );
               })
+            ) : (
+              <p> Post yoxdu</p>
             )}
-            {/* <p
-            style={{ display: posts ? "flex" : "none" }}
-            className={style.noPost}>
-            No post yet !
-          </p> */}
+            <p
+              style={{ display: posts ? "none" : "flex" }}
+              className={style.noPost}>
+              No post yet !
+            </p>
           </div>
         </div>
       </div>

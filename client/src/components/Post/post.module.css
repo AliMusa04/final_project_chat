@@ -203,13 +203,18 @@
   right: 2px;
 }
 .send_btn_comment {
-  height: 96%;
+  height: 98%;
   padding: 0px 20px;
+  padding-left: 15px;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   border: none;
   background-color: blue;
   cursor: pointer;
+}
+.send_btn_comment:hover {
+  /* color: blue; */
+  transform: scale(0.95);
 }
 .comment_send_icon {
   font-size: 20px;

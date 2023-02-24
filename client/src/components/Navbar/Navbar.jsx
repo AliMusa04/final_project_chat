@@ -129,9 +129,6 @@ const Navbar = () => {
                           ) {
                             return user;
                           }
-                          // else {
-                          //   return <p>User not found</p>;
-                          // }
                         })
                         .map((user) => {
                           return (

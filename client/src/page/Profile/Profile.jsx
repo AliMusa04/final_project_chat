@@ -15,6 +15,7 @@ import Share from "../../components/Share/Share";
 import { BASE_URL } from "../../consts";
 import { hideLoad, showLoad } from "../../redux/slice/loadingSlice/loadSlice";
 import style from "./profile.module.css";
+import { getUserInfo } from "../../apicall/usersApi";
 
 const Profile = () => {
   const [user, setUser] = useState([]);
@@ -83,6 +84,7 @@ const Profile = () => {
           .then(() => {
             toast.success("Updated");
             fetchUser();
+            getUserInfo();
           });
       } else if (!newPost) {
         toast.error("No update");
@@ -117,7 +119,9 @@ const Profile = () => {
             </div>
             <div className={style.profile_page_username_desc}>
               <h3>{user?.username}</h3>
-              <p>{user?.userDesc ? user?.userDesc : "Write about yourself"}</p>
+              <p className={style.prof_desc_top_side}>
+                {user?.userDesc ? user?.userDesc : "Write about yourself"}
+              </p>
             </div>
           </div>
           <div className={style.profile_page_right_bottom_section}>
