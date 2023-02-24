@@ -17,19 +17,7 @@ const postSchema = new mongoose.Schema(
     },
     comments: {
       type: Array,
-      default: [
-        // {
-        //   userIdCom: {
-        //     type: String,
-        //   },
-        //   descCom: {
-        //     type: String,
-        //   },
-        //   commentId: {
-        //     type: String,
-        //   },
-        // },
-      ],
+      default: [],
     },
     likes: {
       type: Array,
