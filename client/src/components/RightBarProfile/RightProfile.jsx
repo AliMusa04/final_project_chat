@@ -434,7 +434,7 @@ const RightProfile = ({ user, submitFunc }) => {
             <div className={style.profile_right_friends}>
               {follower ? (
                 follower.map((friend) => {
-                  return (
+                  return friend ? (
                     <Link to={`/profile/${friend.username}`}>
                       <div
                         key={friend.username}
@@ -462,6 +462,8 @@ const RightProfile = ({ user, submitFunc }) => {
                         </p>
                       </div>
                     </Link>
+                  ) : (
+                    <h2>No friends yet</h2>
                   );
                 })
               ) : (

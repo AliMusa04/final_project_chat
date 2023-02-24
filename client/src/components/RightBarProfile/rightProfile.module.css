@@ -175,3 +175,22 @@ h3 {
 .following_wrap {
   margin-bottom: 20px;
 }
+@media screen and (max-width: 900px) {
+  .profile_right_cont {
+    width: 100%;
+    margin-left: 0;
+  }
+  .profile_right_user_info {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 648px) {
+  .profile_right_cont {
+    width: 100%;
+  }
+  .profile_right_user_info {
+    width: 100%;
+  }
+  .profile_right_user_info_h3 {
+  }
+}

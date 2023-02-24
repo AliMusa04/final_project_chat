@@ -45,7 +45,8 @@
   border-radius: 50%;
   position: absolute;
   top: 150px;
-  right: 41%;
+  left: 43%;
+  /* right: 55%; */
 }
 .profile_page_pics_img {
   width: 150px;
@@ -65,4 +66,38 @@ h3 {
   font-size: 18px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 500;
+}
+
+@media screen and (max-width: 900px) {
+  .profile_page_right_bottom_section {
+    display: flex;
+    flex-direction: column-reverse;
+    padding-left: 0px;
+  }
+  .profile_page_pics_user {
+    position: absolute;
+    top: 150px;
+    left: 45%;
+    right: 55%;
+  }
+}
+@media screen and (max-width: 648px) {
+  .home_contanier_mid {
+    width: 300px;
+  }
+  .profile_page_right_bottom_section {
+    width: 100%;
+    margin: 0 !important;
+  }
+  .profile_page_right_side {
+    width: 100%;
+  }
+  .profile_page_top_pics {
+    padding-left: 0px;
+  }
+  .profile_page_pics_user {
+    position: absolute;
+    top: 150px;
+    left: 43%;
+  }
 }

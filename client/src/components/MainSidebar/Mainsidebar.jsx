@@ -129,7 +129,7 @@ const Mainsidebar = ({ username, id, userId }) => {
             {!username && <Share submitPost={handleSubmit} />}
             {loading ? (
               <Spin size="large" />
-            ) : posts !== [] ? (
+            ) : posts ? (
               posts.map((post) => {
                 return (
                   <Post
