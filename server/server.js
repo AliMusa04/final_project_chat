@@ -8,6 +8,9 @@ const PORT = 8080;
 const routeUser = require("./src/routes/users");
 const routeAuth = require("./src/routes/auth");
 const postRoute = require("./src/routes/post");
+const chatRoute = require("./src/routes/chatRoute");
+const messageRoute = require("./src/routes/messageRoute.js");
+
 const connect = require("./src/database/connect");
 const PostModel = require("./src/models/PostModel");
 
@@ -42,6 +45,10 @@ app.use("/api/users", routeUser);
 app.use("/api/auth", routeAuth);
 
 app.use("/api/posts", postRoute);
+
+app.use("/api/chat", chatRoute);
+
+app.use("/api/message", messageRoute);
 
 app.listen(PORT, () => {
   console.log("Server is running");
