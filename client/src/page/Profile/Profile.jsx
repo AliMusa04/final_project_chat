@@ -82,6 +82,7 @@ const Profile = () => {
         await axiosInstance
           .put(`${BASE_URL}/users/${userAdmin._id}`, newPost)
           .then(() => {
+            profFile = "";
             toast.success("Updated");
             fetchUser();
             getUserInfo();

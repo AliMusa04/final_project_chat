@@ -189,6 +189,14 @@ const RightProfile = ({ user, submitFunc }) => {
   //   handleSubmit();
   // }, [userAdmin._id]);
 
+  const resetInp = () => {
+    descRef.target.value = " ";
+    fromRef.target.value = " ";
+    cityRef.target.value = " ";
+    setrelationInp(null);
+    setcoverFile(null);
+    setprofFile(null);
+  };
   return (
     <>
       <div className={style.profile_right_cont}>
@@ -231,12 +239,13 @@ const RightProfile = ({ user, submitFunc }) => {
                   coverFile,
                   profFile,
                   descRef?.current?.value,
-                  city,
-                  // cityRef?.current?.value,
-                  fromRef?.current?.value,
+                  // city,
+                  cityRef?.current?.value,
+                  fromRef.current?.value,
                   relationInp
                 );
                 handleCancel();
+                resetInp();
               }}
               action="#">
               <div className={style.edit_cover_phot}>
@@ -340,19 +349,19 @@ const RightProfile = ({ user, submitFunc }) => {
                   onChange={handleChange}
                   options={[
                     {
-                      value: "1",
+                      value: 1,
                       label: "Single",
                     },
                     {
-                      value: "2",
+                      value: 2,
                       label: "Married",
                     },
                     {
-                      value: "3",
+                      value: 3,
                       label: "In a relationship",
                     },
                     {
-                      value: "4",
+                      value: 4,
                       label: "No Information",
                     },
                   ]}
@@ -376,11 +385,11 @@ const RightProfile = ({ user, submitFunc }) => {
             </p>
             <p className={style.info_text_p}>
               <span className={style.info_text_title}>Relationship: </span>
-              {user.reltionship === 1
+              {user?.reltionship === 1
                 ? "single"
-                : user.reltionship === 2
+                : user?.reltionship === 2
                 ? "Married"
-                : user.reltionship === 3
+                : user?.reltionship === 3
                 ? "In a relationship"
                 : "No Information"}
             </p>

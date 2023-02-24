@@ -189,18 +189,13 @@ const Navbar = () => {
             className={style.navbar_modal_icon}>
             <BiMenuAltRight />
           </div>
-          {/* <button
-            class="btn btn-primary"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasRight"
-            aria-controls="offcanvasRight">
-            Toggle right offcanvas
-          </button> */}
+
           <div className={style.navbar_right_part_icons}>
-            <div title="Messenger" className={style.navbar_message_icon}>
-              <BsMessenger />
-            </div>
+            <Link to={"/messenger"}>
+              <div title="Messenger" className={style.navbar_message_icon}>
+                <BsMessenger />
+              </div>
+            </Link>
             <div title="Notification" className={style.navbar_message_icon}>
               <MdNotificationsActive />
             </div>

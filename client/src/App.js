@@ -11,6 +11,7 @@ import Profile from "./page/Profile/Profile";
 import { route } from "./routes/route";
 import { useSelector } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import Messenger from "./page/Messenger/Messenger";
 
 // const router = createBrowserRouter(route);
 function App() {
@@ -33,7 +34,14 @@ function App() {
           path="/register"
           element={!user ? <Register /> : <Navigate to={"/"} />}
         />
-        <Route path="/profile/:username" element={<Profile />} />
+        <Route
+          path="/profile/:username"
+          element={user ? <Profile /> : <Navigate to={"/login"} />}
+        />
+        <Route
+          path="/messenger"
+          element={user ? <Messenger /> : <Navigate to={"/login"} />}
+        />
       </Routes>
     </BrowserRouter>
     // <Routes>
