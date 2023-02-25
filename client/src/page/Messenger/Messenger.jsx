@@ -21,7 +21,8 @@ const Messenger = () => {
 
   const [sendMessage, setSendMessage] = useState(null);
   const [receivedMessage, setReceivedMessage] = useState(null);
-
+  console.log(sendMessage);
+  // console.log(receivedMessage);
   const socket = useRef();
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const Messenger = () => {
   //SEND MESSAGE TO SOCKET SERVER
   useEffect(() => {
     if (sendMessage !== null) {
-      socket.current.emit("send-message", sendMessage);
+      socket.current?.emit("send-message", sendMessage);
     }
   }, [sendMessage]);
 
