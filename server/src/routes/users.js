@@ -119,6 +119,21 @@ router.get("/friends/follower/:id", async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 });
+
+//GET USER WITH ID
+router.get("/getuser/withId/:id", async (req, res) => {
+  try {
+    const user = await userModel.findOne({ _id: req.params.id });
+    res.status(200).send({
+      message: "User info find succsessfuly ",
+      success: true,
+      data: user,
+    });
+  } catch (err) {
+    res.status(500).send({ message: err.message, data: err, success: false });
+  }
+});
+
 //get friends
 // router.get("/friends/:userId", async (req, res) => {
 //   try {
