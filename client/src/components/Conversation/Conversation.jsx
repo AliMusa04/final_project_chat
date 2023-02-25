@@ -11,10 +11,12 @@ const Conversation = ({ data, currentUser }) => {
     const friendId = data.members.find((id) => id !== currentUser);
     const getFriendData = async () => {
       try {
-        const res = await axios.get(
-          `${BASE_URL}/users/getuser/withId/${friendId}`
-        );
-        setFriendData(res.data.data);
+        if (friendId !== undefined) {
+          const res = await axios.get(
+            `${BASE_URL}/users/getuser/withId/${friendId}`
+          );
+          setFriendData(res.data.data);
+        }
       } catch (err) {
         console.log(err.message);
       }
@@ -38,7 +40,7 @@ const Conversation = ({ data, currentUser }) => {
           </div>
         </div>
       </div>
-      <hr style={{ width: "85%", border: "0.1px solid #c7c5c5" }} />
+      <hr style={{ width: "100%", border: "0.1px solid #c7c5c5" }} />
     </>
   );
 };
