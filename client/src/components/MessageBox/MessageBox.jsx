@@ -1,16 +1,19 @@
 import axios from "axios";
-import React from "react";
+import React, { useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { format } from "timeago.js";
 import { BASE_URL } from "../../consts";
 import InputEmoji from "react-input-emoji";
 import "./messagebox.css";
+import { toast } from "react-hot-toast";
 
-const MessageBox = ({ chat, adminUser }) => {
+const MessageBox = ({ chat, adminUser, setSendMessage, receivedMessage }) => {
   const [friendData, setFriendData] = useState([]);
   const [message, setMessage] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+
+  const scrollRef = useRef();
 
   const handleChange = (newMessage) => {
     setNewMessage(newMessage);
@@ -43,6 +46,52 @@ const MessageBox = ({ chat, adminUser }) => {
     };
     if (chat !== null) getMessage();
   }, [chat]);
+
+  useEffect(() => {
+    if (receivedMessage !== null && receivedMessage.chatId === chat._id) {
+      setMessage([...message, receivedMessage]);
+    }
+  }, [receivedMessage]);
+
+  // useEffect(() => {
+  //   if (acceptMessage !== null && acceptMessage?.chatId === chat?._id) {
+  //     setMessage([...message, acceptMessage]);
+  //   }
+  // }, [acceptMessage]);
+
+  //SEND MESSAGE FUNC
+  const sendMessage = async (e) => {
+    e?.preventDefault();
+    const messageSend = {
+      senderId: adminUser,
+      text: newMessage,
+      chatId: chat._id,
+    };
+
+    //SEND MESSAGE TO DB
+    const receiverId = chat.members.find((id) => id !== adminUser);
+    setSendMessage({ ...message, receiverId });
+
+    try {
+      if (newMessage) {
+        const result = await axios.post(`${BASE_URL}/message`, messageSend);
+        setMessage([...message, result.data]);
+        setNewMessage("");
+      } else {
+        toast.error("you have to write");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+    //SEND MESSAGE TO SOCKET SEVER
+  };
+
+  //SCROLL USE EFFECT
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [message]);
+
   return (
     <div className="ChatBox-container">
       {chat ? (
@@ -84,6 +133,7 @@ const MessageBox = ({ chat, adminUser }) => {
             {message.map((message) => {
               return (
                 <div
+                  ref={scrollRef}
                   className={
                     message.senderId === adminUser ? "message own" : "message"
                   }>
@@ -97,7 +147,9 @@ const MessageBox = ({ chat, adminUser }) => {
           {/* SEND MESSAGE */}
           <div className="chat-sender">
             <InputEmoji value={newMessage} onChange={handleChange} />
-            <button>Send</button>
+            <button onClick={sendMessage} className="send-btn">
+              Send
+            </button>
           </div>
         </>
       ) : (

@@ -5,7 +5,6 @@ import "./conversation.css";
 
 const Conversation = ({ data, currentUser }) => {
   const [friendData, setFriendData] = useState([]);
-  console.log(friendData);
 
   useEffect(() => {
     const friendId = data.members.find((id) => id !== currentUser);
