@@ -21,7 +21,6 @@ const Messenger = () => {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [sendMessage, setSendMessage] = useState(null);
   const [receiveMessage, setReceiveMessage] = useState(null);
-
   const [arrivalMessage, setArrivalMessage] = useState(null);
   //CHAT BOX STATE 'S
   const [friendData, setFriendData] = useState([]);
@@ -39,6 +38,9 @@ const Messenger = () => {
         text: data.text,
       });
     });
+    socket.current.on("getUsers", (users) => {
+      setOnlineUsers(users);
+    });
   }, []);
 
   useEffect(() => {
@@ -50,7 +52,6 @@ const Messenger = () => {
   useEffect(() => {
     socket.current.emit("addUser", user._id);
     socket.current.on("getUsers", (users) => {
-      console.log(users);
       console.log(users);
     });
   }, [user]);
@@ -142,6 +143,12 @@ const Messenger = () => {
     setNewMessage(newMessage);
   };
 
+  const checkOnlineStatus = (chat) => {
+    const chatMember = chat.members.find((member) => member !== user._id);
+    const online = onlineUsers.find((user) => user.userId === chatMember);
+    return online ? true : false;
+  };
+
   return (
     <>
       <Navbar />
@@ -160,7 +167,11 @@ const Messenger = () => {
                         <div
                           key={chat.chadId}
                           onClick={() => setCurrentChat(chat)}>
-                          <Conversation data={chat} currentUser={user._id} />
+                          <Conversation
+                            data={chat}
+                            currentUser={user._id}
+                            online={checkOnlineStatus(chat)}
+                          />
                         </div>
                       );
                     })}

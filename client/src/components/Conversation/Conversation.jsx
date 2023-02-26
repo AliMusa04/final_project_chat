@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../../consts";
 import "./conversation.css";
 
-const Conversation = ({ data, currentUser }) => {
+const Conversation = ({ data, currentUser, online }) => {
   const [friendData, setFriendData] = useState([]);
 
   useEffect(() => {
@@ -27,7 +27,8 @@ const Conversation = ({ data, currentUser }) => {
     <>
       <div className="follower conversation">
         <div className="user_img_name">
-          <div className="online-dot"></div>
+          {online && <div className="online-dot"></div>}
+          {/* <div className="online-dot"></div> */}
           <img
             src={
               friendData.profilePic
@@ -39,7 +40,7 @@ const Conversation = ({ data, currentUser }) => {
           />
           <div className="name_messenger" style={{ fontSize: "1rem" }}>
             <span className="messenger_friend_name">{friendData.username}</span>
-            <span className="online_text">Online</span>
+            <span className="online_text">{online ? "Online" : "Offline"}</span>
           </div>
         </div>
       </div>
