@@ -29,7 +29,11 @@ const Conversation = ({ data, currentUser }) => {
         <div className="user_img_name">
           <div className="online-dot"></div>
           <img
-            src={friendData ? friendData.profilePic : "/assets/NoProfImg.webp"}
+            src={
+              friendData.profilePic
+                ? friendData.profilePic
+                : "/assets/NoProfImg.webp"
+            }
             alt=""
             className="followerImg"
           />

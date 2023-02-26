@@ -1,93 +1,58 @@
 import { current } from "@reduxjs/toolkit";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
+import { format } from "timeago.js";
 import Conversation from "../../components/Conversation/Conversation";
 import Leftsidebar from "../../components/LeftSidebar/Leftsidebar";
 import MessageBox from "../../components/MessageBox/MessageBox";
 import Navbar from "../../components/Navbar/Navbar";
 import { BASE_URL } from "../../consts";
+import InputEmoji from "react-input-emoji";
 import "./messenger.css";
-// import  io  from "socket.io-client";
 
 const Messenger = () => {
   const user = useSelector((state) => state?.users?.value);
   const [allChats, setAllChats] = useState([]);
-  const [currentChat, setCurrentChat] = useState([]);
+  const [currentChat, setCurrentChat] = useState(null);
 
-  // const [onlineFriend, setOnlineFriend] = useState([]);
-  // const [acceptMessage, setAcceptMessage] = useState(null);
-
+  const [onlineUsers, setOnlineUsers] = useState([]);
   const [sendMessage, setSendMessage] = useState(null);
-  const [receivedMessage, setReceivedMessage] = useState(null);
-  console.log(sendMessage);
-  // console.log(receivedMessage);
+  const [receiveMessage, setReceiveMessage] = useState(null);
+
+  const [arrivalMessage, setArrivalMessage] = useState(null);
+  //CHAT BOX STATE 'S
+  const [friendData, setFriendData] = useState([]);
+  const [message, setMessage] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
   const socket = useRef();
+  const scrollRef = useRef();
 
   useEffect(() => {
-    socket.current = io("ws://localhost:8800");
-    // socket.current.on("getMessage", (data) => {});
-  }, []);
-
-  useEffect(() => {
-    if (socket && user._id) {
-      socket.current.emit("addUser", user._id);
-      socket.current.on("getUsers", (users) => {
-        console.log(users);
+    socket.current = io("ws://localhost:8900");
+    socket.current.on("getMessage", (data) => {
+      console.log(data);
+      setArrivalMessage({
+        senderId: data.senderId,
+        text: data.text,
       });
-    }
-  }, [user]);
-
-  //SEND MESSAGE TO SOCKET SERVER
-  useEffect(() => {
-    if (sendMessage !== null) {
-      socket.current?.emit("send-message", sendMessage);
-    }
-  }, [sendMessage]);
-
-  // RECEIVE MESSAGE FROM SEOCKET SERVER
-  useEffect(() => {
-    socket.current.on("receive-message", (data) => {
-      setReceivedMessage(data);
     });
   }, []);
 
-  // useEffect(() => {
-  //   if (socket) {
-  //     socket.on("welcome", (message) => {
-  //       console.log(message);
-  //     });
-  //   }
-  // }, [socket]);
+  useEffect(() => {
+    arrivalMessage &&
+      currentChat?.members?.includes(arrivalMessage?.senderId) &&
+      setMessage((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage, currentChat]);
 
-  //CONNECTED OCKET SERVER
-  // useEffect(() => {
-  //   if (user) {
-  //     socket.current = io("ws://localhost:8800");
-  //     socket.current.emit("new-user-add", user._id);
-  //     socket.current.on("get-users", (users) => {
-  //       setOnlineFriend(users);
-  //       console.log(onlineFriend);
-  //     });
-  //   }
-  // }, [user]);
-
-  //SENDING MESSAGE SOCKET SERVER
-  // useEffect(() => {
-  //   if (sendingMessage !== null) {
-  //     socket.current.emit("send-message", sendingMessage);
-  //   }
-  // }, [sendingMessage]);
-
-  //ACCPET MESSAGE FROM SERVER
-  // useEffect(() => {
-  //   socket.current.on("receive-message", (data) => {
-  //     setAcceptMessage(data);
-  //   });
-  // }, []);
-
-  //GET CHAT
+  useEffect(() => {
+    socket.current.emit("addUser", user._id);
+    socket.current.on("getUsers", (users) => {
+      console.log(users);
+    });
+  }, [user]);
 
   useEffect(() => {
     const getChats = async () => {
@@ -99,7 +64,82 @@ const Messenger = () => {
       }
     };
     getChats();
-  }, [user]);
+  }, [user._id]);
+
+  //CHAT BOX FUNCTIONS
+  const sendMessageFunc = async (e) => {
+    e?.preventDefault();
+    const messageSend = {
+      senderId: user._id,
+      text: newMessage,
+      chatId: currentChat._id,
+    };
+
+    const recevierId = currentChat.members.find(
+      (member) => member !== user._id
+    );
+    console.log(recevierId);
+    socket.current.emit("sendMessage", {
+      senderId: user._id,
+      recevierId: recevierId,
+      text: newMessage,
+    });
+
+    //SEND MESSAGE TO DB
+    try {
+      if (newMessage) {
+        const result = await axios.post(`${BASE_URL}/message`, messageSend);
+        setMessage([...message, result.data]);
+        setNewMessage("");
+      } else {
+        toast.error("you have to write");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+    //SEND MESSAGE TO SOCKET SEVrver
+    const receiverId = currentChat.members.find((id) => id !== user._id);
+    setSendMessage({ ...message, receiverId });
+  };
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [message]);
+
+  //   GET CONTACT DATA
+  useEffect(() => {
+    const friendId = currentChat?.members?.find((id) => id !== user._id);
+    const getFriendData = async () => {
+      try {
+        const res = await axios.get(
+          `${BASE_URL}/users/getuser/withId/${friendId}`
+        );
+        setFriendData(res.data.data);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+    if (friendId !== undefined) getFriendData();
+  }, [currentChat, user._id]);
+
+  useEffect(() => {
+    const getMessage = async () => {
+      try {
+        const result = await axios.get(
+          `${BASE_URL}/message/${currentChat._id}`
+        );
+        setMessage(result.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    if (currentChat !== null) getMessage();
+  }, [currentChat]);
+
+  const handleChange = (newMessage) => {
+    setNewMessage(newMessage);
+  };
 
   return (
     <>
@@ -116,7 +156,9 @@ const Messenger = () => {
                   {allChats &&
                     allChats.map((chat) => {
                       return (
-                        <div onClick={() => setCurrentChat(chat)}>
+                        <div
+                          key={chat.chadId}
+                          onClick={() => setCurrentChat(chat)}>
                           <Conversation data={chat} currentUser={user._id} />
                         </div>
                       );
@@ -127,12 +169,79 @@ const Messenger = () => {
 
             {/* RIGHT SIDE  */}
             <div className="Right-side-chat">
-              <MessageBox
+              {/* <MessageBox
                 chat={currentChat}
                 adminUser={user._id}
+                receiveMessage={receiveMessage}
                 setSendMessage={setSendMessage}
-                receivedMessage={receivedMessage}
-              />
+              /> */}
+              {/* CHAT BOX  */}
+              <div className="ChatBox-container">
+                {currentChat ? (
+                  <>
+                    {/* CHAT HEADER  */}
+                    <div className="chat-header">
+                      <div className="follower">
+                        <>
+                          <div className="user_img_name">
+                            <img
+                              src={
+                                friendData.profilePic
+                                  ? friendData.profilePic
+                                  : "assets/NoProfImg.webp"
+                              }
+                              alt=""
+                              className="followerImg"
+                            />
+                            <div
+                              className="name_messenger_mesBox"
+                              style={{ fontSize: "1rem" }}>
+                              <span className="messenger_friend_name">
+                                {friendData.username}
+                              </span>
+                            </div>
+                          </div>
+                        </>
+                      </div>
+                    </div>
+                    <hr
+                      style={{
+                        width: "85%",
+                        height: "0",
+                        border: "0.1px solid #c7c5c5",
+                      }}
+                    />
+                    {/* CHAT BODY */}
+                    <div className="chat-body">
+                      {message.map((message) => {
+                        return (
+                          <div
+                            key={message._id}
+                            ref={scrollRef}
+                            className={
+                              message.senderId === user._id
+                                ? "message own"
+                                : "message"
+                            }>
+                            <span>{message?.text}</span>
+                            <span>{format(message.createdAt)}</span>
+                          </div>
+                        );
+                      }, [])}
+                    </div>
+
+                    {/* SEND MESSAGE */}
+                    <div className="chat-sender">
+                      <InputEmoji value={newMessage} onChange={handleChange} />
+                      <button onClick={sendMessageFunc} className="send-btn">
+                        Send
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <span> TAP FOR START CHAT</span>
+                )}
+              </div>
             </div>
           </div>
         </div>

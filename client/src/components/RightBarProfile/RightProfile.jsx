@@ -403,12 +403,11 @@ const RightProfile = ({ user, submitFunc }) => {
               {friends ? (
                 friends.map((friend) => {
                   return (
-                    <Link to={`/profile/${friend.username}`}>
+                    <Link key={friend._id} to={`/profile/${friend.username}`}>
                       <div
-                        key={friend.username}
+                        key={friend._id}
                         className={style.profile_right_friends_friend_card}>
                         <div
-                          key={friend._id}
                           className={
                             style.profile_right_friends_friend_card_img
                           }>
@@ -444,7 +443,7 @@ const RightProfile = ({ user, submitFunc }) => {
               {follower ? (
                 follower.map((friend) => {
                   return friend ? (
-                    <Link to={`/profile/${friend.username}`}>
+                    <Link key={friend._id} to={`/profile/${friend.username}`}>
                       <div
                         key={friend.username}
                         className={style.profile_right_friends_friend_card}>

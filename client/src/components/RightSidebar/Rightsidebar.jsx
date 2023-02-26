@@ -83,10 +83,8 @@ const Rightsidebar = () => {
               friends &&
               friends.map((friend) => {
                 return (
-                  <Link to={`/profile/${friend?.username}`}>
-                    <div
-                      key={friend?._id}
-                      className={style.right_side_friends_prof}>
+                  <Link key={friend._id} to={`/profile/${friend.username}`}>
+                    <div className={style.right_side_friends_prof}>
                       <div className={style.right_side_friends_prof_pic_div}>
                         <img
                           className={style.right_side_friends_prof_img}

@@ -8,7 +8,7 @@ import InputEmoji from "react-input-emoji";
 import "./messagebox.css";
 import { toast } from "react-hot-toast";
 
-const MessageBox = ({ chat, adminUser, setSendMessage, receivedMessage }) => {
+const MessageBox = ({ chat, adminUser, setSendMessage, receiveMessage }) => {
   const [friendData, setFriendData] = useState([]);
   const [message, setMessage] = useState([]);
   const [newMessage, setNewMessage] = useState("");
@@ -18,6 +18,14 @@ const MessageBox = ({ chat, adminUser, setSendMessage, receivedMessage }) => {
   const handleChange = (newMessage) => {
     setNewMessage(newMessage);
   };
+
+  useEffect(() => {
+    if (receiveMessage !== null && receiveMessage.chatId === chat._id) {
+      setMessage([...message, receiveMessage]);
+    }
+  }, [receiveMessage]);
+
+  console.log(receiveMessage);
   //   GET CONTACT DATA
   useEffect(() => {
     const friendId = chat?.members?.find((id) => id !== adminUser);
@@ -47,18 +55,6 @@ const MessageBox = ({ chat, adminUser, setSendMessage, receivedMessage }) => {
     if (chat !== null) getMessage();
   }, [chat]);
 
-  useEffect(() => {
-    if (receivedMessage !== null && receivedMessage.chatId === chat._id) {
-      setMessage([...message, receivedMessage]);
-    }
-  }, [receivedMessage]);
-
-  // useEffect(() => {
-  //   if (acceptMessage !== null && acceptMessage?.chatId === chat?._id) {
-  //     setMessage([...message, acceptMessage]);
-  //   }
-  // }, [acceptMessage]);
-
   //SEND MESSAGE FUNC
   const sendMessage = async (e) => {
     e?.preventDefault();
@@ -69,9 +65,6 @@ const MessageBox = ({ chat, adminUser, setSendMessage, receivedMessage }) => {
     };
 
     //SEND MESSAGE TO DB
-    const receiverId = chat.members.find((id) => id !== adminUser);
-    setSendMessage({ ...message, receiverId });
-
     try {
       if (newMessage) {
         const result = await axios.post(`${BASE_URL}/message`, messageSend);
@@ -84,7 +77,9 @@ const MessageBox = ({ chat, adminUser, setSendMessage, receivedMessage }) => {
       console.log(err);
     }
 
-    //SEND MESSAGE TO SOCKET SEVER
+    //SEND MESSAGE TO SOCKET SEVrver
+    const receiverId = chat.members.find((id) => id !== adminUser);
+    setSendMessage({ ...message, receiverId });
   };
 
   //SCROLL USE EFFECT
@@ -133,6 +128,7 @@ const MessageBox = ({ chat, adminUser, setSendMessage, receivedMessage }) => {
             {message.map((message) => {
               return (
                 <div
+                  key={message._id}
                   ref={scrollRef}
                   className={
                     message.senderId === adminUser ? "message own" : "message"

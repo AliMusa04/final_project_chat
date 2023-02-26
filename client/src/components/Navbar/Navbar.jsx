@@ -132,10 +132,11 @@ const Navbar = () => {
                         })
                         .map((user) => {
                           return (
-                            <Link to={`/profile/${user.username}`}>
+                            <Link
+                              key={user._id}
+                              to={`/profile/${user.username}`}>
                               <div
                                 onClick={closeFunc}
-                                key={user.username}
                                 className={style.searchInp_friends}>
                                 <div
                                   className={style.searchInp_friends_img_div}>
