@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   const newChat = new chatModel({
-    members: [req.body.senderId, req.body.acceptId],
+    members: [req.body.senderId, req.body.receiverId],
   });
   try {
     const result = await newChat.save();
