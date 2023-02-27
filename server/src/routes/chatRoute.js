@@ -1,20 +1,24 @@
 const express = require("express");
-const createChat = require("../controllers/ChatController.js");
-const chatUser = require("../controllers/ChatController.js");
-const chatFind = require("../controllers/ChatController.js");
 const chatModel = require("../models/ChatModel.js");
 
 const router = express.Router();
 
 router.post("/", async (req, res) => {
-  const newChat = new chatModel({
-    members: [req.body.senderId, req.body.receiverId],
+  const findUser = await chatModel.findOne({
+    members: { $all: [req.body.senderId, req.body.receiverId] },
   });
-  try {
-    const result = await newChat.save();
-    res.status(200).send(result);
-  } catch (error) {
-    res.status(500).send(error);
+  if (findUser) {
+    res.status(400).send({ message: "This chat exist" });
+  } else {
+    const newChat = new chatModel({
+      members: [req.body.senderId, req.body.receiverId],
+    });
+    try {
+      const result = await newChat.save();
+      res.status(200).send(result);
+    } catch (error) {
+      res.status(500).send(error);
+    }
   }
 });
 

@@ -84,18 +84,22 @@ router.get("/getuser", authMiddle, async (req, res) => {
 
 router.get("/friends/:id", async (req, res) => {
   try {
-    const user = await UserModel.findById(req.params.id);
-    const userFriends = await Promise.all(
-      user.following.map((friendId) => {
-        return UserModel.findById(friendId);
-      })
-    );
-    let friendsAll = [];
-    userFriends.map((friend) => {
-      const { _id, profilePic, username } = friend;
-      friendsAll.push({ _id, profilePic, username });
-    });
-    res.status(200).send(friendsAll);
+    if (req.params.id) {
+      const user = await UserModel.findById(req.params.id);
+      const userFriends = await Promise.all(
+        user.following.map((friendId) => {
+          return UserModel.findById(friendId);
+        })
+      );
+      let friendsAll = [];
+      userFriends.map((friend) => {
+        if (friend) {
+          const { _id, profilePic, username } = friend;
+          friendsAll.push({ _id, profilePic, username });
+        }
+      });
+      res.status(200).send(friendsAll);
+    }
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
@@ -103,18 +107,22 @@ router.get("/friends/:id", async (req, res) => {
 
 router.get("/friends/follower/:id", async (req, res) => {
   try {
-    const user = await UserModel.findById(req.params.id);
-    const userFriends = await Promise.all(
-      user.followers.map((friendId) => {
-        return UserModel.findById(friendId);
-      })
-    );
-    let friendsAll = [];
-    userFriends.map((friend) => {
-      const { _id, profilePic, username } = friend;
-      friendsAll.push({ _id, profilePic, username });
-    });
-    res.status(200).send(friendsAll);
+    if (req.params.id) {
+      const user = await UserModel.findById(req.params.id);
+      const userFriends = await Promise.all(
+        user.followers.map((friendId) => {
+          return UserModel.findById(friendId);
+        })
+      );
+      let friendsAll = [];
+      userFriends.map((friend) => {
+        if (friend) {
+          const { _id, profilePic, username } = friend;
+          friendsAll.push({ _id, profilePic, username });
+        }
+      });
+      res.status(200).send(friendsAll);
+    }
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
