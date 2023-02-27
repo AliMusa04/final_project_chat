@@ -10,7 +10,7 @@ import Post from "../Post/Post";
 import Share from "../Share/Share";
 import style from "./mainSide.module.css";
 
-const Mainsidebar = ({ username, id, userId }) => {
+const Mainsidebar = ({ username }) => {
   const [posts, setPosts] = useState([]);
   const user = useSelector((state) => state.users.value);
   const loading = useSelector((state) => state.loading.value);
@@ -21,18 +21,18 @@ const Mainsidebar = ({ username, id, userId }) => {
     dispatch(showLoad());
     username
       ? await axiosInstance
-          .get(`${BASE_URL}/posts/timeline/${id}`)
+          .get(`${BASE_URL}/posts/profile/${username}`)
           .then((res) => {
             setPosts(
               res?.data
-                .filter((userpost) => userpost?.userId?._id === id)
+                .filter((userpost) => userpost?.userId?.username === username)
                 .sort((d1, d2) => {
                   return new Date(d2?.createdAt) - new Date(d1?.createdAt);
                 })
             );
           })
       : await axiosInstance
-          .get(`${BASE_URL}/posts/timeline/${userId}`)
+          .get(`${BASE_URL}/posts/timeline/${user?._id}`)
           .then((res) => {
             setPosts(
               res?.data?.sort((d1, d2) => {
@@ -46,7 +46,7 @@ const Mainsidebar = ({ username, id, userId }) => {
   useEffect(() => {
     getPost();
     dispatch(hideLoad());
-  }, [username, id]);
+  }, [username, user]);
 
   const deletePost = async (id) => {
     if (id && id !== undefined)

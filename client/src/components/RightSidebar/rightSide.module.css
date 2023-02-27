@@ -103,7 +103,9 @@
 .right_side_friends_prof {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 5px;
+  padding: 5px 10px;
   border-radius: 10px;
   margin-bottom: 5px;
   transition: 0.3s;
@@ -122,4 +124,34 @@
   font-size: 1.2rem;
   font-weight: 500;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.profile_img_username_wrap {
+  display: flex;
+  align-items: center;
+  width: 90%;
+}
+.right_side_profile_icon {
+  width: 45px;
+  height: 35px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: 0.3s;
+  border-left: 1px solid;
+  padding: 0px 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.right_side_profile_icon:hover {
+  background-color: white;
+}
+.right_side_profile_message_icon {
+  font-size: 25px;
+}
+
+.link_prof {
+  display: block;
+  width: 100%;
 }

@@ -41,7 +41,7 @@ const Home = () => {
       <div className={style.home_contanier}>
         <Leftsidebar />
         <div className={style.home_contanier_mid}>
-          <Mainsidebar userId={user._id} />
+          <Mainsidebar />
         </div>
         <Rightsidebar />
       </div>

@@ -127,7 +127,10 @@ const Profile = () => {
             </div>
           </div>
           <div className={style.profile_page_right_bottom_section}>
-            <Mainsidebar username={user.username} id={user._id} />
+            <Mainsidebar
+              username={user?.username}
+              // id={user._id}
+            />
             <RightProfile user={user} submitFunc={handleSubmit} />
           </div>
         </div>

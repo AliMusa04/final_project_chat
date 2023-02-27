@@ -2,17 +2,31 @@ import { Spin } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../consts";
 import { hideLoad, showLoad } from "../../redux/slice/loadingSlice/loadSlice";
 import style from "./rightSide.module.css";
-// import InputEmoji from "react-input-emoji";
+import { BsChatLeftText } from "react-icons/bs";
+import { toast } from "react-hot-toast";
 
 const Rightsidebar = () => {
   const user = useSelector((state) => state.users.value);
   const loading = useSelector((state) => state.loading.value);
   const [friends, setFriends] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const startChat = (allId) => {
+    axios
+      .post(`${BASE_URL}/chat`, allId)
+      .then(() => {
+        toast.success("Chat created");
+        navigate("/messenger");
+      })
+      .catch(() => {
+        toast.error("Chat already exist !");
+      });
+  };
 
   const getFriends = async () => {
     dispatch(showLoad());
@@ -26,7 +40,7 @@ const Rightsidebar = () => {
       }
     } catch (err) {
       dispatch(hideLoad());
-      console.log({ message: err.message });
+      // console.log({ message: err.message });
     }
   };
   useEffect(() => {
@@ -83,26 +97,45 @@ const Rightsidebar = () => {
               friends &&
               friends.map((friend) => {
                 return (
-                  <Link key={friend._id} to={`/profile/${friend.username}`}>
-                    <div className={style.right_side_friends_prof}>
-                      <div className={style.right_side_friends_prof_pic_div}>
-                        <img
-                          className={style.right_side_friends_prof_img}
-                          src={
-                            friend.profilePic
-                              ? friend?.profilePic
-                              : "/assets/NoProfImg.webp"
-                          }
-                          alt=""
-                        />
+                  <div
+                    key={friend?._id}
+                    className={style.right_side_friends_prof}>
+                    <Link
+                      className={style.link_prof}
+                      key={friend?._id}
+                      to={`/profile/${friend?.username}`}>
+                      <div className={style.profile_img_username_wrap}>
+                        <div className={style.right_side_friends_prof_pic_div}>
+                          <img
+                            className={style.right_side_friends_prof_img}
+                            src={
+                              friend?.profilePic
+                                ? friend?.profilePic
+                                : "/assets/NoProfImg.webp"
+                            }
+                            alt=""
+                          />
+                        </div>
+                        <div className={style.right_side_friends_username_div}>
+                          <h5 className={style.right_side_friends_username}>
+                            {friend?.username}
+                          </h5>
+                        </div>
                       </div>
-                      <div className={style.right_side_friends_username_div}>
-                        <h5 className={style.right_side_friends_username}>
-                          {friend.username}
-                        </h5>
-                      </div>
+                    </Link>
+                    <div
+                      onClick={() => {
+                        startChat({
+                          receiverId: friend._id,
+                          senderId: user._id,
+                        });
+                      }}
+                      className={style.right_side_profile_icon}>
+                      <BsChatLeftText
+                        className={style.right_side_profile_message_icon}
+                      />
                     </div>
-                  </Link>
+                  </div>
                 );
               })
             )}

@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { setPost } from "../../redux/slice/userSlice/userSlice";
 import { MdDeleteForever } from "react-icons/md";
+import { toast } from "react-hot-toast";
 
 const convertBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -100,10 +101,15 @@ const Share = ({ submitPost }) => {
       )}
       <form
         onSubmit={async (e) => {
-          await submitPost(e, user._id, descInp.current.value, file);
-          descInp.current.value = "";
-          setFile(null);
-          setTestfile(null);
+          e?.preventDefault();
+          if (descInp.current.value) {
+            await submitPost(e, user._id, descInp.current.value, file);
+            descInp.current.value = "";
+            setFile(null);
+            setTestfile(null);
+          } else {
+            toast.error("You must write anything");
+          }
         }}>
         <div className={style.share_wrapper_icons}>
           <div className={style.icons_wrapper}>

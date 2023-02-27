@@ -142,7 +142,6 @@ const Post = ({ post, deleteFunc, postComment, showModal, isSure }) => {
                 onClick={async () => {
                   handleClose();
                   submit();
-                  // deleteFunc(post._id);
                 }}
                 className={style.menu_item_post}>
                 Delete <RiDeleteBin5Line className={style.post_delete_btn} />

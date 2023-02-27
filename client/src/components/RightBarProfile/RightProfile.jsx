@@ -439,7 +439,11 @@ const RightProfile = ({ user, submitFunc }) => {
           <div className={style.following_wrap}>
             <h4>Followers</h4>
             <div className={style.profile_right_friends}>
-              {follower ? (
+              {follower.length === 0 ? (
+                <h5 style={{ color: "gray", fontWeight: "500" }}>
+                  No follower yet !
+                </h5>
+              ) : (
                 follower.map((friend) => {
                   return (
                     friend && (
@@ -475,8 +479,6 @@ const RightProfile = ({ user, submitFunc }) => {
                     )
                   );
                 })
-              ) : (
-                <h2> No friends yet</h2>
               )}
             </div>
           </div>
