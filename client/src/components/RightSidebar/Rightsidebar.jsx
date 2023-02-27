@@ -91,53 +91,58 @@ const Rightsidebar = () => {
             <h3 className={style.right_side_friends_title_h3}>Friends</h3>
           </div>
           <div className={style.right_side_friends_wrapper}>
-            {loading ? (
-              <Spin />
-            ) : (
-              friends &&
-              friends.map((friend) => {
-                return (
-                  <div
-                    key={friend?._id}
-                    className={style.right_side_friends_prof}>
-                    <Link
-                      className={style.link_prof}
-                      key={friend?._id}
-                      to={`/profile/${friend?.username}`}>
-                      <div className={style.profile_img_username_wrap}>
-                        <div className={style.right_side_friends_prof_pic_div}>
-                          <img
-                            className={style.right_side_friends_prof_img}
-                            src={
-                              friend?.profilePic
-                                ? friend?.profilePic
-                                : "/assets/NoProfImg.webp"
-                            }
-                            alt=""
-                          />
-                        </div>
-                        <div className={style.right_side_friends_username_div}>
-                          <h5 className={style.right_side_friends_username}>
-                            {friend?.username}
-                          </h5>
-                        </div>
-                      </div>
-                    </Link>
+            {friends.length !== 0 ? (
+              loading ? (
+                <Spin />
+              ) : (
+                friends.map((friend) => {
+                  return (
                     <div
-                      onClick={() => {
-                        startChat({
-                          receiverId: friend._id,
-                          senderId: user._id,
-                        });
-                      }}
-                      className={style.right_side_profile_icon}>
-                      <BsChatLeftText
-                        className={style.right_side_profile_message_icon}
-                      />
+                      key={friend?._id}
+                      className={style.right_side_friends_prof}>
+                      <Link
+                        className={style.link_prof}
+                        key={friend?._id}
+                        to={`/profile/${friend?.username}`}>
+                        <div className={style.profile_img_username_wrap}>
+                          <div
+                            className={style.right_side_friends_prof_pic_div}>
+                            <img
+                              className={style.right_side_friends_prof_img}
+                              src={
+                                friend?.profilePic
+                                  ? friend?.profilePic
+                                  : "/assets/NoProfImg.webp"
+                              }
+                              alt=""
+                            />
+                          </div>
+                          <div
+                            className={style.right_side_friends_username_div}>
+                            <h5 className={style.right_side_friends_username}>
+                              {friend?.username}
+                            </h5>
+                          </div>
+                        </div>
+                      </Link>
+                      <div
+                        onClick={() => {
+                          startChat({
+                            receiverId: friend._id,
+                            senderId: user._id,
+                          });
+                        }}
+                        className={style.right_side_profile_icon}>
+                        <BsChatLeftText
+                          className={style.right_side_profile_message_icon}
+                        />
+                      </div>
                     </div>
-                  </div>
-                );
-              })
+                  );
+                })
+              )
+            ) : (
+              <p className={style.nofriends_text}>No friends yet !</p>
             )}
           </div>
         </div>

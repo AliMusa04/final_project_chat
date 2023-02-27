@@ -121,7 +121,7 @@ const Mainsidebar = ({ username }) => {
           <div className={style.post_wrapper_main}>
             {!username && <Share submitPost={handleSubmit} />}
 
-            {posts !== undefined ? (
+            {posts.length !== 0 ? (
               loading ? (
                 <Spin size="large" />
               ) : (

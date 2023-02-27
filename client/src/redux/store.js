@@ -7,4 +7,7 @@ export const store = configureStore({
     users: userSlice.reducer,
     loading: loadSlice.reducer,
   },
+  middleware: (getDefaultMiddleware) => [
+    ...getDefaultMiddleware({ immutableCheck: true }),
+  ],
 });

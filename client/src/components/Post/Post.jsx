@@ -216,8 +216,8 @@ const Post = ({ post, deleteFunc, postComment, showModal, isSure }) => {
           {/* COMMENT SECTION */}
           <div className={style.post_bottom_comment_section}>
             <div className={style.post_bottom_comments_wrapper}>
-              {post?.comments?.map((com) =>
-                com ? (
+              {post?.comments.length !== 0 ? (
+                post?.comments?.map((com) => (
                   <div
                     key={com?.commentId}
                     className={style.post_bottom_comment}>
@@ -239,11 +239,11 @@ const Post = ({ post, deleteFunc, postComment, showModal, isSure }) => {
                       <span className={style.comment_desc}>{com?.descCom}</span>
                     </div>
                   </div>
-                ) : (
-                  <div className={style.no_comment_div}>
-                    <p className={style.no_comment_div_p}>No comment yet !</p>
-                  </div>
-                )
+                ))
+              ) : (
+                <div className={style.no_comment_div}>
+                  <p className={style.no_comment_div_p}>No comment yet !</p>
+                </div>
               )}
             </div>
             <div className={style.post_bottom_comment_input}>

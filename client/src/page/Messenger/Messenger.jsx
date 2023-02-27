@@ -1,4 +1,3 @@
-import { current } from "@reduxjs/toolkit";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -12,6 +11,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import { BASE_URL } from "../../consts";
 import InputEmoji from "react-input-emoji";
 import "./messenger.css";
+import { style } from "@mui/system";
 
 const Messenger = () => {
   const user = useSelector((state) => state?.users?.value);
@@ -159,9 +159,9 @@ const Messenger = () => {
             {/* LEFT SIDE  */}
             <div className="Left-side-chat">
               <div className="Chat-container">
-                <h2>Chats</h2>
+                <h2 className="chat_header_text">Chats</h2>
                 <div className="Chat-list">
-                  {allChats &&
+                  {allChats.length !== 0 ? (
                     allChats.map((chat) => {
                       return (
                         <div
@@ -174,7 +174,10 @@ const Messenger = () => {
                           />
                         </div>
                       );
-                    })}
+                    })
+                  ) : (
+                    <h5 className="noChatText"> No chat yet ! </h5>
+                  )}
                 </div>
               </div>
             </div>
@@ -219,25 +222,29 @@ const Messenger = () => {
 
                     {/* CHAT BODY */}
                     <div className="chat-body">
-                      {message.map((message) => {
-                        return (
-                          <div
-                            key={message?._id}
-                            ref={scrollRef}
-                            className={
-                              message.senderId === user._id
-                                ? "message own"
-                                : "message"
-                            }>
-                            <span className="message_text_chatbox">
-                              {message?.text}
-                            </span>
-                            <span className="message_time_chatbox">
-                              {format(message.createdAt)}
-                            </span>
-                          </div>
-                        );
-                      }, [])}
+                      {message.length !== 0 ? (
+                        message.map((message) => {
+                          return (
+                            <div
+                              key={message?._id}
+                              ref={scrollRef}
+                              className={
+                                message.senderId === user._id
+                                  ? "message own"
+                                  : "message"
+                              }>
+                              <span className="message_text_chatbox">
+                                {message?.text}
+                              </span>
+                              <span className="message_time_chatbox">
+                                {format(message.createdAt)}
+                              </span>
+                            </div>
+                          );
+                        }, [])
+                      ) : (
+                        <p className="noMessage_text">No message yet !</p>
+                      )}
                     </div>
 
                     {/* SEND MESSAGE */}
@@ -249,7 +256,7 @@ const Messenger = () => {
                     </div>
                   </>
                 ) : (
-                  <span className="none_chats"> CLİCK TO START</span>
+                  <span className="none_chats"> Click to start chat</span>
                 )}
               </div>
             </div>

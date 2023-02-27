@@ -26,6 +26,11 @@
   display: flex;
   align-items: center;
 }
+.chat_header_text {
+  font-size: 40px;
+  font-family: 500;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
 
 @media screen and (max-width: 900px) {
 }
