@@ -24,10 +24,10 @@ const Mainsidebar = ({ username, id, userId }) => {
           .get(`${BASE_URL}/posts/timeline/${id}`)
           .then((res) => {
             setPosts(
-              res.data
-                .filter((userpost) => userpost.userId._id === id)
+              res?.data
+                .filter((userpost) => userpost?.userId?._id === id)
                 .sort((d1, d2) => {
-                  return new Date(d2.createdAt) - new Date(d1.createdAt);
+                  return new Date(d2?.createdAt) - new Date(d1?.createdAt);
                 })
             );
           })
@@ -35,18 +35,11 @@ const Mainsidebar = ({ username, id, userId }) => {
           .get(`${BASE_URL}/posts/timeline/${userId}`)
           .then((res) => {
             setPosts(
-              res.data.sort((d1, d2) => {
-                return new Date(d2.createdAt) - new Date(d1.createdAt);
+              res?.data?.sort((d1, d2) => {
+                return new Date(d2?.createdAt) - new Date(d1?.createdAt);
               })
             );
           });
-    // dispatch(showLoad());
-
-    // setPosts(
-    //   res.data.sort((d1, d2) => {
-    //     return new Date(d2.createdAt) - new Date(d1.createdAt);
-    //   })
-    // );
     dispatch(hideLoad());
   };
 
@@ -127,29 +120,27 @@ const Mainsidebar = ({ username, id, userId }) => {
         <div className={style.main_side_wrapper}>
           <div className={style.post_wrapper_main}>
             {!username && <Share submitPost={handleSubmit} />}
-            {loading ? (
-              <Spin size="large" />
-            ) : posts ? (
-              posts.map((post) => {
-                return (
-                  <Post
-                    key={post?._id}
-                    deleteFunc={deletePost}
-                    postComment={postComment}
-                    post={post}
-                    showModal={showModal}
-                    isSure={isSure}
-                  />
-                );
-              })
+
+            {posts !== undefined ? (
+              loading ? (
+                <Spin size="large" />
+              ) : (
+                posts.map((post) => {
+                  return (
+                    <Post
+                      key={post?._id}
+                      deleteFunc={deletePost}
+                      postComment={postComment}
+                      post={post}
+                      showModal={showModal}
+                      isSure={isSure}
+                    />
+                  );
+                })
+              )
             ) : (
-              <p> Post yoxdu</p>
+              <p className={style.noPost}>No post yet !</p>
             )}
-            <p
-              style={{ display: posts ? "none" : "flex" }}
-              className={style.noPost}>
-              No post yet !
-            </p>
           </div>
         </div>
       </div>

@@ -194,3 +194,14 @@ h3 {
   .profile_right_user_info_h3 {
   }
 }
+
+@media screen and (max-width: 448px) {
+  .profile_right_cont {
+    width: 100%;
+  }
+  .profile_right_user_info {
+    width: 100%;
+  }
+  .profile_right_user_info_h3 {
+  }
+}

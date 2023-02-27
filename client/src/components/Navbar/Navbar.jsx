@@ -13,7 +13,7 @@ import { RiFeedbackFill } from "react-icons/ri";
 import { MdLogout } from "react-icons/md";
 import { BiMenuAltRight } from "react-icons/bi";
 import styleMain from "../MainSidebar/mainSide.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../apicall/usersApi";
 import { toast, Toaster } from "react-hot-toast";
@@ -317,18 +317,26 @@ const Navbar = () => {
         <div className="offcanvas-body">
           <div className={style.offcanvas_body_content}>
             <div className={style.offcanvas_icons}>
-              <div className={style.offcanvas_icons_text}>
-                <div title="Messenger" className={style.navbar_message_icon}>
-                  <BsMessenger />
+              <Link
+                to={"/messenger"}
+                onClick={() => {
+                  closeFunc();
+                }}>
+                <div className={style.offcanvas_icons_text}>
+                  <div title="Messenger" className={style.navbar_message_icon}>
+                    <BsMessenger />
+                  </div>
+                  <p className={style.canvas_text}>Messenger</p>
                 </div>
-                <p className={style.canvas_text}>Messenger</p>
-              </div>
+              </Link>
+
               <div className={style.offcanvas_icons_text}>
                 <div title="Notification" className={style.navbar_message_icon}>
                   <MdNotificationsActive />
                 </div>
                 <p className={style.canvas_text}>Notifications</p>
               </div>
+
               <div className={style.offcanvas_icons_text}>
                 <div
                   onClick={() => {
@@ -486,7 +494,13 @@ const Navbar = () => {
                 </div>
 
                 {/* LOGOUT */}
-                <div className={style.option}>
+                <div
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    closeFunc();
+                    window.location.href = "/login";
+                  }}
+                  className={style.option}>
                   <div className={style.option_left}>
                     <div className={style.option_left_icon_backg}>
                       <MdLogout className={style.settings_icon} />

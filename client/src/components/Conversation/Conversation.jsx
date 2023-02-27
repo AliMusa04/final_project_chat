@@ -39,7 +39,9 @@ const Conversation = ({ data, currentUser, online }) => {
             className="followerImg"
           />
           <div className="name_messenger" style={{ fontSize: "1rem" }}>
-            <span className="messenger_friend_name">{friendData.username}</span>
+            <span className="messenger_friend_name_conver">
+              {friendData.username}
+            </span>
             <span className="online_text">{online ? "Online" : "Offline"}</span>
           </div>
         </div>

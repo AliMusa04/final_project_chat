@@ -75,7 +75,7 @@ const RightProfile = ({ user, submitFunc }) => {
 
   const getFollowers = async () => {
     try {
-      if (user._id) {
+      if (user._id !== undefined) {
         const friendsUser = await axios.get(
           `${BASE_URL}/users/friends/follower/${user._id}`
         );
@@ -189,14 +189,14 @@ const RightProfile = ({ user, submitFunc }) => {
   //   handleSubmit();
   // }, [userAdmin._id]);
 
-  const resetInp = () => {
-    descRef.target.value = " ";
-    fromRef.target.value = " ";
-    cityRef.target.value = " ";
-    setrelationInp(null);
-    setcoverFile(null);
-    setprofFile(null);
-  };
+  // const resetInp = () => {
+  //   descRef.target.value = " ";
+  //   fromRef.target.value = " ";
+  //   cityRef.target.value = " ";
+  //   setrelationInp(null);
+  //   setcoverFile(null);
+  //   setprofFile(null);
+  // };
   return (
     <>
       <div className={style.profile_right_cont}>
@@ -245,7 +245,6 @@ const RightProfile = ({ user, submitFunc }) => {
                   relationInp
                 );
                 handleCancel();
-                resetInp();
               }}
               action="#">
               <div className={style.edit_cover_phot}>
@@ -442,40 +441,42 @@ const RightProfile = ({ user, submitFunc }) => {
             <div className={style.profile_right_friends}>
               {follower ? (
                 follower.map((friend) => {
-                  return friend ? (
-                    <Link key={friend._id} to={`/profile/${friend.username}`}>
-                      <div
-                        key={friend.username}
-                        className={style.profile_right_friends_friend_card}>
+                  return (
+                    friend && (
+                      <Link
+                        key={friend?._id}
+                        to={`/profile/${friend?.username}`}>
                         <div
-                          key={friend._id}
-                          className={
-                            style.profile_right_friends_friend_card_img
-                          }>
-                          <img
-                            className={style.profile_right_friends_friend_pic}
-                            src={
-                              friend?.profilePic
-                                ? friend?.profilePic
-                                : "/assets/NoProfImg.webp"
-                            }
-                            alt=""
-                          />
+                          key={friend?.username}
+                          className={style.profile_right_friends_friend_card}>
+                          <div
+                            key={friend._id}
+                            className={
+                              style.profile_right_friends_friend_card_img
+                            }>
+                            <img
+                              className={style.profile_right_friends_friend_pic}
+                              src={
+                                friend?.profilePic
+                                  ? friend?.profilePic
+                                  : "/assets/NoProfImg.webp"
+                              }
+                              alt=""
+                            />
+                          </div>
+                          <p
+                            className={
+                              style.profile_right_friends_friend_card_username
+                            }>
+                            {friend?.username}
+                          </p>
                         </div>
-                        <p
-                          className={
-                            style.profile_right_friends_friend_card_username
-                          }>
-                          {friend?.username}
-                        </p>
-                      </div>
-                    </Link>
-                  ) : (
-                    <h2>No friends yet</h2>
+                      </Link>
+                    )
                   );
                 })
               ) : (
-                <h2>No friends yet</h2>
+                <h2> No friends yet</h2>
               )}
             </div>
           </div>

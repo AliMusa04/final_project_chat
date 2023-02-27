@@ -162,7 +162,8 @@ hr {
     height: 100vh;
   }
   .register_page_h1 {
-    font-size: 25px;
+    font-size: 45px;
+    padding: 10px 70px;
   }
   .login_two_side {
     width: 550px !important;
@@ -213,6 +214,10 @@ hr {
     /* padding: auto 0 !important; */
     padding: 0 !important;
   }
+  .register_page_h1 {
+    font-size: 25px;
+    padding: 10px 50px;
+  }
   .formik_error {
     font-size: 12px;
   }
@@ -223,7 +228,9 @@ hr {
     font-size: 16px;
   }
   .register_btn_forrLog {
-    font-size: 16wpx;
+    font-size: 16px;
+    width: 100%;
+    padding: 5px;
   }
   .login_two_side {
     width: 340px !important;

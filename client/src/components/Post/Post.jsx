@@ -76,22 +76,6 @@ const Post = ({ post, deleteFunc, postComment, showModal, isSure }) => {
   const commentRef = useRef();
 
   const [comment, setCom] = useState("");
-  //POST COMMNET
-  // const postComment = async () => {
-  //   if (commentRef.target.value) {
-  //     try {
-  //       await axiosInstance.put(
-  //         `${BASE_URL}/posts/comment/${post._id}`,
-  //         commentRef.target.value
-  //       );
-  //       toast.success("Comment posted");
-  //     } catch (err) {
-  //       console.log(err.message);
-  //     }
-  //   } else {
-  //     toast.error("You have to write");
-  //   }
-  // };
 
   const submit = () => {
     confirmAlert({
@@ -114,18 +98,18 @@ const Post = ({ post, deleteFunc, postComment, showModal, isSure }) => {
         {/* POST TOP SECTION */}
         <div className={style.post_top}>
           <div className={style.post_top_left}>
-            <Link to={`/profile/${post.userId.username}`}>
+            <Link to={`/profile/${post?.userId?.username}`}>
               <div className={style.post_top_left_img_div}>
                 <img
                   className={style.post_top_left_img}
-                  src={post.userId.profilePic || "/assets/NoProfImg.webp"}
+                  src={post?.userId?.profilePic || "/assets/NoProfImg.webp"}
                   alt=""
                 />
               </div>
             </Link>
             <div className={style.post_left_text}>
               <h5 className={style.post_left_text_user}>
-                {post.userId.username}
+                {post?.userId?.username}
               </h5>
               <p className={style.post_left_text_date}>
                 {format(post?.createdAt)}
@@ -135,7 +119,7 @@ const Post = ({ post, deleteFunc, postComment, showModal, isSure }) => {
           <div className={style.post_top_right}>
             <Button
               style={{
-                display: post.userId._id === user._id ? "inline" : "none",
+                display: post?.userId?._id === user?._id ? "inline" : "none",
               }}
               className={style.post_btn}
               id="fade-button"
@@ -193,7 +177,7 @@ const Post = ({ post, deleteFunc, postComment, showModal, isSure }) => {
             </div>
             <div className={style.post_bottom_comment}>
               <span className={style.comment_count}>
-                {post.comments.length}
+                {post?.comments?.length}
               </span>
               <FaRegCommentAlt className={style.post_comment_icon} />
             </div>
@@ -233,20 +217,24 @@ const Post = ({ post, deleteFunc, postComment, showModal, isSure }) => {
           {/* COMMENT SECTION */}
           <div className={style.post_bottom_comment_section}>
             <div className={style.post_bottom_comments_wrapper}>
-              {post.comments.map((com) =>
+              {post?.comments?.map((com) =>
                 com ? (
                   <div
-                    key={com.commentId}
+                    key={com?.commentId}
                     className={style.post_bottom_comment}>
                     <div className={style.user_comment}>
                       <div className={style.comment_user_name_img_div}>
                         <img
                           className={style.comment_user_prof}
-                          src={com.user.profilePic}
+                          src={
+                            com.user?.profilePic
+                              ? com.user?.profilePic
+                              : "/assets/NoProfImg.webp"
+                          }
                           alt=""
                         />
                         <span className={style.comment_username}>
-                          {com?.user.username}
+                          {com?.user?.username}
                         </span>
                       </div>
                       <span className={style.comment_desc}>{com?.descCom}</span>

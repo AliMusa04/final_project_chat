@@ -47,33 +47,34 @@ const Profile = () => {
     e?.preventDefault();
     const newPost = {};
     if (coverFile) {
-      newPost.coverPic = coverFile;
       try {
+        newPost.coverPic = coverFile;
         console.log("Succsess");
       } catch (err) {}
     } else if (profFile) {
-      newPost.profilePic = profFile;
       try {
+        newPost.profilePic = profFile;
         console.log("Succsess");
       } catch (err) {}
     } else if (descRef) {
-      newPost.userDesc = descRef;
       try {
+        newPost.userDesc = descRef;
         console.log("Succsess");
       } catch (err) {}
     } else if (cityRef) {
-      newPost.city = cityRef;
       try {
+        newPost.city = cityRef;
         console.log("Succsess");
+        cityRef = "";
       } catch (err) {}
     } else if (fromRef) {
-      newPost.from = fromRef;
       try {
+        newPost.from = fromRef;
         console.log("Succsess");
       } catch (err) {}
     } else if (relationInp) {
-      newPost.reltionship = relationInp;
       try {
+        newPost.reltionship = relationInp;
         console.log("Succsess");
       } catch (err) {}
     }

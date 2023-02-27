@@ -165,7 +165,7 @@ const Messenger = () => {
                     allChats.map((chat) => {
                       return (
                         <div
-                          key={chat.chadId}
+                          key={chat._id}
                           onClick={() => setCurrentChat(chat)}>
                           <Conversation
                             data={chat}
@@ -216,27 +216,25 @@ const Messenger = () => {
                         </>
                       </div>
                     </div>
-                    <hr
-                      style={{
-                        width: "85%",
-                        height: "0",
-                        border: "0.1px solid #c7c5c5",
-                      }}
-                    />
+
                     {/* CHAT BODY */}
                     <div className="chat-body">
                       {message.map((message) => {
                         return (
                           <div
-                            key={message._id}
+                            key={message?._id}
                             ref={scrollRef}
                             className={
                               message.senderId === user._id
                                 ? "message own"
                                 : "message"
                             }>
-                            <span>{message?.text}</span>
-                            <span>{format(message.createdAt)}</span>
+                            <span className="message_text_chatbox">
+                              {message?.text}
+                            </span>
+                            <span className="message_time_chatbox">
+                              {format(message.createdAt)}
+                            </span>
                           </div>
                         );
                       }, [])}
@@ -251,7 +249,7 @@ const Messenger = () => {
                     </div>
                   </>
                 ) : (
-                  <span> TAP FOR START CHAT</span>
+                  <span className="none_chats"> CLİCK TO START</span>
                 )}
               </div>
             </div>

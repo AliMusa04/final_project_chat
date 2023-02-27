@@ -309,6 +309,9 @@ aside {
 }
 
 @media screen and (max-width: 648px) {
+  .user_comment {
+    padding: 2px;
+  }
   .post_parent_div {
     width: 300px;
   }

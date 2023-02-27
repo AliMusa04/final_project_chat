@@ -98,6 +98,42 @@ h3 {
   .profile_page_pics_user {
     position: absolute;
     top: 150px;
-    left: 43%;
+    left: 20px;
+  }
+  .profile_page_username_desc {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 40px;
+  }
+}
+
+@media screen and (max-width: 448px) {
+  .profile_page_cont {
+    width: 100vw;
+  }
+  .home_contanier_mid {
+    width: 200px;
+  }
+  .profile_page_right_bottom_section {
+    width: 100%;
+    margin: 0 !important;
+  }
+  .profile_page_right_side {
+    width: 100%;
+  }
+  .profile_page_top_pics {
+    padding-left: 0px;
+  }
+  .profile_page_pics_user {
+    position: absolute;
+    top: 150px;
+    left: 20px;
+  }
+  .profile_page_username_desc {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 40px;
   }
 }
