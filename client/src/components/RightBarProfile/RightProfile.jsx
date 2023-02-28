@@ -136,8 +136,6 @@ const RightProfile = ({ user, submitFunc }) => {
     fromRef.current.value = "";
   };
 
-  // const handleSubmit = async (e) => {
-  //   e?.preventDefault();
   //   const newPost = {};
   //   if (coverFile) {
   //     newPost.coverPic = coverFile;

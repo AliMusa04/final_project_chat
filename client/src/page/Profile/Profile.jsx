@@ -66,28 +66,33 @@ const Profile = () => {
         newPost.coverPic = coverFile;
         console.log("Succsess");
       } catch (err) {}
-    } else if (profFile) {
+    }
+    if (profFile) {
       try {
         newPost.profilePic = profFile;
         console.log("Succsess");
       } catch (err) {}
-    } else if (descRef) {
+    }
+    if (descRef) {
       try {
         newPost.userDesc = descRef;
         console.log("Succsess");
       } catch (err) {}
-    } else if (cityRef) {
+    }
+    if (cityRef) {
       try {
         newPost.city = cityRef;
         console.log("Succsess");
         cityRef = "";
       } catch (err) {}
-    } else if (fromRef) {
+    }
+    if (fromRef) {
       try {
         newPost.from = fromRef;
         console.log("Succsess");
       } catch (err) {}
-    } else if (relationInp) {
+    }
+    if (relationInp) {
       try {
         newPost.reltionship = relationInp;
         console.log("Succsess");
