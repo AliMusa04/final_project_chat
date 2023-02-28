@@ -13,7 +13,6 @@ import { toast } from "react-hot-toast";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { BsFillCameraFill } from "react-icons/bs";
 import { useRef } from "react";
-import { SetUser } from "../../redux/slice/userSlice/userSlice";
 
 const convertBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -120,10 +119,8 @@ const RightProfile = ({ user, submitFunc }) => {
   const [coverFile, setcoverFile] = useState("");
   const [relationInp, setrelationInp] = useState("");
   const [city, setCity] = useState("");
-  const dispatch = useDispatch();
   const cityRef = useRef();
   const fromRef = useRef();
-  // const relationRef = useRef();
   const descRef = useRef();
 
   const handleChange = (value) => {
@@ -136,71 +133,6 @@ const RightProfile = ({ user, submitFunc }) => {
     fromRef.current.value = "";
   };
 
-  //   const newPost = {};
-  //   if (coverFile) {
-  //     newPost.coverPic = coverFile;
-  //     try {
-  //       console.log("Succsess");
-  //     } catch (err) {}
-  //   } else if (profFile) {
-  //     newPost.profilePic = profFile;
-  //     try {
-  //       console.log("Succsess");
-  //     } catch (err) {}
-  //   } else if (descRef?.current?.value) {
-  //     newPost.userDesc = descRef.current.value;
-  //     try {
-  //       console.log("Succsess");
-  //     } catch (err) {}
-  //   } else if (cityRef?.current?.value) {
-  //     newPost.city = cityRef.current.value;
-  //     try {
-  //       console.log("Succsess");
-  //     } catch (err) {}
-  //   } else if (fromRef?.current?.value) {
-  //     newPost.from = fromRef.current.value;
-  //     try {
-  //       console.log("Succsess");
-  //     } catch (err) {}
-  //   } else if (relationInp) {
-  //     newPost.reltionship = relationInp;
-  //     try {
-  //       console.log("Succsess");
-  //     } catch (err) {
-  //       // toast.error("Already updated");
-  //     }
-  //   }
-  //   try {
-  //     if (newPost && userAdmin._id !== undefined) {
-  //       await axiosInstance
-  //         .put(`${BASE_URL}/users/${userAdmin._id}`, newPost)
-  //         .then(() => {
-  //           toast.success("Updated");
-  //           // toast.success("update");
-  //           console.log("slaam");
-  //         });
-  //     } else if (!newPost) {
-  //       toast.error("No update");
-  //     }
-  //     // dispatch(setPost(newPost));
-  //     // window.location.reload();
-  //   } catch (err) {
-  //     console.log({ message: err.message });
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   handleSubmit();
-  // }, [userAdmin._id]);
-
-  // const resetInp = () => {
-  //   descRef.target.value = " ";
-  //   fromRef.target.value = " ";
-  //   cityRef.target.value = " ";
-  //   setrelationInp(null);
-  //   setcoverFile(null);
-  //   setprofFile(null);
-  // };
   return (
     <>
       <div className={style.profile_right_cont}>
@@ -407,7 +339,7 @@ const RightProfile = ({ user, submitFunc }) => {
 
         <div className={style.profile_right_user_friends_wrapper}>
           <div className={style.following_wrap}>
-            <h4>Followings</h4>
+            <h4 className={style.title_following}>Followings</h4>
             <div className={style.profile_right_friends}>
               {friends.length !== 0 ? (
                 friends.map((friend) => {
@@ -449,7 +381,7 @@ const RightProfile = ({ user, submitFunc }) => {
           </div>
 
           <div className={style.following_wrap}>
-            <h4>Followers</h4>
+            <h4 className={style.title_following}>Followers</h4>
             <div className={style.profile_right_friends}>
               {follower.length === 0 ? (
                 <h5 style={{ color: "gray", fontWeight: "500" }}>

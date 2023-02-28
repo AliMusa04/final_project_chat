@@ -11,9 +11,15 @@
 .profile_right_user_info_h3 {
   font-size: 27px;
   margin-bottom: 10px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 .info_text_p {
   font-size: 18px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+.title_following {
+  font-weight: 500;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 .profile_right_user_friends_wrapper {
   margin-top: 20px;
@@ -171,6 +177,8 @@ h3 {
 }
 .title_update {
   font-weight: 500;
+  font-size: 14px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 .following_wrap {
   margin-bottom: 20px;

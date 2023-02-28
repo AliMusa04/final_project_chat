@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: column;
 }
+.messenger_friend_name_conver {
+  font-family: 500;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
 .user_img_name {
   display: flex;
 }
