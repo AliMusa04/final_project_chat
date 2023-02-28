@@ -130,6 +130,12 @@ const RightProfile = ({ user, submitFunc }) => {
     setrelationInp(value.value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
   };
 
+  const resetInp = () => {
+    descRef.current.value = "";
+    cityRef.current.value = "";
+    fromRef.current.value = "";
+  };
+
   // const handleSubmit = async (e) => {
   //   e?.preventDefault();
   //   const newPost = {};
@@ -244,6 +250,12 @@ const RightProfile = ({ user, submitFunc }) => {
                   fromRef.current?.value,
                   relationInp
                 );
+
+                setcoverFile(null);
+                setprofFile(null);
+                resetInp();
+                setrelationInp("");
+
                 handleCancel();
               }}
               action="#">

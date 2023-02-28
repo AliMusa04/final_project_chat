@@ -16,6 +16,7 @@ import { BASE_URL } from "../../consts";
 import { hideLoad, showLoad } from "../../redux/slice/loadingSlice/loadSlice";
 import style from "./profile.module.css";
 import { getUserInfo } from "../../apicall/usersApi";
+import { SetUser } from "../../redux/slice/userSlice/userSlice";
 
 const Profile = () => {
   const [user, setUser] = useState([]);
@@ -46,6 +47,20 @@ const Profile = () => {
   ) => {
     e?.preventDefault();
     const newPost = {};
+
+    // if(coverFile || profFile || descRef || cityRef || fromRef || relationInp ){
+    //   try {
+    //     newPost.coverPic = coverFile;
+    //     newPost.profilePic = profFile;
+    //     newPost.userDesc = descRef;
+    //     newPost.city = cityRef;
+    //     newPost.from = fromRef;
+    //     newPost.reltionship = relationInp;
+    //     console.log("Succsess");
+
+    //   } catch (err) {}
+
+    // }
     if (coverFile) {
       try {
         newPost.coverPic = coverFile;
@@ -82,11 +97,14 @@ const Profile = () => {
       if (newPost && userAdmin._id !== undefined) {
         await axiosInstance
           .put(`${BASE_URL}/users/${userAdmin._id}`, newPost)
-          .then(() => {
+          .then(async () => {
             profFile = "";
             toast.success("Updated");
             fetchUser();
-            getUserInfo();
+            const response = await getUserInfo();
+            if (response.success) {
+              dispatch(SetUser(response.data));
+            }
           });
       } else if (!newPost) {
         toast.error("No update");

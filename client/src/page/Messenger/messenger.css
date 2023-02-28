@@ -8,15 +8,10 @@
   /* background-color: aqua; */
 }
 .Chat {
-  /* position: relative;   */
   display: flex;
   width: 100%;
-  /* background-color: black; */
   padding: 15px;
   padding-bottom: 0px;
-  /* grid-templte-columns: 22% auto; */
-  /* gap: 1rem; */
-  /* padding-top: 15px; */
 }
 
 .Left-side-chat {
@@ -46,6 +41,7 @@
   height: 400px;
   max-height: 400px;
   overflow-y: scroll !important;
+  overflow-x: hidden;
 }
 
 .Chat-list::-webkit-scrollbar-thumb {

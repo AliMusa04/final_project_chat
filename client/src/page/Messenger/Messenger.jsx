@@ -28,25 +28,28 @@ const Messenger = () => {
   const [newMessage, setNewMessage] = useState("");
   const socket = useRef();
   const scrollRef = useRef();
-
   useEffect(() => {
     socket.current = io("ws://localhost:8900");
-    socket.current.on("getMessage", (data) => {
-      console.log(data);
+    socket.current.on("getMessage", async (data) => {
       setArrivalMessage({
-        senderId: data.senderId,
-        text: data.text,
+        senderId: data?.senderId,
+        text: data?.text,
       });
     });
+
     socket.current.on("getUsers", (users) => {
       setOnlineUsers(users);
     });
   }, []);
+  console.log(message);
+  console.log(arrivalMessage);
 
   useEffect(() => {
-    arrivalMessage &&
-      currentChat?.members?.includes(arrivalMessage?.senderId) &&
-      setMessage((prev) => [...prev, arrivalMessage]);
+    if (arrivalMessage) {
+      arrivalMessage &&
+        currentChat.members?.includes(arrivalMessage?.senderId) &&
+        setMessage((prev) => [...prev, arrivalMessage]);
+    }
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
@@ -72,20 +75,21 @@ const Messenger = () => {
   const sendMessageFunc = async (e) => {
     e?.preventDefault();
     const messageSend = {
-      senderId: user._id,
+      senderId: user?._id,
       text: newMessage,
-      chatId: currentChat._id,
+      chatId: currentChat?._id,
     };
 
-    const recevierId = currentChat.members.find(
-      (member) => member !== user._id
+    const recevierId = currentChat?.members?.find(
+      (member) => member !== user?._id
     );
-    console.log(recevierId);
-    socket.current.emit("sendMessage", {
-      senderId: user._id,
-      recevierId: recevierId,
-      text: newMessage,
-    });
+    if (recevierId && newMessage && newMessage) {
+      socket.current?.emit("sendMessage", {
+        senderId: user._id,
+        recevierId: recevierId,
+        text: newMessage,
+      });
+    }
 
     //SEND MESSAGE TO DB
     try {
@@ -100,7 +104,7 @@ const Messenger = () => {
       console.log(err);
     }
 
-    //SEND MESSAGE TO SOCKET SEVrver
+    // SEND MESSAGE TO SOCKET SEVrver
     const receiverId = currentChat.members.find((id) => id !== user._id);
     setSendMessage({ ...message, receiverId });
   };
@@ -168,6 +172,7 @@ const Messenger = () => {
                           key={chat._id}
                           onClick={() => setCurrentChat(chat)}>
                           <Conversation
+                            key={chat._id}
                             data={chat}
                             currentUser={user._id}
                             online={checkOnlineStatus(chat)}
@@ -226,14 +231,16 @@ const Messenger = () => {
                         message.map((message) => {
                           return (
                             <div
-                              key={message?._id}
+                              key={message._id}
                               ref={scrollRef}
                               className={
                                 message.senderId === user._id
                                   ? "message own"
                                   : "message"
                               }>
-                              <span className="message_text_chatbox">
+                              <span
+                                key={message._id}
+                                className="message_text_chatbox">
                                 {message?.text}
                               </span>
                               <span className="message_time_chatbox">

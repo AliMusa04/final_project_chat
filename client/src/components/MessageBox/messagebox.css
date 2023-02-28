@@ -35,8 +35,7 @@
 .chat-body {
   display: flex;
   flex-direction: column;
-  height: 400px;
-  max-height: 400px;
+  max-height: 75%;
   gap: 0.5rem;
   padding: 1.5rem;
   overflow-y: scroll;

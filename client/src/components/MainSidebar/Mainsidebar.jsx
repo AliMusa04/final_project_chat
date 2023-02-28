@@ -21,11 +21,13 @@ const Mainsidebar = ({ username }) => {
     dispatch(showLoad());
     username
       ? await axiosInstance
-          .get(`${BASE_URL}/posts/profile/${username}`)
+          .get(`${BASE_URL}/posts/timeline/${user?._id}`)
           .then((res) => {
             setPosts(
               res?.data
-                .filter((userpost) => userpost?.userId?.username === username)
+                .filter((post) => {
+                  return post.userId.username === username;
+                })
                 .sort((d1, d2) => {
                   return new Date(d2?.createdAt) - new Date(d1?.createdAt);
                 })
@@ -35,13 +37,25 @@ const Mainsidebar = ({ username }) => {
           .get(`${BASE_URL}/posts/timeline/${user?._id}`)
           .then((res) => {
             setPosts(
-              res?.data?.sort((d1, d2) => {
+              res?.data.sort((d1, d2) => {
                 return new Date(d2?.createdAt) - new Date(d1?.createdAt);
               })
             );
           });
     dispatch(hideLoad());
   };
+
+  // await axiosInstance
+  //         .get(`${BASE_URL}/posts/profile/${username}`)
+  //         .then((res) => {
+  //           setPosts(
+  //             res?.data
+  //               .filter((userpost) => userpost?.userId?.username === username)
+  //               .sort((d1, d2) => {
+  //                 return new Date(d2?.createdAt) - new Date(d1?.createdAt);
+  //               })
+  //           );
+  //         })
 
   useEffect(() => {
     getPost();

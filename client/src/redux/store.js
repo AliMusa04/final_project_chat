@@ -8,6 +8,6 @@ export const store = configureStore({
     loading: loadSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => [
-    ...getDefaultMiddleware({ immutableCheck: true }),
+    ...getDefaultMiddleware({ immutableCheck: false }),
   ],
 });
