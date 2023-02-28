@@ -1,4 +1,3 @@
-import { Spin } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -8,10 +7,7 @@ import axiosInstance from "../../apicall";
 import Leftsidebar from "../../components/LeftSidebar/Leftsidebar";
 import Mainsidebar from "../../components/MainSidebar/Mainsidebar";
 import Navbar from "../../components/Navbar/Navbar";
-import Post from "../../components/Post/Post";
 import RightProfile from "../../components/RightBarProfile/RightProfile";
-import Rightsidebar from "../../components/RightSidebar/Rightsidebar";
-import Share from "../../components/Share/Share";
 import { BASE_URL } from "../../consts";
 import { hideLoad, showLoad } from "../../redux/slice/loadingSlice/loadSlice";
 import style from "./profile.module.css";

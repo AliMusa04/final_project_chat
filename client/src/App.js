@@ -1,20 +1,14 @@
-import Leftsidebar from "./components/LeftSidebar/Leftsidebar";
-import Mainsidebar from "./components/MainSidebar/Mainsidebar";
-import Navbar from "./components/Navbar/Navbar";
-import Rightsidebar from "./components/RightSidebar/Rightsidebar";
+import React from "react";
 import Login from "./page/Login/Login";
 import Register from "./page/Register/Register";
-import style from "./components/RightSidebar/rightSide.module.css";
 import Home from "./page/Home/Home";
-import Profile from "./page/Profile/Profile";
-
-import { route } from "./routes/route";
+// import Profile from "./page/Profile/Profile";
 import { useSelector } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Messenger from "./page/Messenger/Messenger";
-import notFound from "./page/404found/NotFound";
 import NotFound from "./page/404found/NotFound";
 
+const LazyProfile = React.lazy(() => import("./page/Profile/Profile"));
 // const router = createBrowserRouter(route);
 function App() {
   // const user = false;
@@ -38,7 +32,15 @@ function App() {
         />
         <Route
           path="/profile/:username"
-          element={user ? <Profile /> : <Navigate to={"/login"} />}
+          element={
+            user ? (
+              <React.Suspense>
+                <LazyProfile />
+              </React.Suspense>
+            ) : (
+              <Navigate to={"/login"} />
+            )
+          }
         />
         <Route
           path="/messenger"
