@@ -12,6 +12,8 @@ import { route } from "./routes/route";
 import { useSelector } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Messenger from "./page/Messenger/Messenger";
+import notFound from "./page/404found/NotFound";
+import NotFound from "./page/404found/NotFound";
 
 // const router = createBrowserRouter(route);
 function App() {
@@ -42,6 +44,7 @@ function App() {
           path="/messenger"
           element={user ? <Messenger /> : <Navigate to={"/login"} />}
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
     // <Routes>

@@ -6,6 +6,7 @@ import Mainsidebar from "../../components/MainSidebar/Mainsidebar";
 import Rightsidebar from "../../components/RightSidebar/Rightsidebar";
 import { useSelector } from "react-redux";
 import { Spin } from "antd";
+import { Helmet } from "react-helmet";
 // import style from "../../components/RightSidebar/rightSide.module.css";
 
 const Home = () => {
@@ -37,6 +38,11 @@ const Home = () => {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Home Page | Codemedia</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <Navbar />
       <div className={style.home_contanier}>
         <Leftsidebar />

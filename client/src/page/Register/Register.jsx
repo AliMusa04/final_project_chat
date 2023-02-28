@@ -50,7 +50,7 @@ const Register = () => {
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Register Page</title>
+        <title>Sign up for Codemedia | Codemedia</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       <section className={style.login_page}>

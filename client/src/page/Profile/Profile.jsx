@@ -17,6 +17,7 @@ import { hideLoad, showLoad } from "../../redux/slice/loadingSlice/loadSlice";
 import style from "./profile.module.css";
 import { getUserInfo } from "../../apicall/usersApi";
 import { SetUser } from "../../redux/slice/userSlice/userSlice";
+import { Helmet } from "react-helmet";
 
 const Profile = () => {
   const [user, setUser] = useState([]);
@@ -48,19 +49,6 @@ const Profile = () => {
     e?.preventDefault();
     const newPost = {};
 
-    // if(coverFile || profFile || descRef || cityRef || fromRef || relationInp ){
-    //   try {
-    //     newPost.coverPic = coverFile;
-    //     newPost.profilePic = profFile;
-    //     newPost.userDesc = descRef;
-    //     newPost.city = cityRef;
-    //     newPost.from = fromRef;
-    //     newPost.reltionship = relationInp;
-    //     console.log("Succsess");
-
-    //   } catch (err) {}
-
-    // }
     if (coverFile) {
       try {
         newPost.coverPic = coverFile;
@@ -121,6 +109,11 @@ const Profile = () => {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title> {params.username} | Codemedia</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <Navbar />
       <div className={style.profile_page_cont}>
         <Leftsidebar />

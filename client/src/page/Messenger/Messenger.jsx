@@ -12,6 +12,7 @@ import { BASE_URL } from "../../consts";
 import InputEmoji from "react-input-emoji";
 import "./messenger.css";
 import { style } from "@mui/system";
+import { Helmet } from "react-helmet";
 
 const Messenger = () => {
   const user = useSelector((state) => state?.users?.value);
@@ -156,6 +157,11 @@ const Messenger = () => {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Messenger | Codemedia</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <Navbar />
       <div className="contanier_messenger">
         <Leftsidebar />

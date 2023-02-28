@@ -57,7 +57,7 @@ const Login = () => {
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Login Page</title>
+        <title>Login in to Codemedia</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       <section className={style.login_page}>
