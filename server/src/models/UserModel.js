@@ -50,7 +50,6 @@ const userSchema = new mongoose.Schema(
     },
     reltionship: {
       type: Number,
-      // enum: [1, 2, 3],
     },
     isAdmin: {
       type: Boolean,

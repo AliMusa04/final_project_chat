@@ -6,13 +6,12 @@ import { io } from "socket.io-client";
 import { format } from "timeago.js";
 import Conversation from "../../components/Conversation/Conversation";
 import Leftsidebar from "../../components/LeftSidebar/Leftsidebar";
-import MessageBox from "../../components/MessageBox/MessageBox";
 import Navbar from "../../components/Navbar/Navbar";
 import { BASE_URL } from "../../consts";
 import InputEmoji from "react-input-emoji";
 import "./messenger.css";
-import { style } from "@mui/system";
 import { Helmet } from "react-helmet";
+import "../../components/MessageBox/messagebox.css";
 
 const Messenger = () => {
   const user = useSelector((state) => state?.users?.value);
@@ -21,7 +20,6 @@ const Messenger = () => {
 
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [sendMessage, setSendMessage] = useState(null);
-  const [receiveMessage, setReceiveMessage] = useState(null);
   const [arrivalMessage, setArrivalMessage] = useState(null);
   //CHAT BOX STATE 'S
   const [friendData, setFriendData] = useState([]);
@@ -43,13 +41,11 @@ const Messenger = () => {
       setOnlineUsers(users);
     });
   }, []);
-  console.log(message);
-  console.log(arrivalMessage);
 
   useEffect(() => {
-    if (arrivalMessage) {
+    if (arrivalMessage !== null) {
       arrivalMessage &&
-        currentChat.members?.includes(arrivalMessage?.senderId) &&
+        currentChat?.members?.includes(arrivalMessage?.senderId) &&
         setMessage((prev) => [...prev, arrivalMessage]);
     }
   }, [arrivalMessage, currentChat]);
@@ -196,12 +192,6 @@ const Messenger = () => {
 
             {/* RIGHT SIDE  */}
             <div className="Right-side-chat">
-              {/* <MessageBox
-                chat={currentChat}
-                adminUser={user._id}
-                receiveMessage={receiveMessage}
-                setSendMessage={setSendMessage}
-              /> */}
               {/* CHAT BOX  */}
               <div className="ChatBox-container">
                 {currentChat ? (

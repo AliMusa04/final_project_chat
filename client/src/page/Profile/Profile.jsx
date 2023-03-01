@@ -19,7 +19,6 @@ const Profile = () => {
   const [user, setUser] = useState([]);
   const dispatch = useDispatch();
   const params = useParams();
-  const loading = useSelector((state) => state.loading.value);
   const userAdmin = useSelector((state) => state.users.value);
 
   const fetchUser = async () => {
@@ -139,10 +138,7 @@ const Profile = () => {
             </div>
           </div>
           <div className={style.profile_page_right_bottom_section}>
-            <Mainsidebar
-              username={user?.username}
-              // id={user._id}
-            />
+            <Mainsidebar username={user?.username} />
             <RightProfile user={user} submitFunc={handleSubmit} />
           </div>
         </div>

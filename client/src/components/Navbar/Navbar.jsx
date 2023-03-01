@@ -12,8 +12,7 @@ import { BsFillMoonFill } from "react-icons/bs";
 import { RiFeedbackFill } from "react-icons/ri";
 import { MdLogout } from "react-icons/md";
 import { BiMenuAltRight } from "react-icons/bi";
-import styleMain from "../MainSidebar/mainSide.module.css";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../apicall/usersApi";
 import { toast, Toaster } from "react-hot-toast";
@@ -26,7 +25,6 @@ const Navbar = () => {
 
   const [open, setOpen] = useState(false);
   const [account, setAccount] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -85,7 +83,6 @@ const Navbar = () => {
           </Link>
         </div>
         {/* NAVBAR MIDDLE */}
-        {/* <div className={styleMain.main_side_contanier}> */}
         <div className={style.navbar_middle_part}>
           <div
             onClick={() => {
@@ -172,7 +169,6 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        {/* </div> */}
 
         {/* NAVBAR RİGHT */}
         <div
@@ -181,7 +177,6 @@ const Navbar = () => {
           }}
           className={style.navbar_right_part}>
           <div
-            // class="btn btn-primary"
             type="button"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasRight"
@@ -306,7 +301,6 @@ const Navbar = () => {
         id="offcanvasRight"
         aria-labelledby="offcanvasRightLabel">
         <div className="offcanvas-header">
-          {/* <h5 id="offcanvasRightLabel">Codemedia</h5> */}
           <h2 className={style.canvas_head}>Codemedia</h2>
           <button
             type="button"
@@ -515,8 +509,6 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      {/* <Overlay />
-      <Modal /> */}
     </>
   );
 };

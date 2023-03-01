@@ -6,6 +6,7 @@ import "./conversation.css";
 const Conversation = ({ data, currentUser, online }) => {
   const [friendData, setFriendData] = useState([]);
 
+  //GET FRIEND'S DATA
   useEffect(() => {
     const friendId = data.members.find((id) => id !== currentUser);
     const getFriendData = async () => {
@@ -28,7 +29,6 @@ const Conversation = ({ data, currentUser, online }) => {
       <div className="follower conversation">
         <div className="user_img_name">
           {online && <div className="online-dot"></div>}
-          {/* <div className="online-dot"></div> */}
           <img
             src={
               friendData.profilePic

@@ -11,8 +11,6 @@
 .profile_page_right_side {
   width: 1050px;
   margin: 0 auto;
-
-  /* height: 1000px; */
 }
 .profile_page_left_nav {
   position: sticky !important;

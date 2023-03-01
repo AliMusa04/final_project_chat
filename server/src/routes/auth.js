@@ -2,11 +2,6 @@ const router = require("express").Router();
 const UserModel = require("../models/UserModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const authMiddle = require("../middleware/authMiddle");
-
-// router.get("/", (req, res) => {
-//   res.send("its auth route");
-// });
 
 //REGISTER
 router.post("/register", async (req, res) => {
@@ -66,23 +61,5 @@ router.post("/login", async (req, res) => {
     res.status(500).send({ message: err.message, data: err, success: false });
   }
 });
-
-// //GET USER INFO
-// router.get("/userinfo", authMiddle, async (req, res) => {
-//   try {
-//     const user = await User.findById(req.params.id);
-//     res.send({
-//       message: "get data",
-//       success: true,
-//       data: user,
-//     });
-//   } catch (error) {
-//     res.status(500).send({
-//       message: error.message,
-//       data: error,
-//       success: false,
-//     });
-//   }
-// });
 
 module.exports = router;

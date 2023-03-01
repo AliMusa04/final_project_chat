@@ -98,8 +98,7 @@
 .post_img_like {
   cursor: pointer;
 }
-.post_like_text {
-}
+
 .comment_count {
   margin-right: 5px;
   font-weight: 500;
@@ -151,8 +150,7 @@
   height: 40px;
   border-radius: 50%;
 }
-.post_bottom_comment {
-}
+
 .post_bottom_comment_img {
   width: 40px;
   height: 40px;
@@ -180,13 +178,7 @@
   background-color: rgba(128, 128, 128, 0.2);
   border-radius: 20px;
 }
-.emoji_btn {
-  /* position: absolute;
-  top: 10px;
-  right: 70px;
-  font-size: 21px;
-  cursor: pointer; */
-}
+
 .emoji_btn_collec {
   position: absolute;
   top: 0px;
@@ -213,7 +205,6 @@
   cursor: pointer;
 }
 .send_btn_comment:hover {
-  /* color: blue; */
   transform: scale(0.95);
 }
 .comment_send_icon {
@@ -249,7 +240,6 @@ aside {
   border-radius: 10px;
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: transparent;
-  /* border: 1px solid #000; */
 }
 .post_bottom_comments_wrapper::-webkit-scrollbar-track {
   padding: 2px 0;

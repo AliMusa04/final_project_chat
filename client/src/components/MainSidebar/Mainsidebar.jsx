@@ -1,5 +1,4 @@
-import { Modal, Spin } from "antd";
-import axios from "axios";
+import { Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -44,18 +43,6 @@ const Mainsidebar = ({ username }) => {
           });
     dispatch(hideLoad());
   };
-
-  // await axiosInstance
-  //         .get(`${BASE_URL}/posts/profile/${username}`)
-  //         .then((res) => {
-  //           setPosts(
-  //             res?.data
-  //               .filter((userpost) => userpost?.userId?.username === username)
-  //               .sort((d1, d2) => {
-  //                 return new Date(d2?.createdAt) - new Date(d1?.createdAt);
-  //               })
-  //           );
-  //         })
 
   useEffect(() => {
     getPost();
@@ -128,7 +115,6 @@ const Mainsidebar = ({ username }) => {
   };
 
   return (
-    // <div className={style.main_side_contanier}>
     <>
       <div className={style.main_side_section}>
         <div className={style.main_side_wrapper}>
@@ -159,7 +145,6 @@ const Mainsidebar = ({ username }) => {
         </div>
       </div>
     </>
-    // </div>
   );
 };
 

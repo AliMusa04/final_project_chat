@@ -25,7 +25,6 @@ const MessageBox = ({ chat, adminUser, setSendMessage, receiveMessage }) => {
     }
   }, [receiveMessage]);
 
-  console.log(receiveMessage);
   //   GET CONTACT DATA
   useEffect(() => {
     const friendId = chat?.members?.find((id) => id !== adminUser);

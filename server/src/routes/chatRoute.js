@@ -8,7 +8,7 @@ router.post("/", async (req, res) => {
     members: { $all: [req.body.senderId, req.body.receiverId] },
   });
   if (findUser) {
-    res.status(400).send({ message: "This chat exist" });
+    res.status(403).send({ message: "This chat exist" });
   } else {
     const newChat = new chatModel({
       members: [req.body.senderId, req.body.receiverId],

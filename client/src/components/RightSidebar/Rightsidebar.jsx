@@ -40,7 +40,6 @@ const Rightsidebar = () => {
       }
     } catch (err) {
       dispatch(hideLoad());
-      // console.log({ message: err.message });
     }
   };
   useEffect(() => {

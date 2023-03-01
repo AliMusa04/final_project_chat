@@ -3,14 +3,9 @@ import style from "./share.module.css";
 import { FaPhotoVideo } from "react-icons/fa";
 import { FaRegLaugh } from "react-icons/fa";
 import { HiLocationMarker } from "react-icons/hi";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useRef } from "react";
-import axiosInstance from "../../apicall";
-import { BASE_URL } from "../../consts";
-import { useEffect } from "react";
-import axios from "axios";
-import { setPost } from "../../redux/slice/userSlice/userSlice";
 import { MdDeleteForever } from "react-icons/md";
 import { toast } from "react-hot-toast";
 
@@ -31,7 +26,6 @@ const Share = ({ submitPost }) => {
   const descInp = useRef();
   const [file, setFile] = useState(null);
   const [testFile, setTestfile] = useState(null);
-  const dispatch = useDispatch();
 
   const handleFileUpload = async (pic) => {
     const file = pic;
@@ -39,33 +33,6 @@ const Share = ({ submitPost }) => {
     const base64 = await convertBase64(file);
     setFile(base64);
   };
-
-  const newPost = useSelector((state) => state.users.post);
-  // const createPostImg = async (newImage) => {
-  //   try {
-  //     await axios.post(`${BASE_URL}/upload`, newImage);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const newPost = {
-  //     userId: user._id,
-  //     desc: descInp.current.value,
-  //   };
-  //   if (file) {
-  //     newPost.img = file;
-  //     try {
-  //       console.log("Succsess");
-  //     } catch (err) {}
-  //   }
-  //   try {
-  //     await axiosInstance.post(`${BASE_URL}/posts`, newPost);
-  //     // dispatch(setPost(newPost));
-  //     // window.location.reload();
-  //   } catch (err) {}
-  // };
 
   return (
     <div className={style.share_wrapper}>

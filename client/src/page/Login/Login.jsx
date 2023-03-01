@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import style from "./login.module.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -8,11 +8,9 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import { Spin } from "antd";
-import { SetUser } from "../../redux/slice/userSlice/userSlice";
 import { hideLoad, showLoad } from "../../redux/slice/loadingSlice/loadSlice";
 
 const Login = () => {
-  const user = useSelector((state) => state.users.value);
   const loading = useSelector((state) => state.loading.value);
   const dispatch = useDispatch();
   const formik = useFormik({
@@ -35,11 +33,7 @@ const Login = () => {
         const response = await loginUser(values);
         if (response.success) {
           dispatch(hideLoad());
-          // toast.success("User access succsesfully");
           localStorage.setItem("token", JSON.stringify(response.data));
-          // if (localStorage.getItem("token")) {
-          //   getUserInfo();
-          // }
 
           window.location.href = "/";
           formik.resetForm();

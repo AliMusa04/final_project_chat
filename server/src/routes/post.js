@@ -67,16 +67,6 @@ router.put("/like/:id", authMiddle, async (req, res) => {
   }
 });
 
-//GET POST
-// router.get("/:id", async (req, res) => {
-//   try {
-//     const post = await PostModel.findOne({ _id: req.params.id });
-//     res.status(200).send(post);
-//   } catch (err) {
-//     res.status(500).send(err);
-//   }
-// });
-
 // GET ALL POST
 router.get("/", async (req, res) => {
   try {
@@ -86,8 +76,6 @@ router.get("/", async (req, res) => {
         if (err) return res.status(500).send({ err });
         res.send(data);
       });
-    // .populate("userId");
-    // res.status(200).send(allPost);
   } catch (err) {
     res.status(500).send(err);
   }
@@ -96,7 +84,6 @@ router.get("/", async (req, res) => {
 //GET FRIENDS AND YOURSELF POST
 router.get("/timeline/:id", authMiddle, async (req, res) => {
   try {
-    // if (req.body.id === req.params.id) {
     const adminUser = await UserModel.findOne({ _id: req.body.id });
     const adminPosts = await PostModel.find({
       userId: adminUser._id,
@@ -107,9 +94,6 @@ router.get("/timeline/:id", authMiddle, async (req, res) => {
       })
     );
     res.status(200).send(adminPosts.concat(...friendsPost));
-    // } else {
-    //   res.status(401).send({ message: "you are not admin" });
-    // }
   } catch (err) {
     res.status(500).send(err);
   }
@@ -117,12 +101,16 @@ router.get("/timeline/:id", authMiddle, async (req, res) => {
 
 //ROUTER GET user posts only
 router.get("/profile/:username", async (req, res) => {
-  try {
-    const user = await UserModel.findOne({ username: req.params.username });
-    const posts = await PostModel.find({ userId: user._id }).populate("userId");
-    res.status(200).send(posts);
-  } catch (err) {
-    res.status(500).send(err.message);
+  if (req.params.username) {
+    try {
+      const user = await UserModel.findOne({ username: req.params.username });
+      const posts = await PostModel.find({ userId: user._id }).populate(
+        "userId"
+      );
+      res.status(200).send(posts);
+    } catch (err) {
+      res.status(500).send(err.message);
+    }
   }
 });
 
@@ -152,23 +140,4 @@ router.post("/comment/:id", authMiddle, async (req, res) => {
   }
 });
 
-//COMMENT DELETE API
-// router.delete("/comment/:id", async (req, res) => {
-//   try {
-//     const postUser = await PostModel.findById({ _id: req.body.postId });
-
-//     if (postUser.userId === req.body.userid) {
-//       await postUser.comments.findByIdAndDelete({ commentId: req.params.id });
-//       res.status(200).send("Comment deleted");
-//       // res.status(200).send({ message: "This Post deleted", deletedPost });
-//       // await deletedPost.updateOne({$pull:});
-//     } else {
-//       res.status(400).send("You can't delete  other's post ");
-//     }
-//   } catch (err) {
-//     res.status(500).send(err);
-//   }
-// });
-
-// userIdCom: req.body.id, descCom: req.body.desc
 module.exports = router;

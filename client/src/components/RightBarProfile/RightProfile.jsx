@@ -124,7 +124,7 @@ const RightProfile = ({ user, submitFunc }) => {
   const descRef = useRef();
 
   const handleChange = (value) => {
-    setrelationInp(value.value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
+    setrelationInp(value.value);
   };
 
   const resetInp = () => {
@@ -175,7 +175,6 @@ const RightProfile = ({ user, submitFunc }) => {
                   coverFile,
                   profFile,
                   descRef?.current?.value,
-                  // city,
                   cityRef?.current?.value,
                   fromRef.current?.value,
                   relationInp
@@ -251,10 +250,6 @@ const RightProfile = ({ user, submitFunc }) => {
                   placeholder={`${
                     user.userDesc ? user.userDesc : "No information"
                   }`}
-                  // value={`${userAdmin?.userDesc}`}
-                  // onChange={(e) => {
-                  //   setDesc(e.target.value);
-                  // }}
                   type={"text"}
                 />
               </div>

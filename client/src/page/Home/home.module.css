@@ -1,7 +1,6 @@
 .home_contanier_mid {
   width: 600px;
   margin: 0 auto;
-  /* margin-right: auto; */
   display: flex;
   justify-content: space-between;
 }

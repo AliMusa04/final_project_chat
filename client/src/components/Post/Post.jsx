@@ -19,8 +19,6 @@ import axiosInstance from "../../apicall";
 import { BASE_URL } from "../../consts";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-hot-toast";
-import { Modal } from "antd";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css";
 
@@ -54,7 +52,6 @@ const Post = ({ post, deleteFunc, postComment, showModal, isSure }) => {
   const handleEmojiClick = (e, emoji) => {
     let msg = comment;
     msg += e.emoji;
-    console.log(e.unified);
     setCom(msg);
   };
   //LIKE FUNC AND DISLIKE

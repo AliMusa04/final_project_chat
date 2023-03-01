@@ -1,35 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 import style from "./leftSide.module.css";
 import { AiFillHome } from "react-icons/ai";
 import { IoLogoYoutube } from "react-icons/io";
-import { FaSleigh, FaUserFriends } from "react-icons/fa";
+import { FaUserFriends } from "react-icons/fa";
 import { BsShop } from "react-icons/bs";
 import { MdGroups } from "react-icons/md";
 import { SiYoutubegaming } from "react-icons/si";
 import { TbGridDots } from "react-icons/tb";
 import { GiLinkedRings } from "react-icons/gi";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Leftsidebar = () => {
+  //ACTIVE LINK STYLE
   let active_div_left = {
     borderLeft: "4px solid blue",
     borderTopLeftRadius: "5px",
     borderBottomLeftRadius: "5px",
-
-    // height: "38px",
-    // width: "5px",
-    // borderRadius: "40%",
   };
   let active_div = {
-    // height: "38px",
-    // width: "5px",
-    // borderRadius: "40%",
     borderLeft: "4px solid transparent",
-    // backgroundColor: "transparent",
   };
 
+  //CURRENT USER
   const user = useSelector((state) => state.users.value);
+
   return (
     <div className={style.left_side_section}>
       <div className={style.left_side_options_wrapper}>
@@ -140,9 +135,7 @@ const Leftsidebar = () => {
           <div className={style.left_side_option}>
             <div className={style.active_div}></div>
             <div className={style.left_side_option_icon_text}>
-              {/* <div className={style.left_side_option_icon_bg}> */}
               <TbGridDots className={`${style.option_icon} `} />
-              {/* </div> */}
               <h5 className={style.option_text}>See all</h5>
             </div>
           </div>
@@ -157,9 +150,7 @@ const Leftsidebar = () => {
           <div className={style.left_side_option}>
             <div className={style.active_div}></div>
             <div className={style.left_side_option_icon_text}>
-              {/* <div className={style.left_side_option_icon_bg}> */}
               <GiLinkedRings className={`${style.option_icon} `} />
-              {/* </div> */}
               <h5 className={style.option_text}>See all shortcuts</h5>
             </div>
           </div>

@@ -2,8 +2,6 @@
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  /* height: auto; */
-  /* padding: auto 0px; */
 }
 .login_page {
   width: 100%;
@@ -16,17 +14,13 @@
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  /* padding: 112px 0px; */
 }
 .login_two_side {
   font-family: Times, serif;
   display: flex;
   justify-content: space-around;
   width: 980px;
-  /* height: 600px; */
   margin-top: 20px;
-  /* height: 550px; */
-  /* padding: 20px; */
 }
 .login_left_side {
   width: 50%;
@@ -64,7 +58,6 @@
   text-align: center;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  /* margin-bottom: 120px; */
 }
 .password_div {
   width: 100%;
@@ -211,7 +204,6 @@ hr {
 @media screen and (max-width: 648px) {
   .login_page {
     height: 100vh;
-    /* padding: auto 0 !important; */
     padding: 0 !important;
   }
   .register_page_h1 {
