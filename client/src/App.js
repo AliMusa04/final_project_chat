@@ -31,11 +31,11 @@ function App() {
           path="/profile/:username"
           element={
             user ? (
-              // <Profile />
-              <React.Suspense>
-                <LazyProfile />
-              </React.Suspense>
+              <Profile />
             ) : (
+              // <React.Suspense>
+              //   <LazyProfile />
+              // </React.Suspense>
               <Navigate to={"/login"} />
             )
           }
